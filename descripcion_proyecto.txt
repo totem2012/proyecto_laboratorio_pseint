@@ -1,0 +1,21 @@
+Gestión de taller mecánico
+
+1. Posibles nombres para el proyecto: CarFlow - PitManager - Fixly - TallerPro.
+
+2. Desarrollo: Sistema integral pensado para ordenar y digitalizar la operación diaria de un taller mecánico, centralizando la información en un solo lugar. El objetivo es reducir el uso de papel y planillas sueltas, evitar la pérdida de información y dar visibilidad clara tanto al taller como al cliente sobre el estado de cada reparación.
+
+Funcionalidades principales:
+	- Clientes: Datos personales, contacto, historial de visita y vehículo.
+	- Vehículo: Marca, modelo, año, patente y número de chasis.
+	- Historial de reparaciones: Registro de cada servicio o reparación.
+	- Ordenes de trabajo: Seguimiento del estado de trabajo de cada vehículo.
+	- Repuestos: Repuestos utilizados en cada orden.
+	- Facturación: Emitir una factura teniendo en cuenta costos y mano de obra.
+	- Sistema de usuarios: Administrador, empleado, cliente.
+
+3. Integrantes:
+	- Alexander Ezequiel Albani.
+	- Nahuel Agustín Gatica.
+	- Marcos Javier Baez Aguilera.
+	- Patricia Alejandra Martínez.
+
