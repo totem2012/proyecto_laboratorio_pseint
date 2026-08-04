@@ -1,15 +1,6 @@
 // =====================================================================
 // FIXLY - Sistema de gestion de taller mecanico
 //
-// Reparto de modulos:
-//   1 - Clientes ....................... Alexander
-//   2 - Vehiculos ...................... Alexander
-//   3 - Ordenes de trabajo ............. Marcos
-//   4 - Repuestos ...................... Patricia
-//   5 - Facturacion .................... Patricia
-//   6 - Historial de reparaciones ...... Marcos
-//   7 - Usuarios ....................... Nahuel
-//
 // Cada uno escribe SOLO dentro de la opcion que le toca, entre las
 // lineas que marcan el inicio y el fin de su modulo. No tocar el resto
 // del archivo: si hace falta un cambio afuera, se avisa al grupo.
@@ -40,7 +31,7 @@ Algoritmo Fixly
 		Segun opcion Hacer
 			1:
 				// ------------------------------------------------
-				// MODULO CLIENTES - Alexander - INICIO
+				// MODULO CLIENTES - INICIO
 				// ------------------------------------------------
 				Escribir "Clientes: en construccion"
 				Escribir Sin Saltar "Presione ENTER para continuar..."
@@ -51,7 +42,7 @@ Algoritmo Fixly
 
 			2:
 				// ------------------------------------------------
-				// MODULO VEHICULOS - Alexander - INICIO
+				// MODULO VEHICULOS - INICIO
 				// ------------------------------------------------
 				Escribir "Vehiculos: en construccion"
 				Escribir Sin Saltar "Presione ENTER para continuar..."
@@ -62,7 +53,7 @@ Algoritmo Fixly
 
 			3:
 				// ------------------------------------------------
-				// MODULO ORDENES DE TRABAJO - Marcos - INICIO
+				// MODULO ORDENES DE TRABAJO - INICIO
 				// ------------------------------------------------
 				Escribir "Ordenes de trabajo: en construccion"
 				Escribir Sin Saltar "Presione ENTER para continuar..."
@@ -73,7 +64,7 @@ Algoritmo Fixly
 
 			4:
 				// ------------------------------------------------
-				// MODULO REPUESTOS - Patricia - INICIO
+				// MODULO REPUESTOS - INICIO
 				// ------------------------------------------------
 				Escribir "Repuestos: en construccion"
 				Escribir Sin Saltar "Presione ENTER para continuar..."
@@ -84,7 +75,7 @@ Algoritmo Fixly
 
 			5:
 				// ------------------------------------------------
-				// MODULO FACTURACION - Patricia - INICIO
+				// MODULO FACTURACION - INICIO
 				// ------------------------------------------------
 				Escribir "Facturacion: en construccion"
 				Escribir Sin Saltar "Presione ENTER para continuar..."
@@ -95,7 +86,7 @@ Algoritmo Fixly
 
 			6:
 				// ------------------------------------------------
-				// MODULO HISTORIAL DE REPARACIONES - Marcos - INICIO
+				// MODULO HISTORIAL DE REPARACIONES - INICIO
 				// ------------------------------------------------
 				Escribir "Historial de reparaciones: en construccion"
 				Escribir Sin Saltar "Presione ENTER para continuar..."
@@ -106,7 +97,7 @@ Algoritmo Fixly
 
 			7:
 				// ------------------------------------------------
-				// MODULO USUARIOS - Nahuel - INICIO
+				// MODULO USUARIOS - INICIO
 				// ------------------------------------------------
 				Escribir "Usuarios: en construccion"
 				Escribir Sin Saltar "Presione ENTER para continuar..."
