@@ -1,5 +1,7 @@
 # Cheatsheet Git — Proyecto PSeInt (equipo de 4)
 
+## Para ver mas prolijo este archivo se recomienda abrirlo con VS Code y apretar Ctrl + Shift + V
+
 ## Reglas del equipo
 - `main` = siempre código que funciona.
 - Para algo nuevo: rama con formato `nombre-modulo` (ej: `juan-facturacion`).
