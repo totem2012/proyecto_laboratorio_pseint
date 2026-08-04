@@ -1,0 +1,30 @@
+COMANDOS BASICOS DE GIT
+========================
+
+git status                    -> ver el estado actual (cambios, etc)
+git add .                     -> agregar todos los cambios
+git add nombre-archivo         -> agregar un cambio específico
+git commit -m "comentario"     -> crear un comentario a los cambios añadidos
+git push                      -> subir los cambios a github
+git pull                      -> actualizar los cambios actuales subidos a GitHub, para sincronizar.
+
+COMANDOS DE CONTROL
+==================
+
+git log                       -> ver el historial de commits
+git diff                      -> ver diferencias de cambios no confirmados
+
+
+RAMAS (BRANCHES)
+==================
+Crear y cambiar a una rama nueva en un solo paso:
+git checkout -b nombre-rama
+
+Cambiar de rama:
+git checkout nombre-rama
+
+Verificar en que rama estas (lista todas las ramas, marca con * la actual):
+git branch
+
+
+
