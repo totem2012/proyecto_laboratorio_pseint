@@ -1,0 +1,11 @@
+user.name=Alexander-Albani-UTN
+user.email=alexander.albani@alu.inspt.utn.edu.ar
+
+Crear rama
+git checkout -b alexander-prueba1 (LISTO)
+
+Cambiar de rama:
+git checkout alexander-prueba1
+
+Verificar en que rama estas (lista todas las ramas, marca con * la actual):
+git branch

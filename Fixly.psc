@@ -10,7 +10,43 @@ Algoritmo Fixly
 
 	Definir opcion Como Entero
 	Definir tecla Como Caracter
-
+	
+	// =====================================================================
+	// FIXLY - Variable de opcion vehiculo//
+	Definir menuVehiculo, contadorVehiculo, dniDueno, i Como Entero
+	Definir marcaVehiculo, modeloVehiculo, patente Como Caracter
+	Dimensionar marcaVehiculo[50], modeloVehiculo[50], patente[50], dniDueno[50]
+	contadorVehiculo<-0
+	// =====================================================================
+	// --- Carga de datos de prueba ---
+	contadorVehiculo <- 5
+	
+	marcaVehiculo[0] <- "Ford"
+	modeloVehiculo[0] <- "Fiesta"
+	patente[0] <- "AB123CD"
+	dniDueno[0] <- 30111222
+	
+	marcaVehiculo[1] <- "Chevrolet"
+	modeloVehiculo[1] <- "Onix"
+	patente[1] <- "AC456EF"
+	dniDueno[1] <- 28555666
+	
+	marcaVehiculo[2] <- "Toyota"
+	modeloVehiculo[2] <- "Corolla"
+	patente[2] <- "AD789GH"
+	dniDueno[2] <- 35222111
+	
+	marcaVehiculo[3] <- "Renault"
+	modeloVehiculo[3] <- Sandero
+	patente[3] <- "AE012IJ"
+	dniDueno[3] <- 40333444
+	
+	marcaVehiculo[4] <- "Volkswagen"
+	modeloVehiculo[4] <- "Gol"
+	patente[4] <- "AF345KL"
+	dniDueno[4] <- 27888999
+	// --- Fin carga de datos de prueba ---
+	
 	Repetir
 		Limpiar Pantalla
 		Escribir "============================================"
@@ -44,7 +80,69 @@ Algoritmo Fixly
 				// ------------------------------------------------
 				// MODULO VEHICULOS - INICIO
 				// ------------------------------------------------
-				Escribir "Vehiculos: en construccion"
+				Si contadorVehiculo<51 Entonces
+					
+					Escribir "Vehiculos: en construccion"
+					Escribir "Ingrese una de las siguientes opciones: "
+					Escribir "  1 - Ingresar un nuevo vehiculo"
+					Escribir "  2 - Ver lista de vehiculos"
+					Escribir "  3 - Quitar un vehiculo"
+					Escribir "  0 - Volver"
+					Leer menuVehiculo
+					Segun menuVehiculo Hacer
+						1:
+							contadorVehiculo<-contadorVehiculo+1
+							Escribir "Ingrese los siguientes datos de vehiculos"
+							Escribir "Marca del vehiculo"
+							Leer marcaVehiculo[contadorVehiculo]
+							Escribir "Modelo del vehiculo"
+							Leer modeloVehiculo[contadorVehiculo]
+							Escribir "Patente del vehiculo"
+							Leer patente[contadorVehiculo]
+							Repetir
+								Escribir "DNI dueño del vehiculo (Sin puntos)"
+								Leer dniDueno[contadorVehiculo]
+								Si (dniDueno[contadorVehiculo]<0) o (dniDueno[contadorVehiculo]>100000000) Entonces
+									Escribir "Valor de DNI invalido"
+								FinSi
+							Mientras Que dniDueno[contadorVehiculo]>0 y dniDueno[contadorVehiculo]<100000000
+							
+						2:
+							Escribir "MARCA", "		", "MODELO", "		", "PATENTE", "		", "DNI DUEÑO"
+							Escribir "---------------------------------------------"
+							Para i<-0 Hasta contadorVehiculo-1 Con Paso 1 Hacer
+								Escribir marcaVehiculo[i], Tab, modeloVehiculo[i], Tab, patente[i], Tab, dniDueno[i]
+							FinPara
+						3:
+							Escribir Sin Saltar "Escriba la patente del vehiculo que desea eliminar"
+							Leer patenteEliminar
+							Para i<-0 Hasta contadorVehiculo-1 Con Paso 1 Hacer
+								si patente[i] = patenteEliminar Entonces
+									marcaVehiculo[i]<-0
+									modeloVehiculo[i]<-0
+									patente[i]<-0
+									dniDueno[i]<-0
+									lugarVacio<-i
+									Para i<-lugarvacio Hasta contadorVehiculo-1 Con Paso paso Hacer
+										marcaVehiculo[i]<-marcaVehiculo[i+1]
+										modeloVehiculo[i]<-modeloVehiculo[i+1]
+										patente[i]<-patente[i+1]
+										dniDueno[i]<-dniDueno[i+1]
+									FinPara
+								SiNo
+									Escribir "No se encontro la patente en el registro"
+								FinSi
+							FinPara
+							
+						De Otro Modo:
+							Escribir "Opcion no valida."
+							Escribir Sin Saltar "Presione ENTER para volver al menu principal..."
+							Leer tecla
+					Fin Segun
+				SiNo
+					Escribir "Cantidad maxima de vehiculos alcanzados"
+				FinSi		
+				
 				Escribir Sin Saltar "Presione ENTER para continuar..."
 				Leer tecla
 				// ------------------------------------------------
