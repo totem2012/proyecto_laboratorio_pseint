@@ -1,3 +1,4 @@
+
 // =====================================================================
 // FIXLY - Sistema de gestion de taller mecanico
 //
@@ -8,8 +9,16 @@
 
 Algoritmo Fixly
 
-	Definir opcion Como Entero
-	Definir tecla Como Caracter
+	Definir opcion, stock, cantidad_repuestos, i, opcion_repuestos, posicion_encontrada, j Como Entero
+	Definir codigo, nombre, nombre_buscar, codigo_buscar, tecla Como Caracter
+	Definir precio, precio_nuevo Como Real
+	Definir existe Como Logico
+	Dimension codigo[100]
+	Dimension nombre[100]
+	Dimension precio[100]
+	Dimension stock[100]
+
+	cantidad_repuestos <- 0
 
 	Repetir
 		Limpiar Pantalla
@@ -64,14 +73,139 @@ Algoritmo Fixly
 
 			4:
 				// ------------------------------------------------
-				// MODULO REPUESTOS - INICIO
-				// ------------------------------------------------
-				Escribir "Repuestos: en construccion"
-				Escribir Sin Saltar "Presione ENTER para continuar..."
-				Leer tecla
-				// ------------------------------------------------
-				// MODULO REPUESTOS - FIN
-				// ------------------------------------------------
+                // MODULO REPUESTOS - INICIO
+                // ------------------------------------------------
+			
+				
+				Repetir
+					Limpiar Pantalla
+					Escribir "=================================="
+					Escribir "	  Módulo gestión de repuestos"
+					Escribir "=================================="
+					Escribir "  1 - Cargar stock repuesto"
+					Escribir "  2 - Eliminar repuesto"
+					Escribir "  3 - Código de repuesto"
+					Escribir "  4 - Modificar precio"
+					Escribir "  5 - Ver listado de repuestos"
+					Escribir "  0 - Volver al menú principal"
+					Leer opcion_repuestos
+					Segun opcion_repuestos Hacer
+						
+						1:
+							Si cantidad_repuestos < 100 Entonces
+								Escribir "Cargar respuesto:"
+								Escribir Sin Saltar "Código repuesto:"
+								Leer codigo[cantidad_repuestos]
+								Escribir Sin Saltar "Nombre repuesto:"
+								Leer nombre[cantidad_repuestos]
+								Escribir Sin Saltar "Precio repuesto:"
+								Leer precio[cantidad_repuestos]
+								Escribir "Stock repuesto:"
+								Leer stock[cantidad_repuestos]
+								cantidad_repuestos <- cantidad_repuestos + 1
+								Escribir "Cantidad de repuestos: ", cantidad_repuestos
+								Escribir Sin Saltar "Presione ENTER para continuar..."
+								Leer tecla
+								Escribir "Código guardado: ", codigo[cantidad_repuestos - 1]
+								Escribir "Nombre guardado: ", nombre[cantidad_repuestos - 1]
+								Escribir Sin Saltar "Presione ENTER para continuar..."
+								Leer tecla
+							SiNo
+								Escribir "Stock completo"
+								
+							FinSi
+						2:							
+							Escribir "Seleccionar código para eliminar"
+							Leer codigo_buscar
+							posicion_encontrada <- -1
+							Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
+								Si codigo_buscar = codigo[i] Entonces
+									posicion_encontrada <- i
+								
+								FinSi
+							FinPara
+							
+							Si posicion_encontrada <> -1 Entonces
+								Para j <- posicion_encontrada Hasta cantidad_repuestos - 2 Con Paso 1 Hacer
+									codigo[j] <- codigo[j+1]
+									nombre[j] <- nombre[j+1]
+									precio[j] <- precio[j+1]
+									stock[j] <- stock[j+1]
+									
+								FinPara
+								Escribir "Repuesto eliminado con éxito"
+								cantidad_repuestos <- cantidad_repuestos - 1
+								
+								
+							SiNo	
+								Escribir "El código no existe"
+								
+							FinSi
+							Escribir Sin Saltar "Presione ENTER para continuar..."
+							Leer tecla
+						3: 
+							Escribir "Ingrese el nombre del repuesto: "
+							Leer nombre_buscar
+							posicion_encontrada <- -1
+							
+							Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
+								Si nombre_buscar = nombre[i] Entonces
+									posicion_encontrada <- i
+								FinSi
+							FinPara
+							
+							Si posicion_encontrada <> -1 Entonces
+								Escribir " ", codigo[posicion_encontrada]
+								Escribir " ",nombre[posicion_encontrada] 
+								Escribir " ",precio[posicion_encontrada] 
+								Escribir " ",stock[posicion_encontrada] 
+							SiNo
+								Escribir "Repuesto no encontrado"
+							FinSi
+							Escribir Sin Saltar "Presione ENTER para continuar..."
+							Leer tecla
+						4:
+							Escribir "Ingrese el nombre del repuesto: "
+							Leer nombre_buscar
+							posicion_encontrada <- -1
+							
+							Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
+								Si nombre_buscar = nombre[i] Entonces
+									posicion_encontrada <- i
+								FinSi
+							FinPara
+							
+							Si posicion_encontrada <> -1 Entonces
+								Escribir "Ingrese el precio nuevo: "
+								Leer precio_nuevo
+								precio[posicion_encontrada] <- precio_nuevo
+								Escribir "Precio actualizado exitosamente"
+							SiNo
+								Escribir "Repuesto no encontrado"
+							FinSi
+							Escribir Sin Saltar "Presione ENTER para continuar..."
+							Leer tecla
+							
+						5:
+							Escribir "Listado de repuestos"
+							Escribir "=================================="
+							Si cantidad_repuestos = 0 Entonces
+								Escribir "No hay repuestos cargados"
+							SiNo
+								Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
+									Escribir "Repuesto ", i + 1, ":"
+									Escribir "  Código: ", codigo[i]
+									Escribir "  Nombre: ", nombre[i]
+									Escribir "  Precio: $", precio[i]
+									Escribir "  Stock: ", stock[i]
+									Escribir "----------------------------------"
+								FinPara
+							FinSi
+							Escribir Sin Saltar "Presione ENTER para continuar..."
+							Leer tecla
+					FinSegun
+					
+				Mientras Que opcion_repuestos <> 0
 
 			5:
 				// ------------------------------------------------
@@ -116,5 +250,6 @@ Algoritmo Fixly
 		FinSegun
 
 	Hasta Que opcion = 0
-
+	
+	
 FinAlgoritmo
