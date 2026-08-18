@@ -21,6 +21,13 @@ Algoritmo Fixly
 	contadorVehiculo<-0
 	posicionEliminar<-0
 	// =====================================================================
+	// FIXLY - Variable de opcion cliente
+	Definir contadorClientes, menuClientes, dniEliminar, clienteEliminado Como Entero
+	Definir nombre, apellido, celular Como Caracter
+	Definir dni Como Entero
+	Dimensionar nombre[50], apellido[50], celular[50], dni[50]
+	contadorClientes<-0
+	// =====================================================================
 	// --- Carga de datos de prueba ---
 	contadorVehiculo <- 5
 	
@@ -72,7 +79,125 @@ Algoritmo Fixly
 				// ------------------------------------------------
 				// MODULO CLIENTES - INICIO
 				// ------------------------------------------------
-				Escribir "Clientes: en construccion"
+				Si contadorClientes<50 Entonces
+					
+					Escribir "----------------------------------------"
+					Escribir "        Gestion de Clientes"
+					Escribir "----------------------------------------"
+					Escribir "  1 - Ingresar un nuevo cliente"
+					Escribir "  2 - Ver lista de clientes"
+					Escribir "  3 - Quitar un cliente"
+					Escribir "  4 - Modificar datos de un cliente"
+					Escribir "  0 - Volver"
+					Escribir "----------------------------------------"
+					Escribir Sin Saltar "Opcion: "
+					Leer menuClientes
+					Segun menuClientes Hacer
+						1:
+							Escribir "Ingrese los siguientes datos del cliente"
+							Escribir "Nombre del cliente"
+							Leer nombre[contadorClientes]
+							Escribir "Apellido del cliente"
+							Leer apellido[contadorClientes]
+							Escribir "Nro de contacto del cliente"
+							Leer celular[contadorClientes]
+							Repetir
+								Escribir "DNI del cliente (Sin puntos)"
+								Leer dni[contadorClientes]
+								Si (dni[contadorClientes]<=0) o (dni[contadorClientes]>=100000000) Entonces
+									Escribir "Valor de DNI invalido"
+								FinSi
+							Mientras Que dni[contadorClientes]<=0 o dni[contadorClientes]>=100000000
+							contadorClientes<-contadorClientes+1
+							
+						2:
+							Escribir "NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
+							Escribir "---------------------------------------------"
+							Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
+								Escribir nombre[i], "|		|", apellido[i], "|		|", celular[i], "|		|", dni[i]
+							FinPara
+						3:
+							Escribir Sin Saltar "Escriba el dni del cliente que desea eliminar"
+							Leer dniEliminar
+							clienteEliminado<-0
+							Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
+								Si dni[i] = dniEliminar Entonces
+									lugarVacio<-i
+									Para j<-lugarVacio Hasta contadorClientes-2 Con Paso 1 Hacer
+										nombre[j]<-nombre[j+1]
+										apellido[j]<-apellido[j+1]
+										celular[j]<-celular[j+1]
+										dni[j]<-dni[j+1]
+									FinPara
+									contadorClientes<-contadorClientes-1
+									clienteEliminado<-1
+								FinSi
+							FinPara
+							Si clienteEliminado=1 Entonces
+								Escribir "Cliente eliminado correctamente"
+							SiNo
+								Escribir "Error: el DNI no se encuentra en el registro"
+							FinSi
+						4: 
+							Repetir
+								Escribir Sin Saltar "Seleccione el cliente que desea modificar"
+								Escribir "---------------------------------------------"
+								Escribir "Nro", "|		|","NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
+								Escribir "---------------------------------------------"
+								Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
+									Escribir i+1,"|		|", nombre[i], "|		|", apellido[i], "|		|", celular[i], "|		|", dni[i]
+								FinPara
+								Leer datoBusquedaMod
+							Hasta Que datoBusquedaMod>0 y datoBusquedaMod<contadorClientes
+							
+							Escribir "---------------------------------------------"
+							Escribir "Cliente seleccionado"
+							Escribir "---------------------------------------------"
+							Escribir "NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
+							Escribir "---------------------------------------------"
+							Escribir nombre[datoBusquedaMod-1], "|		|", apellido[datoBusquedaMod-1], "|		|", celular[datoBusquedaMod-1], "|		|", dni[datoBusquedaMod-1]
+							Escribir "---------------------------------------------"
+							
+							Repetir
+								Escribir "Seleccione que dato desea modificar"
+								Leer datoVehiculoMod
+								Escribir "1) Nombre"
+								Escribir "2) Apellido"
+								Escribir "3) Celular"
+								Escribir "4) DNI"
+							Hasta Que datoVehiculoMod>0 y datoVehiculoMod<5
+							
+							Segun datoVehiculoMod Hacer
+								1:
+									Escribir "Ingrese el dato corregido"
+									Escribir "NOMBRE"
+									Leer nombre[datoBusquedaMod-1]
+								2:
+									Escribir "Ingrese el dato corregido"
+									Escribir "APELLIDO"
+									Leer apellido[datoBusquedaMod-1]
+								3:
+									Escribir "Ingrese el dato corregido"
+									Escribir "CELULAR"
+									Leer celular[datoBusquedaMod-1]
+									
+								4: 	Escribir "Ingrese el dato corregido"
+									Escribir "DNI"
+									Leer dni[datoBusquedaMod-1]
+									
+								De Otro Modo:
+									Escribir "Error: opcion invalida"
+							Fin Segun
+							
+						De Otro Modo:
+							Escribir "Opcion no valida."
+							Escribir Sin Saltar "Presione ENTER para volver al menu principal..."
+							Leer tecla
+					Fin Segun
+				SiNo
+					Escribir "Cantidad maxima de clientes alcanzada"
+				FinSi		
+				
 				Escribir Sin Saltar "Presione ENTER para continuar..."
 				Leer tecla
 				// ------------------------------------------------
@@ -85,13 +210,16 @@ Algoritmo Fixly
 				// ------------------------------------------------
 				Si contadorVehiculo<50 Entonces
 					
-					Escribir "Vehiculos: en construccion"
-					Escribir "Ingrese una de las siguientes opciones: "
+					Escribir "----------------------------------------"
+					Escribir "        Gestion de Vehiculos"
+					Escribir "----------------------------------------"
 					Escribir "  1 - Ingresar un nuevo vehiculo"
 					Escribir "  2 - Ver lista de vehiculos"
 					Escribir "  3 - Quitar un vehiculo"
-					Escribir "  4 - Modificar un vehiculo (EN CONSTRUCCION)"
+					Escribir "  4 - Modificar un vehiculo"
 					Escribir "  0 - Volver"
+					Escribir "----------------------------------------"
+					Escribir Sin Saltar "Opcion: "
 					Leer menuVehiculo
 					Segun menuVehiculo Hacer
 						1:
@@ -143,7 +271,7 @@ Algoritmo Fixly
 							Repetir
 								Escribir Sin Saltar "Seleccione el vehiculo que desea modificar"
 								Escribir "---------------------------------------------"
-								Escribir "MARCA", "|		|", "MODELO", "||		|", "PATENTE", "|		", "DNI DUEÑO"
+								Escribir "MARCA", "|		|", "MODELO", "|		|", "PATENTE", "|		|", "DNI DUEÑO"
 								Escribir "---------------------------------------------"
 								Para i<-0 Hasta contadorVehiculo-1 Con Paso 1 Hacer
 									Escribir i+1, "	", marcaVehiculo[i], "	", modeloVehiculo[i], "	", patente[i], "	", dniDueno[i]
