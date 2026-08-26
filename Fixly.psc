@@ -1,4 +1,3 @@
-
 // =====================================================================
 // FIXLY - Sistema de gestion de taller mecanico
 //
@@ -9,16 +8,62 @@
 
 Algoritmo Fixly
 
-	Definir opcion, stock, cantidad_repuestos, i, opcion_repuestos, posicion_encontrada, j Como Entero
-	Definir codigo, nombre, nombre_buscar, codigo_buscar, tecla Como Caracter
-	Definir precio, precio_nuevo Como Real
-	Definir existe Como Logico
-	Dimension codigo[100]
-	Dimension nombre[100]
-	Dimension precio[100]
-	Dimension stock[100]
+	Definir opcion Como Entero
+	Definir tecla Como Caracter
+	Definir i, j Como Entero
 
+	// =====================================================================
+	// FIXLY - Variable de opcion vehiculo//
+	Definir posicionEliminar, menuVehiculo, contadorVehiculo, dniDueno Como Entero
+	Definir marcaVehiculo, modeloVehiculo, patente Como Caracter
+	Dimensionar marcaVehiculo[50], modeloVehiculo[50], patente[50], dniDueno[50]
+	Definir vehiculoEliminado, lugarVacio, datoBusquedaMod, datoVehiculoMod Como Entero
+	Definir patenteEliminar Como Caracter
+	contadorVehiculo<-0
+	posicionEliminar<-0
+	// =====================================================================
+	// FIXLY - Variable de opcion cliente
+	Definir contadorClientes, menuClientes, dniEliminar, clienteEliminado Como Entero
+	Definir nombre, apellido, celular Como Caracter
+	Definir dni Como Entero
+	Dimensionar nombre[50], apellido[50], celular[50], dni[50]
+	contadorClientes<-0
+	// =====================================================================
+	// FIXLY - Variable de opcion repuestos
+	Definir cantidad_repuestos, opcion_repuestos, posicion_encontrada, stock Como Entero
+	Definir codigo, nombreRepuesto, codigo_buscar, nombre_buscar Como Caracter
+	Definir precio, precio_nuevo Como Real
+	Dimensionar codigo[100], nombreRepuesto[100], precio[100], stock[100]
 	cantidad_repuestos <- 0
+	// =====================================================================
+	// --- Carga de datos de prueba ---
+	contadorVehiculo <- 5
+
+	marcaVehiculo[0] <- "Ford"
+	modeloVehiculo[0] <- "Fiesta"
+	patente[0] <- "AB123CD"
+	dniDueno[0] <- 30111222
+
+	marcaVehiculo[1] <- "Chevrolet"
+	modeloVehiculo[1] <- "Onix"
+	patente[1] <- "AC456EF"
+	dniDueno[1] <- 28555666
+
+	marcaVehiculo[2] <- "Toyota"
+	modeloVehiculo[2] <- "Corolla"
+	patente[2] <- "AD789GH"
+	dniDueno[2] <- 35222111
+
+	marcaVehiculo[3] <- "Renault"
+	modeloVehiculo[3] <- "Sandero"
+	patente[3] <- "AE012IJ"
+	dniDueno[3] <- 40333444
+
+	marcaVehiculo[4] <- "Volkswagen"
+	modeloVehiculo[4] <- "Gol"
+	patente[4] <- "AF345KL"
+	dniDueno[4] <- 27888999
+	// --- Fin carga de datos de prueba ---
 
 	Repetir
 		Limpiar Pantalla
@@ -42,7 +87,125 @@ Algoritmo Fixly
 				// ------------------------------------------------
 				// MODULO CLIENTES - INICIO
 				// ------------------------------------------------
-				Escribir "Clientes: en construccion"
+				Si contadorClientes<50 Entonces
+
+					Escribir "----------------------------------------"
+					Escribir "        Gestion de Clientes"
+					Escribir "----------------------------------------"
+					Escribir "  1 - Ingresar un nuevo cliente"
+					Escribir "  2 - Ver lista de clientes"
+					Escribir "  3 - Quitar un cliente"
+					Escribir "  4 - Modificar datos de un cliente"
+					Escribir "  0 - Volver"
+					Escribir "----------------------------------------"
+					Escribir Sin Saltar "Opcion: "
+					Leer menuClientes
+					Segun menuClientes Hacer
+						1:
+							Escribir "Ingrese los siguientes datos del cliente"
+							Escribir "Nombre del cliente"
+							Leer nombre[contadorClientes]
+							Escribir "Apellido del cliente"
+							Leer apellido[contadorClientes]
+							Escribir "Nro de contacto del cliente"
+							Leer celular[contadorClientes]
+							Repetir
+								Escribir "DNI del cliente (Sin puntos)"
+								Leer dni[contadorClientes]
+								Si (dni[contadorClientes]<=0) o (dni[contadorClientes]>=100000000) Entonces
+									Escribir "Valor de DNI invalido"
+								FinSi
+							Mientras Que dni[contadorClientes]<=0 o dni[contadorClientes]>=100000000
+							contadorClientes<-contadorClientes+1
+
+						2:
+							Escribir "NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
+							Escribir "---------------------------------------------"
+							Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
+								Escribir nombre[i], "|		|", apellido[i], "|		|", celular[i], "|		|", dni[i]
+							FinPara
+						3:
+							Escribir Sin Saltar "Escriba el dni del cliente que desea eliminar"
+							Leer dniEliminar
+							clienteEliminado<-0
+							Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
+								Si dni[i] = dniEliminar Entonces
+									lugarVacio<-i
+									Para j<-lugarVacio Hasta contadorClientes-2 Con Paso 1 Hacer
+										nombre[j]<-nombre[j+1]
+										apellido[j]<-apellido[j+1]
+										celular[j]<-celular[j+1]
+										dni[j]<-dni[j+1]
+									FinPara
+									contadorClientes<-contadorClientes-1
+									clienteEliminado<-1
+								FinSi
+							FinPara
+							Si clienteEliminado=1 Entonces
+								Escribir "Cliente eliminado correctamente"
+							SiNo
+								Escribir "Error: el DNI no se encuentra en el registro"
+							FinSi
+						4:
+							Repetir
+								Escribir Sin Saltar "Seleccione el cliente que desea modificar"
+								Escribir "---------------------------------------------"
+								Escribir "Nro", "|		|","NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
+								Escribir "---------------------------------------------"
+								Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
+									Escribir i+1,"|		|", nombre[i], "|		|", apellido[i], "|		|", celular[i], "|		|", dni[i]
+								FinPara
+								Leer datoBusquedaMod
+							Hasta Que datoBusquedaMod>0 y datoBusquedaMod<contadorClientes
+
+							Escribir "---------------------------------------------"
+							Escribir "Cliente seleccionado"
+							Escribir "---------------------------------------------"
+							Escribir "NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
+							Escribir "---------------------------------------------"
+							Escribir nombre[datoBusquedaMod-1], "|		|", apellido[datoBusquedaMod-1], "|		|", celular[datoBusquedaMod-1], "|		|", dni[datoBusquedaMod-1]
+							Escribir "---------------------------------------------"
+
+							Repetir
+								Escribir "Seleccione que dato desea modificar"
+								Leer datoVehiculoMod
+								Escribir "1) Nombre"
+								Escribir "2) Apellido"
+								Escribir "3) Celular"
+								Escribir "4) DNI"
+							Hasta Que datoVehiculoMod>0 y datoVehiculoMod<5
+
+							Segun datoVehiculoMod Hacer
+								1:
+									Escribir "Ingrese el dato corregido"
+									Escribir "NOMBRE"
+									Leer nombre[datoBusquedaMod-1]
+								2:
+									Escribir "Ingrese el dato corregido"
+									Escribir "APELLIDO"
+									Leer apellido[datoBusquedaMod-1]
+								3:
+									Escribir "Ingrese el dato corregido"
+									Escribir "CELULAR"
+									Leer celular[datoBusquedaMod-1]
+
+								4: 	Escribir "Ingrese el dato corregido"
+									Escribir "DNI"
+									Leer dni[datoBusquedaMod-1]
+
+								De Otro Modo:
+									Escribir "Error: opcion invalida"
+							Fin Segun
+
+						De Otro Modo:
+							Escribir "Opcion no valida."
+							Escribir Sin Saltar "Presione ENTER para volver al menu principal..."
+							Leer tecla
+					Fin Segun
+				SiNo
+					Escribir "Cantidad maxima de clientes alcanzada"
+				FinSi
+
 				Escribir Sin Saltar "Presione ENTER para continuar..."
 				Leer tecla
 				// ------------------------------------------------
@@ -53,7 +216,125 @@ Algoritmo Fixly
 				// ------------------------------------------------
 				// MODULO VEHICULOS - INICIO
 				// ------------------------------------------------
-				Escribir "Vehiculos: en construccion"
+				Si contadorVehiculo<50 Entonces
+
+					Escribir "----------------------------------------"
+					Escribir "        Gestion de Vehiculos"
+					Escribir "----------------------------------------"
+					Escribir "  1 - Ingresar un nuevo vehiculo"
+					Escribir "  2 - Ver lista de vehiculos"
+					Escribir "  3 - Quitar un vehiculo"
+					Escribir "  4 - Modificar un vehiculo"
+					Escribir "  0 - Volver"
+					Escribir "----------------------------------------"
+					Escribir Sin Saltar "Opcion: "
+					Leer menuVehiculo
+					Segun menuVehiculo Hacer
+						1:
+							Escribir "Ingrese los siguientes datos de vehiculos"
+							Escribir "Marca del vehiculo"
+							Leer marcaVehiculo[contadorVehiculo]
+							Escribir "Modelo del vehiculo"
+							Leer modeloVehiculo[contadorVehiculo]
+							Escribir "Patente del vehiculo"
+							Leer patente[contadorVehiculo]
+							Repetir
+								Escribir "DNI dueno del vehiculo (Sin puntos)"
+								Leer dniDueno[contadorVehiculo]
+								Si (dniDueno[contadorVehiculo]<=0) o (dniDueno[contadorVehiculo]>=100000000) Entonces
+									Escribir "Valor de DNI invalido"
+								FinSi
+							Mientras Que dniDueno[contadorVehiculo]<=0 o dniDueno[contadorVehiculo]>=100000000
+							contadorVehiculo<-contadorVehiculo+1
+
+						2:
+							Escribir "MARCA",  "|		|", "MODELO", "|		|", "PATENTE", "|		|", "DNI DUENO"
+							Escribir "---------------------------------------------"
+							Para i<-0 Hasta contadorVehiculo-1 Con Paso 1 Hacer
+								Escribir marcaVehiculo[i], "|		|", modeloVehiculo[i], "|		|", patente[i], "|		|", dniDueno[i]
+							FinPara
+						3:
+							Escribir Sin Saltar "Escriba la patente del vehiculo que desea eliminar"
+							Leer patenteEliminar
+							vehiculoEliminado<-0
+							Para i<-0 Hasta contadorVehiculo-1 Con Paso 1 Hacer
+								Si patente[i] = patenteEliminar Entonces
+									lugarVacio<-i
+									Para j<-lugarVacio Hasta contadorVehiculo-2 Con Paso 1 Hacer
+										marcaVehiculo[j]<-marcaVehiculo[j+1]
+										modeloVehiculo[j]<-modeloVehiculo[j+1]
+										patente[j]<-patente[j+1]
+										dniDueno[j]<-dniDueno[j+1]
+									FinPara
+									contadorVehiculo<-contadorVehiculo-1
+									vehiculoEliminado<-1
+								FinSi
+							FinPara
+							Si vehiculoEliminado=1 Entonces
+								Escribir "Vehiculo eliminado correctamente"
+							SiNo
+								Escribir "Error: la patente no se encuentra en el registro"
+							FinSi
+						4:
+							Repetir
+								Escribir Sin Saltar "Seleccione el vehiculo que desea modificar"
+								Escribir "---------------------------------------------"
+								Escribir "MARCA", "|		|", "MODELO", "|		|", "PATENTE", "|		|", "DNI DUENO"
+								Escribir "---------------------------------------------"
+								Para i<-0 Hasta contadorVehiculo-1 Con Paso 1 Hacer
+									Escribir i+1, "	", marcaVehiculo[i], "	", modeloVehiculo[i], "	", patente[i], "	", dniDueno[i]
+								FinPara
+								Leer datoBusquedaMod
+							Hasta Que datoBusquedaMod>0 y datoBusquedaMod<contadorVehiculo
+
+							Escribir "---------------------------------------------"
+							Escribir "Vehiculo seleccionado"
+							Escribir "---------------------------------------------"
+							Escribir "MARCA","|		|", "MODELO", "|		|", "PATENTE", "|		|", "DNI DUENO"
+							Escribir "---------------------------------------------"
+							Escribir marcaVehiculo[datoBusquedaMod-1], "|			|", modeloVehiculo[datoBusquedaMod-1], "|			|", patente[datoBusquedaMod-1], "|			|", dniDueno[datoBusquedaMod-1]
+							Escribir "---------------------------------------------"
+
+							Repetir
+								Escribir "Seleccione que dato desea modificar"
+								Leer datoVehiculoMod
+								Escribir "1) Marca"
+								Escribir "2) Modelo"
+								Escribir "3) Patente"
+								Escribir "4) DNI del dueno"
+							Hasta Que datoVehiculoMod>0 y datoVehiculoMod<5
+
+							Segun datoVehiculoMod Hacer
+								1:
+									Escribir "Ingrese el dato corregido"
+									Escribir "MARCA"
+									Leer marcaVehiculo[datoBusquedaMod-1]
+								2:
+									Escribir "Ingrese el dato corregido"
+									Escribir "MODELO"
+									Leer modeloVehiculo[datoBusquedaMod-1]
+								3:
+									Escribir "Ingrese el dato corregido"
+									Escribir "Patente"
+									Leer patente[datoBusquedaMod-1]
+
+								4: 	Escribir "Ingrese el dato corregido"
+									Escribir "DNI del dueno"
+									Leer dniDueno[datoBusquedaMod-1]
+
+								De Otro Modo:
+									Escribir "Error: opcion invalida"
+							Fin Segun
+
+						De Otro Modo:
+							Escribir "Opcion no valida."
+							Escribir Sin Saltar "Presione ENTER para volver al menu principal..."
+							Leer tecla
+					Fin Segun
+				SiNo
+					Escribir "Cantidad maxima de vehiculos alcanzados"
+				FinSi
+
 				Escribir Sin Saltar "Presione ENTER para continuar..."
 				Leer tecla
 				// ------------------------------------------------
@@ -73,92 +354,82 @@ Algoritmo Fixly
 
 			4:
 				// ------------------------------------------------
-                // MODULO REPUESTOS - INICIO
-                // ------------------------------------------------
-			
-				
+				// MODULO REPUESTOS - INICIO
+				// ------------------------------------------------
 				Repetir
 					Limpiar Pantalla
 					Escribir "=================================="
-					Escribir "	  Módulo gestión de repuestos"
+					Escribir "     Modulo gestion de repuestos"
 					Escribir "=================================="
 					Escribir "  1 - Cargar stock repuesto"
 					Escribir "  2 - Eliminar repuesto"
-					Escribir "  3 - Código de repuesto"
+					Escribir "  3 - Codigo de repuesto"
 					Escribir "  4 - Modificar precio"
 					Escribir "  5 - Ver listado de repuestos"
-					Escribir "  0 - Volver al menú principal"
+					Escribir "  0 - Volver al menu principal"
+					Escribir Sin Saltar "Opcion: "
 					Leer opcion_repuestos
 					Segun opcion_repuestos Hacer
-						
 						1:
 							Si cantidad_repuestos < 100 Entonces
-								Escribir "Cargar respuesto:"
-								Escribir Sin Saltar "Código repuesto:"
+								Escribir "Cargar repuesto:"
+								Escribir Sin Saltar "Codigo repuesto:"
 								Leer codigo[cantidad_repuestos]
 								Escribir Sin Saltar "Nombre repuesto:"
-								Leer nombre[cantidad_repuestos]
+								Leer nombreRepuesto[cantidad_repuestos]
 								Escribir Sin Saltar "Precio repuesto:"
 								Leer precio[cantidad_repuestos]
 								Escribir "Stock repuesto:"
 								Leer stock[cantidad_repuestos]
 								cantidad_repuestos <- cantidad_repuestos + 1
 								Escribir "Cantidad de repuestos: ", cantidad_repuestos
-								Escribir Sin Saltar "Presione ENTER para continuar..."
-								Leer tecla
-								Escribir "Código guardado: ", codigo[cantidad_repuestos - 1]
-								Escribir "Nombre guardado: ", nombre[cantidad_repuestos - 1]
-								Escribir Sin Saltar "Presione ENTER para continuar..."
-								Leer tecla
+								Escribir "Codigo guardado: ", codigo[cantidad_repuestos - 1]
+								Escribir "Nombre guardado: ", nombreRepuesto[cantidad_repuestos - 1]
 							SiNo
 								Escribir "Stock completo"
-								
 							FinSi
-						2:							
-							Escribir "Seleccionar código para eliminar"
+							Escribir Sin Saltar "Presione ENTER para continuar..."
+							Leer tecla
+						2:
+							Escribir "Seleccionar codigo para eliminar"
 							Leer codigo_buscar
 							posicion_encontrada <- -1
 							Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
 								Si codigo_buscar = codigo[i] Entonces
 									posicion_encontrada <- i
-								
 								FinSi
 							FinPara
-							
+
 							Si posicion_encontrada <> -1 Entonces
 								Para j <- posicion_encontrada Hasta cantidad_repuestos - 2 Con Paso 1 Hacer
 									codigo[j] <- codigo[j+1]
-									nombre[j] <- nombre[j+1]
+									nombreRepuesto[j] <- nombreRepuesto[j+1]
 									precio[j] <- precio[j+1]
 									stock[j] <- stock[j+1]
-									
 								FinPara
-								Escribir "Repuesto eliminado con éxito"
 								cantidad_repuestos <- cantidad_repuestos - 1
-								
-								
-							SiNo	
-								Escribir "El código no existe"
-								
+								Escribir "Repuesto eliminado con exito"
+							SiNo
+								Escribir "El codigo no existe"
 							FinSi
 							Escribir Sin Saltar "Presione ENTER para continuar..."
 							Leer tecla
-						3: 
+						3:
 							Escribir "Ingrese el nombre del repuesto: "
 							Leer nombre_buscar
 							posicion_encontrada <- -1
-							
+
 							Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
-								Si nombre_buscar = nombre[i] Entonces
+								Si nombre_buscar = nombreRepuesto[i] Entonces
 									posicion_encontrada <- i
 								FinSi
 							FinPara
-							
+
 							Si posicion_encontrada <> -1 Entonces
 								Escribir " ", codigo[posicion_encontrada]
-								Escribir " ",nombre[posicion_encontrada] 
-								Escribir " ",precio[posicion_encontrada] 
-								Escribir " ",stock[posicion_encontrada] 
+								Escribir " ", nombreRepuesto[posicion_encontrada]
+								Escribir " ", precio[posicion_encontrada]
+								Escribir " ", stock[posicion_encontrada]
 							SiNo
 								Escribir "Repuesto no encontrado"
 							FinSi
@@ -168,13 +439,13 @@ Algoritmo Fixly
 							Escribir "Ingrese el nombre del repuesto: "
 							Leer nombre_buscar
 							posicion_encontrada <- -1
-							
+
 							Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
-								Si nombre_buscar = nombre[i] Entonces
+								Si nombre_buscar = nombreRepuesto[i] Entonces
 									posicion_encontrada <- i
 								FinSi
 							FinPara
-							
+
 							Si posicion_encontrada <> -1 Entonces
 								Escribir "Ingrese el precio nuevo: "
 								Leer precio_nuevo
@@ -185,7 +456,7 @@ Algoritmo Fixly
 							FinSi
 							Escribir Sin Saltar "Presione ENTER para continuar..."
 							Leer tecla
-							
+
 						5:
 							Escribir "Listado de repuestos"
 							Escribir "=================================="
@@ -194,8 +465,8 @@ Algoritmo Fixly
 							SiNo
 								Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
 									Escribir "Repuesto ", i + 1, ":"
-									Escribir "  Código: ", codigo[i]
-									Escribir "  Nombre: ", nombre[i]
+									Escribir "  Codigo: ", codigo[i]
+									Escribir "  Nombre: ", nombreRepuesto[i]
 									Escribir "  Precio: $", precio[i]
 									Escribir "  Stock: ", stock[i]
 									Escribir "----------------------------------"
@@ -203,9 +474,18 @@ Algoritmo Fixly
 							FinSi
 							Escribir Sin Saltar "Presione ENTER para continuar..."
 							Leer tecla
+						0:
+							Escribir "Volviendo al menu principal..."
+						De Otro Modo:
+							Escribir "Opcion no valida."
+							Escribir Sin Saltar "Presione ENTER para continuar..."
+							Leer tecla
 					FinSegun
-					
+
 				Mientras Que opcion_repuestos <> 0
+				// ------------------------------------------------
+				// MODULO REPUESTOS - FIN
+				// ------------------------------------------------
 
 			5:
 				// ------------------------------------------------
@@ -250,6 +530,5 @@ Algoritmo Fixly
 		FinSegun
 
 	Hasta Que opcion = 0
-	
-	
+
 FinAlgoritmo
