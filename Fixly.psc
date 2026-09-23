@@ -1047,7 +1047,124 @@ Algoritmo Fixly
 								Leer opcion_facturacion
 								Segun opcion_facturacion Hacer
 									1:
-										Escribir "En construccion"
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "        Emitir factura"
+										Escribir "=================================="
+										Si cantidad_facturas >= 100 Entonces
+											Escribir "Cantidad maxima de facturas alcanzada"
+										SiNo
+											Escribir Sin Saltar "Numero de orden a facturar: "
+											Leer orden_facturar
+							
+											posicion_orden_factura <- -1
+											Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
+												Si orden_numero[i] = orden_facturar Entonces
+													posicion_orden_factura <- i
+												FinSi
+											FinPara
+							
+											orden_ya_facturada <- Falso
+											Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
+												Si factura_nro_orden[i] = orden_facturar Entonces
+													orden_ya_facturada <- Verdadero
+												FinSi
+											FinPara
+							
+											Si posicion_orden_factura = -1 Entonces
+												Escribir "La orden no existe"
+											SiNo
+												Si estado_orden[posicion_orden_factura] <> "Finalizada" Entonces
+													Escribir "La orden todavia esta pendiente."
+													Escribir "Cierrela en el modulo de ordenes (3) antes de facturar."
+												SiNo
+													Si orden_ya_facturada Entonces
+														Escribir "La orden ya fue facturada"
+													SiNo
+														posicion_cliente_factura <- -1
+														Para i <- 0 Hasta contadorClientes - 1 Con Paso 1 Hacer
+															Si dni[i] = dni_orden[posicion_orden_factura] Entonces
+																posicion_cliente_factura <- i
+															FinSi
+														FinPara
+							
+														Escribir "Orden Nro:  ", orden_numero[posicion_orden_factura]
+														Si posicion_cliente_factura <> -1 Entonces
+															Escribir "Cliente:    ", apellido[posicion_cliente_factura], " ", nombre[posicion_cliente_factura]
+														FinSi
+														Escribir "DNI:        ", dni_orden[posicion_orden_factura]
+														Escribir "Patente:    ", patente_orden[posicion_orden_factura]
+														Escribir "Falla:      ", descripcion_orden[posicion_orden_factura]
+														Escribir "----------------------------------"
+														Escribir "Repuestos utilizados:"
+														total_repuestos_calc <- 0
+														Para i <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
+															Si detalle_nro_orden[i] = orden_numero[posicion_orden_factura] Entonces
+																Escribir "  ", detalle_cod_repuesto[i], " x ", detalle_cantidad[i], " = $", detalle_precio_unitario[i] * detalle_cantidad[i]
+																total_repuestos_calc <- total_repuestos_calc + detalle_precio_unitario[i] * detalle_cantidad[i]
+															FinSi
+														FinPara
+														Si total_repuestos_calc = 0 Entonces
+															Escribir "  (sin repuestos)"
+														FinSi
+														Escribir "----------------------------------"
+							
+														Repetir
+															Escribir Sin Saltar "Horas de mano de obra: "
+															Leer horas_ingresadas
+															Si horas_ingresadas <= 0 Entonces
+																Escribir "Las horas deben ser mayores a cero"
+															FinSi
+														Hasta Que horas_ingresadas > 0
+														Repetir
+															Escribir Sin Saltar "Valor de la hora de trabajo: $"
+															Leer valor_hora_ingresado
+															Si valor_hora_ingresado <= 0 Entonces
+																Escribir "El valor debe ser mayor a cero"
+															FinSi
+														Hasta Que valor_hora_ingresado > 0
+														Escribir Sin Saltar "Fecha de emision (DD/MM/AAAA): "
+														Leer fecha_factura_ingresada
+							
+														mano_obra_calc <- horas_ingresadas * valor_hora_ingresado
+														subtotal_calc <- total_repuestos_calc + mano_obra_calc
+														// IVA redondeado a centavos
+														iva_calc <- redon(subtotal_calc * porcentaje_iva) / 100
+														total_calc <- subtotal_calc + iva_calc
+							
+														Escribir "=================================="
+														Escribir "Repuestos:        $", total_repuestos_calc
+														Escribir "Mano de obra:     $", mano_obra_calc, " (", horas_ingresadas, " hs x $", valor_hora_ingresado, ")"
+														Escribir "Subtotal:         $", subtotal_calc
+														Escribir "IVA ", porcentaje_iva, "%:          $", iva_calc
+														Escribir "TOTAL:            $", total_calc
+														Escribir "=================================="
+														Escribir Sin Saltar "Confirmar emision de la factura? (S/N): "
+														Leer confirma_factura
+							
+														Si confirma_factura = "S" o confirma_factura = "s" Entonces
+															factura_numero[cantidad_facturas] <- nro_factura_siguiente
+															factura_nro_orden[cantidad_facturas] <- orden_numero[posicion_orden_factura]
+															factura_dni[cantidad_facturas] <- dni_orden[posicion_orden_factura]
+															factura_patente[cantidad_facturas] <- patente_orden[posicion_orden_factura]
+															factura_fecha[cantidad_facturas] <- fecha_factura_ingresada
+															factura_repuestos[cantidad_facturas] <- total_repuestos_calc
+															factura_horas[cantidad_facturas] <- horas_ingresadas
+															factura_valor_hora[cantidad_facturas] <- valor_hora_ingresado
+															factura_mano_obra[cantidad_facturas] <- mano_obra_calc
+															factura_subtotal[cantidad_facturas] <- subtotal_calc
+															factura_iva[cantidad_facturas] <- iva_calc
+															factura_total[cantidad_facturas] <- total_calc
+															cantidad_facturas <- cantidad_facturas + 1
+															nro_factura_siguiente <- nro_factura_siguiente + 1
+															Escribir "Factura Nro ", factura_numero[cantidad_facturas - 1], " emitida correctamente"
+														SiNo
+															Escribir "Emision cancelada."
+														FinSi
+													FinSi
+												FinSi
+											FinSi
+										FinSi
 										Escribir Sin Saltar "Presione ENTER para continuar..."
 										Leer tecla
 									2:
