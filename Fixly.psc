@@ -1243,7 +1243,34 @@ Algoritmo Fixly
 										Escribir Sin Saltar "Presione ENTER para continuar..."
 										Leer tecla
 									4:
-										Escribir "En construccion"
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "     Facturas de un cliente"
+										Escribir "=================================="
+										Escribir Sin Saltar "DNI del cliente: "
+										Leer dni_factura_buscar
+							
+										facturas_encontradas <- 0
+										total_facturado <- 0
+										Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
+											Si factura_dni[i] = dni_factura_buscar Entonces
+												Si facturas_encontradas = 0 Entonces
+													Escribir "NRO", "|		|", "ORDEN", "|		|", "FECHA", "|		|", "PATENTE", "|		|", "TOTAL"
+													Escribir "---------------------------------------------"
+												FinSi
+												Escribir factura_numero[i], "|		|", factura_nro_orden[i], "|		|", factura_fecha[i], "|		|", factura_patente[i], "|		|", "$", factura_total[i]
+												facturas_encontradas <- facturas_encontradas + 1
+												total_facturado <- total_facturado + factura_total[i]
+											FinSi
+										FinPara
+							
+										Si facturas_encontradas = 0 Entonces
+											Escribir "No hay facturas para el DNI ", dni_factura_buscar
+										SiNo
+											Escribir "---------------------------------------------"
+											Escribir "Facturas del cliente: ", facturas_encontradas
+											Escribir "Total facturado:      $", total_facturado
+										FinSi
 										Escribir Sin Saltar "Presione ENTER para continuar..."
 										Leer tecla
 									0:
