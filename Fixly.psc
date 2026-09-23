@@ -67,6 +67,31 @@ Algoritmo Fixly
 	Dimension detalle_cantidad[300]
 	Dimension detalle_precio_unitario[300]
 	Dimension estado_orden[100]
+	// =====================================================================
+	// FIXLY - Variable de opcion facturacion
+	Definir opcion_facturacion, cantidad_facturas, nro_factura_siguiente, factura_buscar, orden_facturar Como Entero
+	Definir posicion_factura, posicion_orden_factura, posicion_cliente_factura, dni_factura_buscar, facturas_encontradas Como Entero
+	Definir factura_numero, factura_nro_orden, factura_dni Como Entero
+	Definir factura_patente, factura_fecha, fecha_factura_ingresada, confirma_factura Como Caracter
+	Definir factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total Como Real
+	Definir total_repuestos_calc, horas_ingresadas, valor_hora_ingresado, mano_obra_calc, subtotal_calc, iva_calc, total_calc Como Real
+	Definir porcentaje_iva, total_facturado Como Real
+	Definir orden_ya_facturada Como Logico
+	Dimension factura_numero[100]
+	Dimension factura_nro_orden[100]
+	Dimension factura_dni[100]
+	Dimension factura_patente[100]
+	Dimension factura_fecha[100]
+	Dimension factura_repuestos[100]
+	Dimension factura_horas[100]
+	Dimension factura_valor_hora[100]
+	Dimension factura_mano_obra[100]
+	Dimension factura_subtotal[100]
+	Dimension factura_iva[100]
+	Dimension factura_total[100]
+	cantidad_facturas <- 0
+	nro_factura_siguiente <- 1
+	porcentaje_iva <- 21
 	
 	
 	// --- Carga de datos de prueba ---
@@ -1008,9 +1033,254 @@ Algoritmo Fixly
 							// ------------------------------------------------
 							// MODULO FACTURACION - INICIO
 							// ------------------------------------------------
-							Escribir "Facturacion: en construccion"
-							Escribir Sin Saltar "Presione ENTER para continuar..."
-							Leer tecla
+							Repetir
+								Limpiar Pantalla
+								Escribir "=================================="
+								Escribir "     Modulo de facturacion"
+								Escribir "=================================="
+								Escribir "  1 - Emitir factura de una orden"
+								Escribir "  2 - Ver una factura"
+								Escribir "  3 - Listado de facturas emitidas"
+								Escribir "  4 - Facturas de un cliente"
+								Escribir "  0 - Volver al menu principal"
+								Escribir Sin Saltar "Opcion: "
+								Leer opcion_facturacion
+								Segun opcion_facturacion Hacer
+									1:
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "        Emitir factura"
+										Escribir "=================================="
+										Si cantidad_facturas >= 100 Entonces
+											Escribir "Cantidad maxima de facturas alcanzada"
+										SiNo
+											Escribir Sin Saltar "Numero de orden a facturar: "
+											Leer orden_facturar
+							
+											posicion_orden_factura <- -1
+											Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
+												Si orden_numero[i] = orden_facturar Entonces
+													posicion_orden_factura <- i
+												FinSi
+											FinPara
+							
+											orden_ya_facturada <- Falso
+											Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
+												Si factura_nro_orden[i] = orden_facturar Entonces
+													orden_ya_facturada <- Verdadero
+												FinSi
+											FinPara
+							
+											Si posicion_orden_factura = -1 Entonces
+												Escribir "La orden no existe"
+											SiNo
+												Si estado_orden[posicion_orden_factura] <> "Finalizada" Entonces
+													Escribir "La orden todavia esta pendiente."
+													Escribir "Cierrela en el modulo de ordenes (3) antes de facturar."
+												SiNo
+													Si orden_ya_facturada Entonces
+														Escribir "La orden ya fue facturada"
+													SiNo
+														posicion_cliente_factura <- -1
+														Para i <- 0 Hasta contadorClientes - 1 Con Paso 1 Hacer
+															Si dni[i] = dni_orden[posicion_orden_factura] Entonces
+																posicion_cliente_factura <- i
+															FinSi
+														FinPara
+							
+														Escribir "Orden Nro:  ", orden_numero[posicion_orden_factura]
+														Si posicion_cliente_factura <> -1 Entonces
+															Escribir "Cliente:    ", apellido[posicion_cliente_factura], " ", nombre[posicion_cliente_factura]
+														FinSi
+														Escribir "DNI:        ", dni_orden[posicion_orden_factura]
+														Escribir "Patente:    ", patente_orden[posicion_orden_factura]
+														Escribir "Falla:      ", descripcion_orden[posicion_orden_factura]
+														Escribir "----------------------------------"
+														Escribir "Repuestos utilizados:"
+														total_repuestos_calc <- 0
+														Para i <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
+															Si detalle_nro_orden[i] = orden_numero[posicion_orden_factura] Entonces
+																Escribir "  ", detalle_cod_repuesto[i], " x ", detalle_cantidad[i], " = $", detalle_precio_unitario[i] * detalle_cantidad[i]
+																total_repuestos_calc <- total_repuestos_calc + detalle_precio_unitario[i] * detalle_cantidad[i]
+															FinSi
+														FinPara
+														Si total_repuestos_calc = 0 Entonces
+															Escribir "  (sin repuestos)"
+														FinSi
+														Escribir "----------------------------------"
+							
+														Repetir
+															Escribir Sin Saltar "Horas de mano de obra: "
+															Leer horas_ingresadas
+															Si horas_ingresadas <= 0 Entonces
+																Escribir "Las horas deben ser mayores a cero"
+															FinSi
+														Hasta Que horas_ingresadas > 0
+														Repetir
+															Escribir Sin Saltar "Valor de la hora de trabajo: $"
+															Leer valor_hora_ingresado
+															Si valor_hora_ingresado <= 0 Entonces
+																Escribir "El valor debe ser mayor a cero"
+															FinSi
+														Hasta Que valor_hora_ingresado > 0
+														Escribir Sin Saltar "Fecha de emision (DD/MM/AAAA): "
+														Leer fecha_factura_ingresada
+							
+														mano_obra_calc <- horas_ingresadas * valor_hora_ingresado
+														subtotal_calc <- total_repuestos_calc + mano_obra_calc
+														// IVA redondeado a centavos
+														iva_calc <- redon(subtotal_calc * porcentaje_iva) / 100
+														total_calc <- subtotal_calc + iva_calc
+							
+														Escribir "=================================="
+														Escribir "Repuestos:        $", total_repuestos_calc
+														Escribir "Mano de obra:     $", mano_obra_calc, " (", horas_ingresadas, " hs x $", valor_hora_ingresado, ")"
+														Escribir "Subtotal:         $", subtotal_calc
+														Escribir "IVA ", porcentaje_iva, "%:          $", iva_calc
+														Escribir "TOTAL:            $", total_calc
+														Escribir "=================================="
+														Escribir Sin Saltar "Confirmar emision de la factura? (S/N): "
+														Leer confirma_factura
+							
+														Si confirma_factura = "S" o confirma_factura = "s" Entonces
+															factura_numero[cantidad_facturas] <- nro_factura_siguiente
+															factura_nro_orden[cantidad_facturas] <- orden_numero[posicion_orden_factura]
+															factura_dni[cantidad_facturas] <- dni_orden[posicion_orden_factura]
+															factura_patente[cantidad_facturas] <- patente_orden[posicion_orden_factura]
+															factura_fecha[cantidad_facturas] <- fecha_factura_ingresada
+															factura_repuestos[cantidad_facturas] <- total_repuestos_calc
+															factura_horas[cantidad_facturas] <- horas_ingresadas
+															factura_valor_hora[cantidad_facturas] <- valor_hora_ingresado
+															factura_mano_obra[cantidad_facturas] <- mano_obra_calc
+															factura_subtotal[cantidad_facturas] <- subtotal_calc
+															factura_iva[cantidad_facturas] <- iva_calc
+															factura_total[cantidad_facturas] <- total_calc
+															cantidad_facturas <- cantidad_facturas + 1
+															nro_factura_siguiente <- nro_factura_siguiente + 1
+															Escribir "Factura Nro ", factura_numero[cantidad_facturas - 1], " emitida correctamente"
+														SiNo
+															Escribir "Emision cancelada."
+														FinSi
+													FinSi
+												FinSi
+											FinSi
+										FinSi
+										Escribir Sin Saltar "Presione ENTER para continuar..."
+										Leer tecla
+									2:
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "          Ver factura"
+										Escribir "=================================="
+										Escribir Sin Saltar "Numero de factura: "
+										Leer factura_buscar
+							
+										posicion_factura <- -1
+										Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
+											Si factura_numero[i] = factura_buscar Entonces
+												posicion_factura <- i
+											FinSi
+										FinPara
+							
+										Si posicion_factura = -1 Entonces
+											Escribir "La factura no existe"
+										SiNo
+											posicion_cliente_factura <- -1
+											Para i <- 0 Hasta contadorClientes - 1 Con Paso 1 Hacer
+												Si dni[i] = factura_dni[posicion_factura] Entonces
+													posicion_cliente_factura <- i
+												FinSi
+											FinPara
+							
+											Limpiar Pantalla
+											Escribir "=================================="
+											Escribir "  FIXLY - Taller mecanico"
+											Escribir "  FACTURA Nro ", factura_numero[posicion_factura]
+											Escribir "=================================="
+											Escribir "Fecha:      ", factura_fecha[posicion_factura]
+											Escribir "Orden Nro:  ", factura_nro_orden[posicion_factura]
+											Si posicion_cliente_factura <> -1 Entonces
+												Escribir "Cliente:    ", apellido[posicion_cliente_factura], " ", nombre[posicion_cliente_factura]
+											FinSi
+											Escribir "DNI:        ", factura_dni[posicion_factura]
+											Escribir "Patente:    ", factura_patente[posicion_factura]
+											Escribir "----------------------------------"
+											Escribir "Repuestos:"
+											Para i <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
+												Si detalle_nro_orden[i] = factura_nro_orden[posicion_factura] Entonces
+													Escribir "  ", detalle_cod_repuesto[i], " x ", detalle_cantidad[i], " = $", detalle_precio_unitario[i] * detalle_cantidad[i]
+												FinSi
+											FinPara
+											Escribir "----------------------------------"
+											Escribir "Repuestos:        $", factura_repuestos[posicion_factura]
+											Escribir "Mano de obra:     $", factura_mano_obra[posicion_factura], " (", factura_horas[posicion_factura], " hs x $", factura_valor_hora[posicion_factura], ")"
+											Escribir "Subtotal:         $", factura_subtotal[posicion_factura]
+											Escribir "IVA ", porcentaje_iva, "%:          $", factura_iva[posicion_factura]
+											Escribir "TOTAL:            $", factura_total[posicion_factura]
+											Escribir "=================================="
+										FinSi
+										Escribir Sin Saltar "Presione ENTER para continuar..."
+										Leer tecla
+									3:
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "      Facturas emitidas"
+										Escribir "=================================="
+										Si cantidad_facturas = 0 Entonces
+											Escribir "No hay facturas emitidas"
+										SiNo
+											total_facturado <- 0
+											Escribir "NRO", "|		|", "ORDEN", "|		|", "FECHA", "|		|", "PATENTE", "|		|", "TOTAL"
+											Escribir "---------------------------------------------"
+											Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
+												Escribir factura_numero[i], "|		|", factura_nro_orden[i], "|		|", factura_fecha[i], "|		|", factura_patente[i], "|		|", "$", factura_total[i]
+												total_facturado <- total_facturado + factura_total[i]
+											FinPara
+											Escribir "---------------------------------------------"
+											Escribir "Facturas emitidas: ", cantidad_facturas
+											Escribir "Total facturado:   $", total_facturado
+										FinSi
+										Escribir Sin Saltar "Presione ENTER para continuar..."
+										Leer tecla
+									4:
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "     Facturas de un cliente"
+										Escribir "=================================="
+										Escribir Sin Saltar "DNI del cliente: "
+										Leer dni_factura_buscar
+							
+										facturas_encontradas <- 0
+										total_facturado <- 0
+										Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
+											Si factura_dni[i] = dni_factura_buscar Entonces
+												Si facturas_encontradas = 0 Entonces
+													Escribir "NRO", "|		|", "ORDEN", "|		|", "FECHA", "|		|", "PATENTE", "|		|", "TOTAL"
+													Escribir "---------------------------------------------"
+												FinSi
+												Escribir factura_numero[i], "|		|", factura_nro_orden[i], "|		|", factura_fecha[i], "|		|", factura_patente[i], "|		|", "$", factura_total[i]
+												facturas_encontradas <- facturas_encontradas + 1
+												total_facturado <- total_facturado + factura_total[i]
+											FinSi
+										FinPara
+							
+										Si facturas_encontradas = 0 Entonces
+											Escribir "No hay facturas para el DNI ", dni_factura_buscar
+										SiNo
+											Escribir "---------------------------------------------"
+											Escribir "Facturas del cliente: ", facturas_encontradas
+											Escribir "Total facturado:      $", total_facturado
+										FinSi
+										Escribir Sin Saltar "Presione ENTER para continuar..."
+										Leer tecla
+									0:
+										Escribir "Volviendo al menu principal..."
+									De Otro Modo:
+										Escribir "Opcion no valida."
+										Escribir Sin Saltar "Presione ENTER para continuar..."
+										Leer tecla
+								FinSegun
+							Mientras Que opcion_facturacion <> 0
 							// ------------------------------------------------
 							// MODULO FACTURACION - FIN
 							// ------------------------------------------------
