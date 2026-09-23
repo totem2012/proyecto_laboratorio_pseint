@@ -1222,7 +1222,24 @@ Algoritmo Fixly
 										Escribir Sin Saltar "Presione ENTER para continuar..."
 										Leer tecla
 									3:
-										Escribir "En construccion"
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "      Facturas emitidas"
+										Escribir "=================================="
+										Si cantidad_facturas = 0 Entonces
+											Escribir "No hay facturas emitidas"
+										SiNo
+											total_facturado <- 0
+											Escribir "NRO", "|		|", "ORDEN", "|		|", "FECHA", "|		|", "PATENTE", "|		|", "TOTAL"
+											Escribir "---------------------------------------------"
+											Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
+												Escribir factura_numero[i], "|		|", factura_nro_orden[i], "|		|", factura_fecha[i], "|		|", factura_patente[i], "|		|", "$", factura_total[i]
+												total_facturado <- total_facturado + factura_total[i]
+											FinPara
+											Escribir "---------------------------------------------"
+											Escribir "Facturas emitidas: ", cantidad_facturas
+											Escribir "Total facturado:   $", total_facturado
+										FinSi
 										Escribir Sin Saltar "Presione ENTER para continuar..."
 										Leer tecla
 									4:
