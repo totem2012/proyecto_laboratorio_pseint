@@ -1033,9 +1033,43 @@ Algoritmo Fixly
 							// ------------------------------------------------
 							// MODULO FACTURACION - INICIO
 							// ------------------------------------------------
-							Escribir "Facturacion: en construccion"
-							Escribir Sin Saltar "Presione ENTER para continuar..."
-							Leer tecla
+							Repetir
+								Limpiar Pantalla
+								Escribir "=================================="
+								Escribir "     Modulo de facturacion"
+								Escribir "=================================="
+								Escribir "  1 - Emitir factura de una orden"
+								Escribir "  2 - Ver una factura"
+								Escribir "  3 - Listado de facturas emitidas"
+								Escribir "  4 - Facturas de un cliente"
+								Escribir "  0 - Volver al menu principal"
+								Escribir Sin Saltar "Opcion: "
+								Leer opcion_facturacion
+								Segun opcion_facturacion Hacer
+									1:
+										Escribir "En construccion"
+										Escribir Sin Saltar "Presione ENTER para continuar..."
+										Leer tecla
+									2:
+										Escribir "En construccion"
+										Escribir Sin Saltar "Presione ENTER para continuar..."
+										Leer tecla
+									3:
+										Escribir "En construccion"
+										Escribir Sin Saltar "Presione ENTER para continuar..."
+										Leer tecla
+									4:
+										Escribir "En construccion"
+										Escribir Sin Saltar "Presione ENTER para continuar..."
+										Leer tecla
+									0:
+										Escribir "Volviendo al menu principal..."
+									De Otro Modo:
+										Escribir "Opcion no valida."
+										Escribir Sin Saltar "Presione ENTER para continuar..."
+										Leer tecla
+								FinSegun
+							Mientras Que opcion_facturacion <> 0
 							// ------------------------------------------------
 							// MODULO FACTURACION - FIN
 							// ------------------------------------------------
