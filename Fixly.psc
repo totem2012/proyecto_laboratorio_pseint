@@ -1168,7 +1168,57 @@ Algoritmo Fixly
 										Escribir Sin Saltar "Presione ENTER para continuar..."
 										Leer tecla
 									2:
-										Escribir "En construccion"
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "          Ver factura"
+										Escribir "=================================="
+										Escribir Sin Saltar "Numero de factura: "
+										Leer factura_buscar
+							
+										posicion_factura <- -1
+										Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
+											Si factura_numero[i] = factura_buscar Entonces
+												posicion_factura <- i
+											FinSi
+										FinPara
+							
+										Si posicion_factura = -1 Entonces
+											Escribir "La factura no existe"
+										SiNo
+											posicion_cliente_factura <- -1
+											Para i <- 0 Hasta contadorClientes - 1 Con Paso 1 Hacer
+												Si dni[i] = factura_dni[posicion_factura] Entonces
+													posicion_cliente_factura <- i
+												FinSi
+											FinPara
+							
+											Limpiar Pantalla
+											Escribir "=================================="
+											Escribir "  FIXLY - Taller mecanico"
+											Escribir "  FACTURA Nro ", factura_numero[posicion_factura]
+											Escribir "=================================="
+											Escribir "Fecha:      ", factura_fecha[posicion_factura]
+											Escribir "Orden Nro:  ", factura_nro_orden[posicion_factura]
+											Si posicion_cliente_factura <> -1 Entonces
+												Escribir "Cliente:    ", apellido[posicion_cliente_factura], " ", nombre[posicion_cliente_factura]
+											FinSi
+											Escribir "DNI:        ", factura_dni[posicion_factura]
+											Escribir "Patente:    ", factura_patente[posicion_factura]
+											Escribir "----------------------------------"
+											Escribir "Repuestos:"
+											Para i <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
+												Si detalle_nro_orden[i] = factura_nro_orden[posicion_factura] Entonces
+													Escribir "  ", detalle_cod_repuesto[i], " x ", detalle_cantidad[i], " = $", detalle_precio_unitario[i] * detalle_cantidad[i]
+												FinSi
+											FinPara
+											Escribir "----------------------------------"
+											Escribir "Repuestos:        $", factura_repuestos[posicion_factura]
+											Escribir "Mano de obra:     $", factura_mano_obra[posicion_factura], " (", factura_horas[posicion_factura], " hs x $", factura_valor_hora[posicion_factura], ")"
+											Escribir "Subtotal:         $", factura_subtotal[posicion_factura]
+											Escribir "IVA ", porcentaje_iva, "%:          $", factura_iva[posicion_factura]
+											Escribir "TOTAL:            $", factura_total[posicion_factura]
+											Escribir "=================================="
+										FinSi
 										Escribir Sin Saltar "Presione ENTER para continuar..."
 										Leer tecla
 									3:
