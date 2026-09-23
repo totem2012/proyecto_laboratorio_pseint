@@ -67,6 +67,31 @@ Algoritmo Fixly
 	Dimension detalle_cantidad[300]
 	Dimension detalle_precio_unitario[300]
 	Dimension estado_orden[100]
+	// =====================================================================
+	// FIXLY - Variable de opcion facturacion
+	Definir opcion_facturacion, cantidad_facturas, nro_factura_siguiente, factura_buscar, orden_facturar Como Entero
+	Definir posicion_factura, posicion_orden_factura, posicion_cliente_factura, dni_factura_buscar, facturas_encontradas Como Entero
+	Definir factura_numero, factura_nro_orden, factura_dni Como Entero
+	Definir factura_patente, factura_fecha, fecha_factura_ingresada, confirma_factura Como Caracter
+	Definir factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total Como Real
+	Definir total_repuestos_calc, horas_ingresadas, valor_hora_ingresado, mano_obra_calc, subtotal_calc, iva_calc, total_calc Como Real
+	Definir porcentaje_iva, total_facturado Como Real
+	Definir orden_ya_facturada Como Logico
+	Dimension factura_numero[100]
+	Dimension factura_nro_orden[100]
+	Dimension factura_dni[100]
+	Dimension factura_patente[100]
+	Dimension factura_fecha[100]
+	Dimension factura_repuestos[100]
+	Dimension factura_horas[100]
+	Dimension factura_valor_hora[100]
+	Dimension factura_mano_obra[100]
+	Dimension factura_subtotal[100]
+	Dimension factura_iva[100]
+	Dimension factura_total[100]
+	cantidad_facturas <- 0
+	nro_factura_siguiente <- 1
+	porcentaje_iva <- 21
 	
 	
 	// --- Carga de datos de prueba ---
