@@ -8,7 +8,7 @@
 
 Algoritmo Fixly
 	
-	Definir opcion Como Entero
+	Definir opcion, op Como Entero
 	Definir tecla Como Caracter
 	Definir i, j Como Entero
 	
@@ -98,6 +98,132 @@ Algoritmo Fixly
 	dniDueno[4] <- 27888999
 	// --- Fin carga de datos de prueba ---
 	
+	// =====================================================================
+	// Funciones cliente
+	Funcion opcion<-menuClientes
+		Definir opcion Como Entero
+		Escribir "----------------------------------------"
+		Escribir "        Gestion de Clientes"
+		Escribir "----------------------------------------"
+		Escribir "  1 - Ingresar un nuevo cliente"
+		Escribir "  2 - Ver lista de clientes"
+		Escribir "  3 - Quitar un cliente"
+		Escribir "  4 - Modificar datos de un cliente"
+		Escribir "  0 - Volver"
+		Escribir "----------------------------------------"
+		Escribir Sin Saltar "Opcion: "
+		Leer opcion
+FinFuncion
+
+Funcion ingresarCliente(nombre, apellido, celular, dni, contadorClientes)
+	Escribir "Ingrese los siguientes datos del cliente"
+	Escribir "Nombre del cliente"
+	Leer nombre[contadorClientes]
+	Escribir "Apellido del cliente"
+	Leer apellido[contadorClientes]
+	Escribir "Nro de contacto del cliente"
+	Leer celular[contadorClientes]
+	Repetir
+		Escribir "DNI del cliente (Sin puntos)"
+		Leer dni[contadorClientes]
+		Si (dni[contadorClientes]<=0) o (dni[contadorClientes]>=100000000) Entonces
+			Escribir "Valor de DNI invalido"
+		FinSi
+	Mientras Que dni[contadorClientes]<=0 o dni[contadorClientes]>=100000000
+	contadorClientes<-contadorClientes+1
+FinFuncion
+
+Funcion mostrarDatos(nombre, apellido, celular, dni, contadorClientes)
+	Definir i Como Entero
+	Escribir "---------------------------------------------"
+	Escribir "Nro", "|		|","NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
+	Escribir "---------------------------------------------"
+	Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
+		Escribir i+1,"|		|", nombre[i], "|		|", apellido[i], "|		|", celular[i], "|		|", dni[i]
+	FinPara
+FinFuncion
+
+Funcion eliminarCliente(nombre, apellido, celular, dni, contadorClientes)
+	Escribir Sin Saltar "Escriba el dni del cliente que desea eliminar"
+	Definir dniEliminar, clienteEliminado, i, lugarVacio Como Entero
+	Leer dniEliminar
+	clienteEliminado<-0
+	Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
+		Si dni[i] = dniEliminar Entonces
+			lugarVacio<-i
+			Para j<-lugarVacio Hasta contadorClientes-2 Con Paso 1 Hacer
+				nombre[j]<-nombre[j+1]
+				apellido[j]<-apellido[j+1]
+				celular[j]<-celular[j+1]
+				dni[j]<-dni[j+1]
+			FinPara
+			contadorClientes<-contadorClientes-1
+			clienteEliminado<-1
+		FinSi
+	FinPara
+	Si clienteEliminado=1 Entonces
+		Escribir "Cliente eliminado correctamente"
+	SiNo
+		Escribir "Error: el DNI no se encuentra en el registro"
+	FinSi
+FinFuncion
+
+Funcion mostrarFichaCliente(nombre, apellido, celular, dni, pos)
+	Escribir "---------------------------------------------"
+	Escribir "Cliente seleccionado"
+	Escribir "---------------------------------------------"
+	Escribir "NOMBRE | APELLIDO | CELULAR | DNI"
+	Escribir "---------------------------------------------"
+	Escribir nombre[pos], " | ", apellido[pos], " | ", celular[pos], " | ", dni[pos]
+	Escribir "---------------------------------------------"
+FinFuncion
+
+Funcion opcion <- pedirOpcionMenu()
+	Definir opcion Como Entero
+	Repetir
+		Escribir "Seleccione qué dato desea modificar:"
+		Escribir "1) Nombre"
+		Escribir "2) Apellido"
+		Escribir "3) Celular"
+		Escribir "4) DNI"
+		Leer opcion
+	Hasta Que opcion > 0 Y opcion < 5
+FinFuncion
+
+Funcion modificarCliente(nombre, apellido, celular, dni, contadorClientes)
+	Definir datoBusquedaMod, datoCampoMod Como Entero
+	
+	Repetir
+		Escribir Sin Saltar "Seleccione el cliente que desea modificar: "
+		mostrarDatos(nombre, apellido, celular, dni, contadorClientes)
+		Leer datoBusquedaMod
+	Hasta Que datoBusquedaMod > 0 Y datoBusquedaMod <= contadorClientes
+	
+	mostrarFichaCliente(nombre, apellido, celular, dni, datoBusquedaMod - 1)
+	
+	datoCampoMod <- pedirOpcionMenu()
+	
+	Segun datoCampoMod Hacer
+		1:
+			Escribir "Ingrese el nuevo NOMBRE:"
+			Leer nombre[datoBusquedaMod-1]
+		2:
+			Escribir "Ingrese el nuevo APELLIDO:"
+			Leer apellido[datoBusquedaMod-1]
+		3:
+			Escribir "Ingrese el nuevo CELULAR:"
+			Leer celular[datoBusquedaMod-1]
+		4:
+			Escribir "Ingrese el nuevo DNI:"
+			Leer dni[datoBusquedaMod-1]
+	Fin Segun
+	
+	Escribir "¡Dato actualizado correctamente!"
+FinFuncion
+
+
+
+	// --- Fin de funciones cliente ---
 	
 	
 	Repetir
@@ -124,114 +250,16 @@ Algoritmo Fixly
 				// ------------------------------------------------
 				Si contadorClientes<50 Entonces
 					
-					Escribir "----------------------------------------"
-					Escribir "        Gestion de Clientes"
-					Escribir "----------------------------------------"
-					Escribir "  1 - Ingresar un nuevo cliente"
-					Escribir "  2 - Ver lista de clientes"
-					Escribir "  3 - Quitar un cliente"
-					Escribir "  4 - Modificar datos de un cliente"
-					Escribir "  0 - Volver"
-					Escribir "----------------------------------------"
-					Escribir Sin Saltar "Opcion: "
-					Leer menuClientes
-					Segun menuClientes Hacer
+					op <- menuClientes
+					Segun op Hacer
 						1:
-							Escribir "Ingrese los siguientes datos del cliente"
-							Escribir "Nombre del cliente"
-							Leer nombre[contadorClientes]
-							Escribir "Apellido del cliente"
-							Leer apellido[contadorClientes]
-							Escribir "Nro de contacto del cliente"
-							Leer celular[contadorClientes]
-							Repetir
-								Escribir "DNI del cliente (Sin puntos)"
-								Leer dni[contadorClientes]
-								Si (dni[contadorClientes]<=0) o (dni[contadorClientes]>=100000000) Entonces
-									Escribir "Valor de DNI invalido"
-								FinSi
-							Mientras Que dni[contadorClientes]<=0 o dni[contadorClientes]>=100000000
-							contadorClientes<-contadorClientes+1
-							
+							ingresarCliente(nombre, apellido, celular, dni, contadorClientes)
 						2:
-							Escribir "NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
-							Escribir "---------------------------------------------"
-							Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
-								Escribir nombre[i], "|		|", apellido[i], "|		|", celular[i], "|		|", dni[i]
-							FinPara
+							mostrarDatos(nombre, apellido, celular, dni, contadorClientes)
 						3:
-							Escribir Sin Saltar "Escriba el dni del cliente que desea eliminar"
-							Leer dniEliminar
-							clienteEliminado<-0
-							Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
-								Si dni[i] = dniEliminar Entonces
-									lugarVacio<-i
-									Para j<-lugarVacio Hasta contadorClientes-2 Con Paso 1 Hacer
-										nombre[j]<-nombre[j+1]
-										apellido[j]<-apellido[j+1]
-										celular[j]<-celular[j+1]
-										dni[j]<-dni[j+1]
-									FinPara
-									contadorClientes<-contadorClientes-1
-									clienteEliminado<-1
-								FinSi
-							FinPara
-							Si clienteEliminado=1 Entonces
-								Escribir "Cliente eliminado correctamente"
-							SiNo
-								Escribir "Error: el DNI no se encuentra en el registro"
-							FinSi
+							eliminarCliente(nombre, apellido, celular, dni, contadorClientes)
 						4:
-							Repetir
-								Escribir Sin Saltar "Seleccione el cliente que desea modificar"
-								Escribir "---------------------------------------------"
-								Escribir "Nro", "|		|","NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
-								Escribir "---------------------------------------------"
-								Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
-									Escribir i+1,"|		|", nombre[i], "|		|", apellido[i], "|		|", celular[i], "|		|", dni[i]
-								FinPara
-								Leer datoBusquedaMod
-							Hasta Que datoBusquedaMod>0 y datoBusquedaMod<contadorClientes
-							
-							Escribir "---------------------------------------------"
-							Escribir "Cliente seleccionado"
-							Escribir "---------------------------------------------"
-							Escribir "NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
-							Escribir "---------------------------------------------"
-							Escribir nombre[datoBusquedaMod-1], "|		|", apellido[datoBusquedaMod-1], "|		|", celular[datoBusquedaMod-1], "|		|", dni[datoBusquedaMod-1]
-							Escribir "---------------------------------------------"
-							
-							Repetir
-								Escribir "Seleccione que dato desea modificar"
-								Leer datoVehiculoMod
-								Escribir "1) Nombre"
-								Escribir "2) Apellido"
-								Escribir "3) Celular"
-								Escribir "4) DNI"
-							Hasta Que datoVehiculoMod>0 y datoVehiculoMod<5
-							
-							Segun datoVehiculoMod Hacer
-								1:
-									Escribir "Ingrese el dato corregido"
-									Escribir "NOMBRE"
-									Leer nombre[datoBusquedaMod-1]
-								2:
-									Escribir "Ingrese el dato corregido"
-									Escribir "APELLIDO"
-									Leer apellido[datoBusquedaMod-1]
-								3:
-									Escribir "Ingrese el dato corregido"
-									Escribir "CELULAR"
-									Leer celular[datoBusquedaMod-1]
-									
-								4: 	Escribir "Ingrese el dato corregido"
-									Escribir "DNI"
-									Leer dni[datoBusquedaMod-1]
-									
-								De Otro Modo:
-									Escribir "Error: opcion invalida"
-							Fin Segun
-							
+							modificarCliente(nombre, apellido, celular, dni, contadorClientes)
 						De Otro Modo:
 							Escribir "Opcion no valida."
 							Escribir Sin Saltar "Presione ENTER para volver al menu principal..."
