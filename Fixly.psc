@@ -1,17 +1,13 @@
 // =====================================================================
-// FIXLY - Sistema de gestion de taller mecanico
-//
-// Cada uno escribe SOLO dentro de la opcion que le toca, entre las
-// lineas que marcan el inicio y el fin de su modulo. No tocar el resto
-// del archivo: si hace falta un cambio afuera, se avisa al grupo.
+// fixly - sistema de gestion de taller mecanico
 // =====================================================================
 
 // ---------------------------------------------------------------------
-// Principal: muestra el menu principal y devuelve la opcion elegida
+// funciones generales
 // ---------------------------------------------------------------------
 Funcion opcionElegida <- MenuPrincipal
 	Limpiar Pantalla
-	definir opcionElegida Como Entero
+	Definir opcionElegida Como Entero
 	Escribir "============================================"
 	Escribir "        FIXLY - Gestion de taller"
 	Escribir "============================================"
@@ -55,6 +51,135 @@ Funcion posicion <- BuscarPosicion(lista, cantidad, buscado)
 	FinPara
 FinFuncion
 
+// ---------------------------------------------------------------------
+// funciones del modulo clientes
+// ---------------------------------------------------------------------
+Funcion opcion <- MostrarMenuClientes
+	Definir opcion Como Entero
+	Escribir "----------------------------------------"
+	Escribir "        Gestion de Clientes"
+	Escribir "----------------------------------------"
+	Escribir "  1 - Ingresar un nuevo cliente"
+	Escribir "  2 - Ver lista de clientes"
+	Escribir "  3 - Quitar un cliente"
+	Escribir "  4 - Modificar datos de un cliente"
+	Escribir "  0 - Volver"
+	Escribir "----------------------------------------"
+	Escribir Sin Saltar "Opcion: "
+	Leer opcion
+FinFuncion
+
+Funcion IngresarCliente(nombre, apellido, celular, dni, contadorClientes Por Referencia)
+	Escribir "Ingrese los siguientes datos del cliente:"
+	Escribir Sin Saltar "Nombre del cliente: "
+	Leer nombre[contadorClientes]
+	Escribir Sin Saltar "Apellido del cliente: "
+	Leer apellido[contadorClientes]
+	Escribir Sin Saltar "Nro de contacto del cliente: "
+	Leer celular[contadorClientes]
+	dni[contadorClientes] <- LeerDni("DNI del cliente (Sin puntos): ")
+	contadorClientes <- contadorClientes + 1
+	Escribir "Cliente registrado correctamente."
+	Pausa
+FinFuncion
+
+Funcion MostrarDatosClientes(nombre, apellido, celular, dni, contadorClientes)
+	Definir i Como Entero
+	Si contadorClientes = 0 Entonces
+		Escribir "No hay clientes registrados."
+	SiNo
+		Escribir "---------------------------------------------"
+		Escribir "Nro | NOMBRE | APELLIDO | CELULAR | DNI"
+		Escribir "---------------------------------------------"
+		Para i <- 0 Hasta contadorClientes - 1 Con Paso 1 Hacer
+			Escribir i + 1, " | ", nombre[i], " | ", apellido[i], " | ", celular[i], " | ", dni[i]
+		FinPara
+		Escribir "---------------------------------------------"
+	FinSi
+FinFuncion
+
+Funcion EliminarCliente(nombre, apellido, celular, dni, contadorClientes Por Referencia)
+	Definir dniEliminar, i, j, lugarVacio Como Entero
+	dniEliminar <- LeerDni("Escriba el DNI del cliente que desea eliminar: ")
+	lugarVacio <- -1
+	Para i <- 0 Hasta contadorClientes - 1 Con Paso 1 Hacer
+		Si dni[i] = dniEliminar Entonces
+			lugarVacio <- i
+		FinSi
+	FinPara
+	Si lugarVacio <> -1 Entonces
+		Para j <- lugarVacio Hasta contadorClientes - 2 Con Paso 1 Hacer
+			nombre[j] <- nombre[j+1]
+			apellido[j] <- apellido[j+1]
+			celular[j] <- celular[j+1]
+			dni[j] <- dni[j+1]
+		FinPara
+		contadorClientes <- contadorClientes - 1
+		Escribir "Cliente eliminado correctamente."
+	SiNo
+		Escribir "Error: el DNI no se encuentra en el registro."
+	FinSi
+	Pausa
+FinFuncion
+
+Funcion MostrarFichaCliente(nombre, apellido, celular, dni, pos)
+	Escribir "---------------------------------------------"
+	Escribir "Cliente seleccionado:"
+	Escribir "---------------------------------------------"
+	Escribir "NOMBRE:   ", nombre[pos]
+	Escribir "APELLIDO: ", apellido[pos]
+	Escribir "CELULAR:  ", celular[pos]
+	Escribir "DNI:      ", dni[pos]
+	Escribir "---------------------------------------------"
+FinFuncion
+
+Funcion opcion <- PedirCampoCliente
+	Definir opcion Como Entero
+	Repetir
+		Escribir "Seleccione que dato desea modificar:"
+		Escribir "  1) Nombre"
+		Escribir "  2) Apellido"
+		Escribir "  3) Celular"
+		Escribir "  4) DNI"
+		Escribir Sin Saltar "Opcion: "
+		Leer opcion
+	Hasta Que opcion > 0 Y opcion < 5
+FinFuncion
+
+Funcion ModificarCliente(nombre, apellido, celular, dni, contadorClientes)
+	Definir datoBusquedaMod, datoCampoMod Como Entero
+	Si contadorClientes = 0 Entonces
+		Escribir "No hay clientes registrados."
+		Pausa
+	SiNo
+		Repetir
+			Escribir "Seleccione el cliente que desea modificar:"
+			MostrarDatosClientes(nombre, apellido, celular, dni, contadorClientes)
+			Escribir Sin Saltar "Nro de cliente: "
+			Leer datoBusquedaMod
+		Hasta Que datoBusquedaMod > 0 Y datoBusquedaMod <= contadorClientes
+		
+		MostrarFichaCliente(nombre, apellido, celular, dni, datoBusquedaMod - 1)
+		datoCampoMod <- PedirCampoCliente
+		
+		Segun datoCampoMod Hacer
+			1:
+				Escribir Sin Saltar "Ingrese el nuevo NOMBRE: "
+				Leer nombre[datoBusquedaMod - 1]
+			2:
+				Escribir Sin Saltar "Ingrese el nuevo APELLIDO: "
+				Leer apellido[datoBusquedaMod - 1]
+			3:
+				Escribir Sin Saltar "Ingrese el nuevo CELULAR: "
+				Leer celular[datoBusquedaMod - 1]
+			4:
+				dni[datoBusquedaMod - 1] <- LeerDni("Ingrese el nuevo DNI: ")
+		FinSegun
+		Escribir "Dato actualizado correctamente."
+		Pausa
+	FinSi
+FinFuncion
+
 Algoritmo Fixly
 	
 	Definir opcion, op Como Entero
@@ -62,7 +187,7 @@ Algoritmo Fixly
 	Definir i, j Como Entero
 	
 	// =====================================================================
-	// FIXLY - Variable de opcion vehiculo//
+	// fixly - variable de opcion vehiculo//
 	Definir posicionEliminar, menuVehiculo, contadorVehiculo, dniDueno Como Entero
 	Definir marcaVehiculo, modeloVehiculo, patente Como Caracter
 	Dimensionar marcaVehiculo[50], modeloVehiculo[50], patente[50], dniDueno[50]
@@ -71,14 +196,14 @@ Algoritmo Fixly
 	contadorVehiculo<-0
 	posicionEliminar<-0
 	// =====================================================================
-	// FIXLY - Variable de opcion cliente
+	// fixly - variable de opcion cliente
 	Definir contadorClientes, menuClientes, dniEliminar, clienteEliminado Como Entero
 	Definir nombre, apellido, celular Como Caracter
 	Definir dni Como Entero
 	Dimensionar nombre[50], apellido[50], celular[50], dni[50]
 	contadorClientes<-0
 	// =====================================================================
-	// FIXLY - Variable de opcion repuestos
+	// fixly - variable de opcion repuestos
 	Definir cantidad_repuestos, opcion_repuestos, posicion_encontrada, stock Como Entero
 	Definir codigo, nombreRepuesto, codigo_buscar, nombre_buscar Como Caracter
 	Definir precio, precio_nuevo Como Real
@@ -88,7 +213,7 @@ Algoritmo Fixly
 	Dimension stock[100]
 	cantidad_repuestos <- 0
 	// =====================================================================
-	// FIXLY - Variable de opcion ordenes
+	// fixly - variable de opcion ordenes
 	Definir opcion_ordenes, dni_buscar, posicion_cliente, posicion_vehiculo, posicion_repuesto, posicion_orden, orden_numero, orden_buscar Como Entero
 	Definir cantidad_ordenes, cantidad_detalles, nro_orden_siguiente, cantidad_repuestos_ot, k, dni_orden, opcion_modificar_ot Como Entero
 	Definir posicion_repuesto_modificar, detalle_cantidad, detalle_nro_orden, posicion_detalle Como Entero
@@ -102,7 +227,7 @@ Algoritmo Fixly
 	cantidad_detalles <- 0
 	nro_orden_siguiente <- 1
 	// =====================================================================
-	// Vectores órdenes técnicas
+	// vectores órdenes técnicas
 	Dimension fecha_inicio[100]
 	Dimension fecha_fin[100]
 	Dimension fecha_entrega[100]
@@ -117,9 +242,34 @@ Algoritmo Fixly
 	Dimension detalle_cantidad[300]
 	Dimension detalle_precio_unitario[300]
 	Dimension estado_orden[100]
+	// =====================================================================
+	// variables de facturacion
+	Definir opcion_facturacion, cantidad_facturas, nro_factura_siguiente, factura_buscar, orden_facturar Como Entero
+	Definir posicion_factura, posicion_orden_factura, posicion_cliente_factura, dni_factura_buscar, facturas_encontradas Como Entero
+	Definir factura_numero, factura_nro_orden, factura_dni Como Entero
+	Definir factura_patente, factura_fecha, fecha_factura_ingresada, confirma_factura Como Caracter
+	Definir factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total Como Real
+	Definir total_repuestos_calc, horas_ingresadas, valor_hora_ingresado, mano_obra_calc, subtotal_calc, iva_calc, total_calc Como Real
+	Definir porcentaje_iva, total_facturado Como Real
+	Definir orden_ya_facturada Como Logico
+	Dimension factura_numero[100]
+	Dimension factura_nro_orden[100]
+	Dimension factura_dni[100]
+	Dimension factura_patente[100]
+	Dimension factura_fecha[100]
+	Dimension factura_repuestos[100]
+	Dimension factura_horas[100]
+	Dimension factura_valor_hora[100]
+	Dimension factura_mano_obra[100]
+	Dimension factura_subtotal[100]
+	Dimension factura_iva[100]
+	Dimension factura_total[100]
+	cantidad_facturas <- 0
+	nro_factura_siguiente <- 1
+	porcentaje_iva <- 21
 	
 	
-	// --- Carga de datos de prueba ---
+	// --- carga de datos de prueba ---
 	contadorVehiculo <- 5
 	
 	marcaVehiculo[0] <- "Ford"
@@ -146,7 +296,7 @@ Algoritmo Fixly
 	modeloVehiculo[4] <- "Gol"
 	patente[4] <- "AF345KL"
 	dniDueno[4] <- 27888999
-	// --- Fin carga de datos de prueba ---
+	// --- fin carga de datos de prueba ---
 	
 	
 	
@@ -156,129 +306,37 @@ Algoritmo Fixly
 		Segun op Hacer
 			1:
 				// ------------------------------------------------
-				// MODULO CLIENTES - INICIO
+				// modulo clientes - inicio
 				// ------------------------------------------------
-				Si contadorClientes<50 Entonces
-					
-					Escribir "----------------------------------------"
-					Escribir "        Gestion de Clientes"
-					Escribir "----------------------------------------"
-					Escribir "  1 - Ingresar un nuevo cliente"
-					Escribir "  2 - Ver lista de clientes"
-					Escribir "  3 - Quitar un cliente"
-					Escribir "  4 - Modificar datos de un cliente"
-					Escribir "  0 - Volver"
-					Escribir "----------------------------------------"
-					Escribir Sin Saltar "Opcion: "
-					Leer menuClientes
+				Si contadorClientes < 50 Entonces
+					menuClientes <- MostrarMenuClientes
 					Segun menuClientes Hacer
 						1:
-							Escribir "Ingrese los siguientes datos del cliente"
-							Escribir "Nombre del cliente"
-							Leer nombre[contadorClientes]
-							Escribir "Apellido del cliente"
-							Leer apellido[contadorClientes]
-							Escribir "Nro de contacto del cliente"
-							Leer celular[contadorClientes]
-							dni[contadorClientes] <- LeerDni("DNI del cliente (Sin puntos)")
-							contadorClientes<-contadorClientes+1
-							
+							IngresarCliente(nombre, apellido, celular, dni, contadorClientes)
 						2:
-							Escribir "NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
-							Escribir "---------------------------------------------"
-							Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
-								Escribir nombre[i], "|		|", apellido[i], "|		|", celular[i], "|		|", dni[i]
-							FinPara
+							MostrarDatosClientes(nombre, apellido, celular, dni, contadorClientes)
+							Pausa
 						3:
-							Escribir Sin Saltar "Escriba el dni del cliente que desea eliminar"
-							Leer dniEliminar
-							clienteEliminado<-0
-							Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
-								Si dni[i] = dniEliminar Entonces
-									lugarVacio<-i
-									Para j<-lugarVacio Hasta contadorClientes-2 Con Paso 1 Hacer
-										nombre[j]<-nombre[j+1]
-										apellido[j]<-apellido[j+1]
-										celular[j]<-celular[j+1]
-										dni[j]<-dni[j+1]
-									FinPara
-									contadorClientes<-contadorClientes-1
-									clienteEliminado<-1
-								FinSi
-							FinPara
-							Si clienteEliminado=1 Entonces
-								Escribir "Cliente eliminado correctamente"
-							SiNo
-								Escribir "Error: el DNI no se encuentra en el registro"
-							FinSi
+							EliminarCliente(nombre, apellido, celular, dni, contadorClientes)
 						4:
-							Repetir
-								Escribir Sin Saltar "Seleccione el cliente que desea modificar"
-								Escribir "---------------------------------------------"
-								Escribir "Nro", "|		|","NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
-								Escribir "---------------------------------------------"
-								Para i<-0 Hasta contadorClientes-1 Con Paso 1 Hacer
-									Escribir i+1,"|		|", nombre[i], "|		|", apellido[i], "|		|", celular[i], "|		|", dni[i]
-								FinPara
-								Leer datoBusquedaMod
-							Hasta Que datoBusquedaMod>0 y datoBusquedaMod<contadorClientes
-							
-							Escribir "---------------------------------------------"
-							Escribir "Cliente seleccionado"
-							Escribir "---------------------------------------------"
-							Escribir "NOMBRE",  "|		|", "APELLIDO", "|		|", "CELULAR", "|		|", "DNI"
-							Escribir "---------------------------------------------"
-							Escribir nombre[datoBusquedaMod-1], "|		|", apellido[datoBusquedaMod-1], "|		|", celular[datoBusquedaMod-1], "|		|", dni[datoBusquedaMod-1]
-							Escribir "---------------------------------------------"
-							
-							Repetir
-								Escribir "Seleccione que dato desea modificar"
-								Leer datoVehiculoMod
-								Escribir "1) Nombre"
-								Escribir "2) Apellido"
-								Escribir "3) Celular"
-								Escribir "4) DNI"
-							Hasta Que datoVehiculoMod>0 y datoVehiculoMod<5
-							
-							Segun datoVehiculoMod Hacer
-								1:
-									Escribir "Ingrese el dato corregido"
-									Escribir "NOMBRE"
-									Leer nombre[datoBusquedaMod-1]
-								2:
-									Escribir "Ingrese el dato corregido"
-									Escribir "APELLIDO"
-									Leer apellido[datoBusquedaMod-1]
-								3:
-									Escribir "Ingrese el dato corregido"
-									Escribir "CELULAR"
-									Leer celular[datoBusquedaMod-1]
-									
-								4: 	Escribir "Ingrese el dato corregido"
-									Escribir "DNI"
-									Leer dni[datoBusquedaMod-1]
-									
-								De Otro Modo:
-									Escribir "Error: opcion invalida"
-							Fin Segun
-							
+							ModificarCliente(nombre, apellido, celular, dni, contadorClientes)
+						0:
+							Escribir "Volviendo al menu principal..."
 						De Otro Modo:
 							Escribir "Opcion no valida."
-							Escribir Sin Saltar "Presione ENTER para volver al menu principal..."
-							Leer tecla
-					Fin Segun
+							Pausa
+					FinSegun
 				SiNo
-					Escribir "Cantidad maxima de clientes alcanzada"
+					Escribir "Cantidad maxima de clientes alcanzada."
+					Pausa
 				FinSi
-				
-				Pausa
 				// ------------------------------------------------
-				// MODULO CLIENTES - FIN
+				// modulo clientes - fin
 				// ------------------------------------------------
 				
 			2:
 				// ------------------------------------------------
-				// MODULO VEHICULOS - INICIO
+				// modulo vehiculos - inicio
 				// ------------------------------------------------
 				Si contadorVehiculo<50 Entonces
 					
@@ -395,12 +453,12 @@ Algoritmo Fixly
 				
 				Pausa
 				// ------------------------------------------------
-				// MODULO VEHICULOS - FIN
+				// modulo vehiculos - fin
 				// ------------------------------------------------
 				
 			3:
 				// ------------------------------------------------
-				// MODULO ORDENES DE TRABAJO - INICIO
+				// modulo ordenes de trabajo - inicio
 				// ------------------------------------------------
 				Repetir
 					Limpiar Pantalla
@@ -826,12 +884,12 @@ Algoritmo Fixly
 					Mientras Que opcion_ordenes <> 0
 							
 							// ------------------------------------------------
-							// MODULO ORDENES DE TRABAJO - FIN
+							// modulo ordenes de trabajo - fin
 							// ------------------------------------------------
 							
 						4:
 							// ------------------------------------------------
-							// MODULO REPUESTOS - INICIO
+							// modulo repuestos - inicio
 							// ------------------------------------------------
 							Repetir
 								Limpiar Pantalla
@@ -939,37 +997,257 @@ Algoritmo Fixly
 								
 							Mientras Que opcion_repuestos <> 0
 							// ------------------------------------------------
-							// MODULO REPUESTOS - FIN
+							// modulo repuestos - fin
 							// ------------------------------------------------
 							
 						5:
 							// ------------------------------------------------
-							// MODULO FACTURACION - INICIO
+							// modulo facturacion - inicio
 							// ------------------------------------------------
-							Escribir "Facturacion: en construccion"
-							Pausa
+							Repetir
+								Limpiar Pantalla
+								Escribir "=================================="
+								Escribir "     Modulo de facturacion"
+								Escribir "=================================="
+								Escribir "  1 - Emitir factura de una orden"
+								Escribir "  2 - Ver una factura"
+								Escribir "  3 - Listado de facturas emitidas"
+								Escribir "  4 - Facturas de un cliente"
+								Escribir "  0 - Volver al menu principal"
+								Escribir Sin Saltar "Opcion: "
+								Leer opcion_facturacion
+								Segun opcion_facturacion Hacer
+									1:
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "        Emitir factura"
+										Escribir "=================================="
+										Si cantidad_facturas >= 100 Entonces
+											Escribir "Cantidad maxima de facturas alcanzada"
+										SiNo
+											Escribir Sin Saltar "Numero de orden a facturar: "
+											Leer orden_facturar
+							
+											posicion_orden_factura <- BuscarPosicion(orden_numero, cantidad_ordenes, orden_facturar)
+							
+											Si BuscarPosicion(factura_nro_orden, cantidad_facturas, orden_facturar) <> -1 Entonces
+												orden_ya_facturada <- Verdadero
+											SiNo
+												orden_ya_facturada <- Falso
+											FinSi
+							
+											Si posicion_orden_factura = -1 Entonces
+												Escribir "La orden no existe"
+											SiNo
+												Si estado_orden[posicion_orden_factura] <> "Finalizada" Entonces
+													Escribir "La orden todavia esta pendiente."
+													Escribir "Cierrela en el modulo de ordenes (3) antes de facturar."
+												SiNo
+													Si orden_ya_facturada Entonces
+														Escribir "La orden ya fue facturada"
+													SiNo
+														posicion_cliente_factura <- BuscarPosicion(dni, contadorClientes, dni_orden[posicion_orden_factura])
+							
+														Escribir "Orden Nro:  ", orden_numero[posicion_orden_factura]
+														Si posicion_cliente_factura <> -1 Entonces
+															Escribir "Cliente:    ", apellido[posicion_cliente_factura], " ", nombre[posicion_cliente_factura]
+														FinSi
+														Escribir "DNI:        ", dni_orden[posicion_orden_factura]
+														Escribir "Patente:    ", patente_orden[posicion_orden_factura]
+														Escribir "Falla:      ", descripcion_orden[posicion_orden_factura]
+														Escribir "----------------------------------"
+														Escribir "Repuestos utilizados:"
+														total_repuestos_calc <- 0
+														Para i <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
+															Si detalle_nro_orden[i] = orden_numero[posicion_orden_factura] Entonces
+																Escribir "  ", detalle_cod_repuesto[i], " x ", detalle_cantidad[i], " = $", detalle_precio_unitario[i] * detalle_cantidad[i]
+																total_repuestos_calc <- total_repuestos_calc + detalle_precio_unitario[i] * detalle_cantidad[i]
+															FinSi
+														FinPara
+														Si total_repuestos_calc = 0 Entonces
+															Escribir "  (sin repuestos)"
+														FinSi
+														Escribir "----------------------------------"
+							
+														Repetir
+															Escribir Sin Saltar "Horas de mano de obra: "
+															Leer horas_ingresadas
+															Si horas_ingresadas <= 0 Entonces
+																Escribir "Las horas deben ser mayores a cero"
+															FinSi
+														Hasta Que horas_ingresadas > 0
+														Repetir
+															Escribir Sin Saltar "Valor de la hora de trabajo: $"
+															Leer valor_hora_ingresado
+															Si valor_hora_ingresado <= 0 Entonces
+																Escribir "El valor debe ser mayor a cero"
+															FinSi
+														Hasta Que valor_hora_ingresado > 0
+														Escribir Sin Saltar "Fecha de emision (DD/MM/AAAA): "
+														Leer fecha_factura_ingresada
+							
+														mano_obra_calc <- horas_ingresadas * valor_hora_ingresado
+														subtotal_calc <- total_repuestos_calc + mano_obra_calc
+														// iva redondeado a centavos
+														iva_calc <- redon(subtotal_calc * porcentaje_iva) / 100
+														total_calc <- subtotal_calc + iva_calc
+							
+														Escribir "=================================="
+														Escribir "Repuestos:        $", total_repuestos_calc
+														Escribir "Mano de obra:     $", mano_obra_calc, " (", horas_ingresadas, " hs x $", valor_hora_ingresado, ")"
+														Escribir "Subtotal:         $", subtotal_calc
+														Escribir "IVA ", porcentaje_iva, "%:          $", iva_calc
+														Escribir "TOTAL:            $", total_calc
+														Escribir "=================================="
+														Escribir Sin Saltar "Confirmar emision de la factura? (S/N): "
+														Leer confirma_factura
+							
+														Si confirma_factura = "S" o confirma_factura = "s" Entonces
+															factura_numero[cantidad_facturas] <- nro_factura_siguiente
+															factura_nro_orden[cantidad_facturas] <- orden_numero[posicion_orden_factura]
+															factura_dni[cantidad_facturas] <- dni_orden[posicion_orden_factura]
+															factura_patente[cantidad_facturas] <- patente_orden[posicion_orden_factura]
+															factura_fecha[cantidad_facturas] <- fecha_factura_ingresada
+															factura_repuestos[cantidad_facturas] <- total_repuestos_calc
+															factura_horas[cantidad_facturas] <- horas_ingresadas
+															factura_valor_hora[cantidad_facturas] <- valor_hora_ingresado
+															factura_mano_obra[cantidad_facturas] <- mano_obra_calc
+															factura_subtotal[cantidad_facturas] <- subtotal_calc
+															factura_iva[cantidad_facturas] <- iva_calc
+															factura_total[cantidad_facturas] <- total_calc
+															cantidad_facturas <- cantidad_facturas + 1
+															nro_factura_siguiente <- nro_factura_siguiente + 1
+															Escribir "Factura Nro ", factura_numero[cantidad_facturas - 1], " emitida correctamente"
+														SiNo
+															Escribir "Emision cancelada."
+														FinSi
+													FinSi
+												FinSi
+											FinSi
+										FinSi
+										Pausa
+									2:
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "          Ver factura"
+										Escribir "=================================="
+										Escribir Sin Saltar "Numero de factura: "
+										Leer factura_buscar
+							
+										posicion_factura <- BuscarPosicion(factura_numero, cantidad_facturas, factura_buscar)
+							
+										Si posicion_factura = -1 Entonces
+											Escribir "La factura no existe"
+										SiNo
+											posicion_cliente_factura <- BuscarPosicion(dni, contadorClientes, factura_dni[posicion_factura])
+							
+											Limpiar Pantalla
+											Escribir "=================================="
+											Escribir "  FIXLY - Taller mecanico"
+											Escribir "  FACTURA Nro ", factura_numero[posicion_factura]
+											Escribir "=================================="
+											Escribir "Fecha:      ", factura_fecha[posicion_factura]
+											Escribir "Orden Nro:  ", factura_nro_orden[posicion_factura]
+											Si posicion_cliente_factura <> -1 Entonces
+												Escribir "Cliente:    ", apellido[posicion_cliente_factura], " ", nombre[posicion_cliente_factura]
+											FinSi
+											Escribir "DNI:        ", factura_dni[posicion_factura]
+											Escribir "Patente:    ", factura_patente[posicion_factura]
+											Escribir "----------------------------------"
+											Escribir "Repuestos:"
+											Para i <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
+												Si detalle_nro_orden[i] = factura_nro_orden[posicion_factura] Entonces
+													Escribir "  ", detalle_cod_repuesto[i], " x ", detalle_cantidad[i], " = $", detalle_precio_unitario[i] * detalle_cantidad[i]
+												FinSi
+											FinPara
+											Escribir "----------------------------------"
+											Escribir "Repuestos:        $", factura_repuestos[posicion_factura]
+											Escribir "Mano de obra:     $", factura_mano_obra[posicion_factura], " (", factura_horas[posicion_factura], " hs x $", factura_valor_hora[posicion_factura], ")"
+											Escribir "Subtotal:         $", factura_subtotal[posicion_factura]
+											Escribir "IVA ", porcentaje_iva, "%:          $", factura_iva[posicion_factura]
+											Escribir "TOTAL:            $", factura_total[posicion_factura]
+											Escribir "=================================="
+										FinSi
+										Pausa
+									3:
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "      Facturas emitidas"
+										Escribir "=================================="
+										Si cantidad_facturas = 0 Entonces
+											Escribir "No hay facturas emitidas"
+										SiNo
+											total_facturado <- 0
+											Escribir "NRO", "|		|", "ORDEN", "|		|", "FECHA", "|		|", "PATENTE", "|		|", "TOTAL"
+											Escribir "---------------------------------------------"
+											Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
+												Escribir factura_numero[i], "|		|", factura_nro_orden[i], "|		|", factura_fecha[i], "|		|", factura_patente[i], "|		|", "$", factura_total[i]
+												total_facturado <- total_facturado + factura_total[i]
+											FinPara
+											Escribir "---------------------------------------------"
+											Escribir "Facturas emitidas: ", cantidad_facturas
+											Escribir "Total facturado:   $", total_facturado
+										FinSi
+										Pausa
+									4:
+										Limpiar Pantalla
+										Escribir "=================================="
+										Escribir "     Facturas de un cliente"
+										Escribir "=================================="
+										Escribir Sin Saltar "DNI del cliente: "
+										Leer dni_factura_buscar
+							
+										facturas_encontradas <- 0
+										total_facturado <- 0
+										Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
+											Si factura_dni[i] = dni_factura_buscar Entonces
+												Si facturas_encontradas = 0 Entonces
+													Escribir "NRO", "|		|", "ORDEN", "|		|", "FECHA", "|		|", "PATENTE", "|		|", "TOTAL"
+													Escribir "---------------------------------------------"
+												FinSi
+												Escribir factura_numero[i], "|		|", factura_nro_orden[i], "|		|", factura_fecha[i], "|		|", factura_patente[i], "|		|", "$", factura_total[i]
+												facturas_encontradas <- facturas_encontradas + 1
+												total_facturado <- total_facturado + factura_total[i]
+											FinSi
+										FinPara
+							
+										Si facturas_encontradas = 0 Entonces
+											Escribir "No hay facturas para el DNI ", dni_factura_buscar
+										SiNo
+											Escribir "---------------------------------------------"
+											Escribir "Facturas del cliente: ", facturas_encontradas
+											Escribir "Total facturado:      $", total_facturado
+										FinSi
+										Pausa
+									0:
+										Escribir "Volviendo al menu principal..."
+									De Otro Modo:
+										Escribir "Opcion no valida."
+										Pausa
+								FinSegun
+							Mientras Que opcion_facturacion <> 0
 							// ------------------------------------------------
-							// MODULO FACTURACION - FIN
+							// modulo facturacion - fin
 							// ------------------------------------------------
 							
 						6:
 							// ------------------------------------------------
-							// MODULO HISTORIAL DE REPARACIONES - INICIO
+							// modulo historial de reparaciones - inicio
 							// ------------------------------------------------
 							Escribir "Historial de reparaciones: en construccion"
 							Pausa
 							// ------------------------------------------------
-							// MODULO HISTORIAL DE REPARACIONES - FIN
+							// modulo historial de reparaciones - fin
 							// ------------------------------------------------
 							
 						7:
 							// ------------------------------------------------
-							// MODULO USUARIOS - INICIO
+							// modulo usuarios - inicio
 							// ------------------------------------------------
 							Escribir "Usuarios: en construccion"
 							Pausa
 							// ------------------------------------------------
-							// MODULO USUARIOS - FIN
+							// modulo usuarios - fin
 							// ------------------------------------------------
 							
 						0:
