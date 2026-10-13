@@ -6,9 +6,58 @@
 // del archivo: si hace falta un cambio afuera, se avisa al grupo.
 // =====================================================================
 
+// ---------------------------------------------------------------------
+// Principal: muestra el menu principal y devuelve la opcion elegida
+// ---------------------------------------------------------------------
+Funcion opcionElegida <- MenuPrincipal
+	Limpiar Pantalla
+	definir opcionElegida Como Entero
+	Escribir "============================================"
+	Escribir "        FIXLY - Gestion de taller"
+	Escribir "============================================"
+	Escribir "  1 - Clientes"
+	Escribir "  2 - Vehiculos"
+	Escribir "  3 - Ordenes de trabajo"
+	Escribir "  4 - Repuestos"
+	Escribir "  5 - Facturacion"
+	Escribir "  6 - Historial de reparaciones"
+	Escribir "  7 - Usuarios"
+	Escribir "  0 - Salir"
+	Escribir "============================================"
+	Escribir Sin Saltar "Opcion: "
+	Leer opcionElegida
+FinFuncion
+
+Funcion Pausa
+	Definir teclaPausa Como Caracter
+	Escribir Sin Saltar "Presione ENTER para continuar..."
+	Leer teclaPausa
+FinFuncion
+
+Funcion dniLeido <- LeerDni(mensaje)
+	Definir dniLeido Como Entero
+	Repetir
+		Escribir mensaje
+		Leer dniLeido
+		Si dniLeido <= 0 o dniLeido >= 100000000 Entonces
+			Escribir "Valor de DNI invalido"
+		FinSi
+	Mientras Que dniLeido <= 0 o dniLeido >= 100000000
+FinFuncion
+
+Funcion posicion <- BuscarPosicion(lista, cantidad, buscado)
+	Definir posicion, indice Como Entero
+	posicion <- -1
+	Para indice <- 0 Hasta cantidad - 1 Con Paso 1 Hacer
+		Si lista[indice] = buscado Entonces
+			posicion <- indice
+		FinSi
+	FinPara
+FinFuncion
+
 Algoritmo Fixly
 	
-	Definir opcion Como Entero
+	Definir opcion, op Como Entero
 	Definir tecla Como Caracter
 	Definir i, j Como Entero
 	
@@ -44,6 +93,7 @@ Algoritmo Fixly
 	Definir cantidad_ordenes, cantidad_detalles, nro_orden_siguiente, cantidad_repuestos_ot, k, dni_orden, opcion_modificar_ot Como Entero
 	Definir posicion_repuesto_modificar, detalle_cantidad, detalle_nro_orden, posicion_detalle Como Entero
 	Definir detalle_precio_unitario Como Real
+	Definir tiene_repuestos Como Entero
 	Definir patente_buscar, confirma_repuesto, falla_detalle, nombre_repuesto_buscar, fecha_inicio, fecha_fin, fecha_entrega, patente_orden, estado_orden Como Caracter
 	Definir descripcion_orden, diagnostico_orden, nombre_repuesto_modificar, detalle_cod_repuesto, codigo_quitar Como Caracter
 	Definir encontrado_detalle Como Logico
@@ -101,23 +151,9 @@ Algoritmo Fixly
 	
 	
 	Repetir
-		Limpiar Pantalla
-		Escribir "============================================"
-		Escribir "        FIXLY - Gestion de taller"
-		Escribir "============================================"
-		Escribir "  1 - Clientes"
-		Escribir "  2 - Vehiculos"
-		Escribir "  3 - Ordenes de trabajo"
-		Escribir "  4 - Repuestos"
-		Escribir "  5 - Facturacion"
-		Escribir "  6 - Historial de reparaciones"
-		Escribir "  7 - Usuarios"
-		Escribir "  0 - Salir"
-		Escribir "============================================"
-		Escribir Sin Saltar "Opcion: "
-		Leer opcion
+		op <- MenuPrincipal
 		
-		Segun opcion Hacer
+		Segun op Hacer
 			1:
 				// ------------------------------------------------
 				// MODULO CLIENTES - INICIO
@@ -144,13 +180,7 @@ Algoritmo Fixly
 							Leer apellido[contadorClientes]
 							Escribir "Nro de contacto del cliente"
 							Leer celular[contadorClientes]
-							Repetir
-								Escribir "DNI del cliente (Sin puntos)"
-								Leer dni[contadorClientes]
-								Si (dni[contadorClientes]<=0) o (dni[contadorClientes]>=100000000) Entonces
-									Escribir "Valor de DNI invalido"
-								FinSi
-							Mientras Que dni[contadorClientes]<=0 o dni[contadorClientes]>=100000000
+							dni[contadorClientes] <- LeerDni("DNI del cliente (Sin puntos)")
 							contadorClientes<-contadorClientes+1
 							
 						2:
@@ -241,8 +271,7 @@ Algoritmo Fixly
 					Escribir "Cantidad maxima de clientes alcanzada"
 				FinSi
 				
-				Escribir Sin Saltar "Presione ENTER para continuar..."
-				Leer tecla
+				Pausa
 				// ------------------------------------------------
 				// MODULO CLIENTES - FIN
 				// ------------------------------------------------
@@ -273,13 +302,7 @@ Algoritmo Fixly
 							Leer modeloVehiculo[contadorVehiculo]
 							Escribir "Patente del vehiculo"
 							Leer patente[contadorVehiculo]
-							Repetir
-								Escribir "DNI dueno del vehiculo (Sin puntos)"
-								Leer dniDueno[contadorVehiculo]
-								Si (dniDueno[contadorVehiculo]<=0) o (dniDueno[contadorVehiculo]>=100000000) Entonces
-									Escribir "Valor de DNI invalido"
-								FinSi
-							Mientras Que dniDueno[contadorVehiculo]<=0 o dniDueno[contadorVehiculo]>=100000000
+							dniDueno[contadorVehiculo] <- LeerDni("DNI dueno del vehiculo (Sin puntos)")
 							contadorVehiculo<-contadorVehiculo+1
 							
 						2:
@@ -370,8 +393,7 @@ Algoritmo Fixly
 					Escribir "Cantidad maxima de vehiculos alcanzados"
 				FinSi
 				
-				Escribir Sin Saltar "Presione ENTER para continuar..."
-				Leer tecla
+				Pausa
 				// ------------------------------------------------
 				// MODULO VEHICULOS - FIN
 				// ------------------------------------------------
@@ -398,14 +420,7 @@ Algoritmo Fixly
 							Escribir "Ingrese los siguientes datos de la orden"
 							Escribir "DNI del cliente:"
 							Leer dni_buscar
-							posicion_cliente <- -1
-							Para i <-0 Hasta contadorClientes -1 Con Paso 1 Hacer
-								
-								Si dni_buscar = dni[i] Entonces
-									posicion_cliente <- i
-									
-								FinSi
-							FinPara
+							posicion_cliente <- BuscarPosicion(dni, contadorClientes, dni_buscar)
 							
 							Si posicion_cliente = -1 Entonces
 								Escribir "El DNI no existe en la base. Ingrese los datos del cliente en el módulo correspondiente"
@@ -420,36 +435,26 @@ Algoritmo Fixly
 								Escribir "Celular: ", celular[posicion_cliente]
 								Escribir "=================================="
 								
-								Escribir Sin Saltar "Presione ENTER para continuar..."
-								Leer tecla
+								Pausa
 								Escribir "=================================="
 								Escribir "Buscar patente del vehículo:"
 								Escribir "=================================="
 								Escribir Sin Saltar "Patente del auto:"
 								Leer patente_buscar
 								
-								posicion_vehiculo <- -1
-								Para i <-0 Hasta contadorVehiculo -1 Con Paso 1 Hacer
-									
-									Si patente_buscar = patente[i] Entonces
-										posicion_vehiculo <- i
-										
-									FinSi
-								FinPara
+								posicion_vehiculo <- BuscarPosicion(patente, contadorVehiculo, patente_buscar)
 								
 								Si posicion_vehiculo = -1 Entonces
 									Escribir "La patente no existe en la base"
 									Escribir "Ingrese los datos del auto en el módulo correspondiente"
-									Escribir "Presione ENTER para continuar..."
-									Leer tecla
+									Pausa
 								SiNo
 									Si dniDueno[posicion_vehiculo] <> dni_buscar Entonces
 										Escribir "Buscando datos..."
 										Esperar 1 segundos
 										Escribir "Error, la patente no coincide con el dni buscado"
 										Escribir "Vuelva a ingresar los datos"
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 									SiNo
 										
 										Escribir "Buscando datos..."
@@ -461,8 +466,7 @@ Algoritmo Fixly
 										Escribir "Modelo: ", modeloVehiculo[posicion_vehiculo]
 										Escribir "Patente: ", patente[posicion_vehiculo]
 										Escribir "=================================="
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 									FinSi
 									Escribir "=================================="
 									fecha_inicio[cantidad_ordenes] <- "Hoy"
@@ -487,17 +491,11 @@ Algoritmo Fixly
 									Mientras confirma_repuesto = "S" o confirma_repuesto = "s" Hacer
 										Escribir Sin Saltar "Ingrese el nombre del repuesto: "
 										Leer nombre_repuesto_buscar
-										posicion_repuesto <- -1
-										Para i <-0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
-											Si nombre_repuesto_buscar = nombreRepuesto[i]  Entonces
-												posicion_repuesto <- i
-											FinSi
-										FinPara
+										posicion_repuesto <- BuscarPosicion(nombreRepuesto, cantidad_repuestos, nombre_repuesto_buscar)
 										Si posicion_repuesto = -1 Entonces
 											Escribir  "El nombre del repuesto no existe"
 											Escribir "Ingrese los datos del repuesto en el módulo 4"
-											Escribir "Presione ENTER para continuar..."
-											Leer tecla
+											Pausa
 										SiNo
 											Escribir "Repuesto: ", codigo[posicion_repuesto]
 											Escribir "Nombre: ", nombreRepuesto[posicion_repuesto]
@@ -536,8 +534,7 @@ Algoritmo Fixly
 									Escribir "=================================="
 									Escribir "Orden Nro ", orden_numero[cantidad_ordenes - 1], " creada exitosamente"
 									Escribir "=================================="
-									Escribir Sin Saltar "Presione ENTER para continuar..."
-									Leer tecla
+									Pausa
 								FinSi
 							FinSi
 							
@@ -547,12 +544,7 @@ Algoritmo Fixly
 							Escribir "Modificar orden"
 							Escribir "Ingrese el número de la orden: "
 							Leer orden_buscar
-							posicion_orden <- -1
-							Para i <-0 Hasta cantidad_ordenes -1 Con Paso 1 Hacer
-								Si orden_buscar = orden_numero[i] Entonces
-									posicion_orden <- i
-								FinSi
-							FinPara
+							posicion_orden <- BuscarPosicion(orden_numero, cantidad_ordenes, orden_buscar)
 							
 							
 							Si estado_orden[posicion_orden] = 'Finalizada' Entonces
@@ -578,8 +570,7 @@ Algoritmo Fixly
 										Si cantidad_repuestos = 0 Entonces
 											Escribir "No hay repuestos cargados en el sistema."
 											Escribir "Cargue repuestos en el modulo 4."
-											Escribir Sin Saltar "Presione ENTER para continuar..."
-											Leer tecla
+											Pausa
 										SiNo
 											Escribir "Repuestos disponibles:"
 											Escribir "=================================="
@@ -589,18 +580,12 @@ Algoritmo Fixly
 											Escribir "=================================="
 											Escribir "Ingrese el repuesto "
 											Leer nombre_repuesto_modificar
-											posicion_repuesto_modificar <- -1
-											Para i <- 0 Hasta cantidad_repuestos -1 Con Paso 1 Hacer
-												Si nombre_repuesto_modificar = nombreRepuesto[i] Entonces
-													posicion_repuesto_modificar <- i
-												FinSi	
-											FinPara
+											posicion_repuesto_modificar <- BuscarPosicion(nombreRepuesto, cantidad_repuestos, nombre_repuesto_modificar)
 											
 											Si posicion_repuesto_modificar = -1 Entonces
 												Escribir "El repuesto no existe"
 												Escribir "Cargue stock en el módulo repuestos (4)"
-												Escribir Sin Saltar "Presione ENTER para continuar..."
-												Leer tecla
+												Pausa
 											SiNo
 												Escribir "Repuesto: ", codigo[posicion_repuesto_modificar]
 												Escribir "Nombre: ", nombreRepuesto[posicion_repuesto_modificar]
@@ -627,8 +612,7 @@ Algoritmo Fixly
 													FinSi
 												FinSi
 											FinSi
-											Escribir Sin Saltar "Presione ENTER para continuar..."
-											Leer tecla
+											Pausa
 										FinSi
 										
 										
@@ -649,8 +633,7 @@ Algoritmo Fixly
 										
 										Si tiene_repuestos = 0 Entonces
 											Escribir "Esta orden no tiene repuestos cargados."
-											Escribir Sin Saltar "Presione ENTER para continuar..."
-											Leer tecla
+											Pausa
 										SiNo
 											
 											Escribir "Repuestos en la orden:"
@@ -677,8 +660,7 @@ Algoritmo Fixly
 											Si posicion_detalle = -1 Entonces
 												Escribir "El repuesto no esta en esta orden."
 												Escribir "Verifique el codigo ingresado."
-												Escribir Sin Saltar "Presione ENTER para continuar..."
-												Leer tecla
+												Pausa
 											SiNo
 												
 												Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
@@ -699,8 +681,7 @@ Algoritmo Fixly
 												cantidad_detalles <- cantidad_detalles - 1
 												
 												Escribir "Repuesto quitado. Stock restaurado."
-												Escribir Sin Saltar "Presione ENTER para continuar..."
-												Leer tecla
+												Pausa
 											FinSi
 										FinSi
 										
@@ -732,18 +713,15 @@ Algoritmo Fixly
 											Escribir "  ", descripcion_orden[posicion_orden]
 											Escribir "=================================="
 										FinSi
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 										
 										
 									0:
 										Escribir "Volviendo al menu anterior..."	
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 									De Otro Modo:
 										Escribir "Valor no válido (ingrese del 0 al 3)"
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 								FinSegun
 							Mientras Que opcion_modificar_ot <> 0
 							3:
@@ -754,17 +732,11 @@ Algoritmo Fixly
 								Escribir Sin Saltar "Patente del vehiculo: "
 								Leer patente_buscar
 								
-								posicion_orden <- -1
-								Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
-									Si patente_buscar = patente_orden[i] Entonces
-										posicion_orden <- i
-									FinSi
-								FinPara
+								posicion_orden <- BuscarPosicion(patente_orden, cantidad_ordenes, patente_buscar)
 								
 								Si posicion_orden = -1 Entonces
 									Escribir "No hay orden registrada para la patente ", patente_buscar
-									Escribir Sin Saltar "Presione ENTER para continuar..."
-									Leer tecla
+									Pausa
 								SiNo
 									Limpiar Pantalla
 									Escribir "=================================="
@@ -784,8 +756,7 @@ Algoritmo Fixly
 										FinSi
 									FinPara
 									Escribir "=================================="
-									Escribir Sin Saltar "Presione ENTER para continuar..."
-									Leer tecla
+									Pausa
 								FinSi
 								
 							4:
@@ -796,17 +767,11 @@ Algoritmo Fixly
 								Escribir Sin Saltar "Patente del vehiculo: "
 								Leer patente_buscar
 								
-								posicion_orden <- -1
-								Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
-									Si patente_buscar = patente_orden[i] Entonces
-										posicion_orden <- i
-									FinSi
-								FinPara
+								posicion_orden <- BuscarPosicion(patente_orden, cantidad_ordenes, patente_buscar)
 								
 								Si posicion_orden = -1 Entonces
 									Escribir "No hay orden registrada para la patente ", patente_buscar
-									Escribir Sin Saltar "Presione ENTER para continuar..."
-									Leer tecla
+									Pausa
 								SiNo
 									
 									Limpiar Pantalla
@@ -843,24 +808,20 @@ Algoritmo Fixly
 										Escribir "=================================="
 										Escribir "La orden esta lista para facturacion."
 										Escribir "=================================="
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 									SiNo
 										Escribir "Cierre cancelado."
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 									FinSi
 								FinSi
 								
 							0:
 								Escribir "Volviendo al menu anterior..."	
-								Escribir Sin Saltar "Presione ENTER para continuar..."
-								Leer tecla
+								Pausa
 								
 							De Otro Modo:
 								Escribir "Opcion no valida"
-								Escribir Sin Saltar "Presione ENTER para continuar..."
-								Leer tecla
+								Pausa
 						FinSegun
 					Mientras Que opcion_ordenes <> 0
 							
@@ -904,17 +865,11 @@ Algoritmo Fixly
 										SiNo
 											Escribir "Stock completo"
 										FinSi
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 									2:
 										Escribir "Seleccionar codigo para eliminar"
 										Leer codigo_buscar
-										posicion_encontrada <- -1
-										Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
-											Si codigo_buscar = codigo[i] Entonces
-												posicion_encontrada <- i
-											FinSi
-										FinPara
+										posicion_encontrada <- BuscarPosicion(codigo, cantidad_repuestos, codigo_buscar)
 										
 										Si posicion_encontrada <> -1 Entonces
 											Para j <- posicion_encontrada Hasta cantidad_repuestos - 2 Con Paso 1 Hacer
@@ -928,18 +883,11 @@ Algoritmo Fixly
 										SiNo
 											Escribir "El codigo no existe"
 										FinSi
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 									3:
 										Escribir "Ingrese el nombre del repuesto: "
 										Leer nombre_buscar
-										posicion_encontrada <- -1
-										
-										Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
-											Si nombre_buscar = nombreRepuesto[i] Entonces
-												posicion_encontrada <- i
-											FinSi
-										FinPara
+										posicion_encontrada <- BuscarPosicion(nombreRepuesto, cantidad_repuestos, nombre_buscar)
 										
 										Si posicion_encontrada <> -1 Entonces
 											Escribir " ", codigo[posicion_encontrada]
@@ -949,18 +897,11 @@ Algoritmo Fixly
 										SiNo
 											Escribir "Repuesto no encontrado"
 										FinSi
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 									4:
 										Escribir "Ingrese el nombre del repuesto: "
 										Leer nombre_buscar
-										posicion_encontrada <- -1
-										
-										Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
-											Si nombre_buscar = nombreRepuesto[i] Entonces
-												posicion_encontrada <- i
-											FinSi
-										FinPara
+										posicion_encontrada <- BuscarPosicion(nombreRepuesto, cantidad_repuestos, nombre_buscar)
 										
 										Si posicion_encontrada <> -1 Entonces
 											Escribir "Ingrese el precio nuevo: "
@@ -970,8 +911,7 @@ Algoritmo Fixly
 										SiNo
 											Escribir "Repuesto no encontrado"
 										FinSi
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 										
 									5:
 										Escribir "Listado de repuestos"
@@ -988,14 +928,12 @@ Algoritmo Fixly
 												Escribir "----------------------------------"
 											FinPara
 										FinSi
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 									0:
 										Escribir "Volviendo al menu principal..."
 									De Otro Modo:
 										Escribir "Opcion no valida."
-										Escribir Sin Saltar "Presione ENTER para continuar..."
-										Leer tecla
+										Pausa
 										
 								FinSegun
 								
@@ -1009,8 +947,7 @@ Algoritmo Fixly
 							// MODULO FACTURACION - INICIO
 							// ------------------------------------------------
 							Escribir "Facturacion: en construccion"
-							Escribir Sin Saltar "Presione ENTER para continuar..."
-							Leer tecla
+							Pausa
 							// ------------------------------------------------
 							// MODULO FACTURACION - FIN
 							// ------------------------------------------------
@@ -1020,8 +957,7 @@ Algoritmo Fixly
 							// MODULO HISTORIAL DE REPARACIONES - INICIO
 							// ------------------------------------------------
 							Escribir "Historial de reparaciones: en construccion"
-							Escribir Sin Saltar "Presione ENTER para continuar..."
-							Leer tecla
+							Pausa
 							// ------------------------------------------------
 							// MODULO HISTORIAL DE REPARACIONES - FIN
 							// ------------------------------------------------
@@ -1031,8 +967,7 @@ Algoritmo Fixly
 							// MODULO USUARIOS - INICIO
 							// ------------------------------------------------
 							Escribir "Usuarios: en construccion"
-							Escribir Sin Saltar "Presione ENTER para continuar..."
-							Leer tecla
+							Pausa
 							// ------------------------------------------------
 							// MODULO USUARIOS - FIN
 							// ------------------------------------------------
@@ -1042,10 +977,9 @@ Algoritmo Fixly
 							
 						De Otro Modo:
 							Escribir "Opcion no valida."
-							Escribir Sin Saltar "Presione ENTER para continuar..."
-							Leer tecla
+							Pausa
 					FinSegun
 					
-				Hasta Que opcion = 0
+				Hasta Que op = 0
 
 FinAlgoritmo
