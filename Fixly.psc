@@ -127,6 +127,7 @@ Funcion opcion <- MostrarMenuClientes
 FinFuncion
 
 Funcion IngresarCliente(nombre, apellido, celular, dni, contadorClientes Por Referencia)
+	Definir dniNuevo, posDniExistente Como Entero
 	Limpiar Pantalla
 	Escribir "=================================================================="
 	Escribir "                     REGISTRAR NUEVO CLIENTE                      "
@@ -143,7 +144,14 @@ Funcion IngresarCliente(nombre, apellido, celular, dni, contadorClientes Por Ref
 		Leer apellido[contadorClientes]
 		Escribir Sin Saltar "Nro de contacto / Celular: "
 		Leer celular[contadorClientes]
-		dni[contadorClientes] <- LeerDni("DNI del cliente (Sin puntos): ")
+		Repetir
+			dniNuevo <- LeerDni("DNI del cliente (Sin puntos): ")
+			posDniExistente <- BuscarPosicion(dni, contadorClientes, dniNuevo)
+			Si posDniExistente <> -1 Entonces
+				Escribir "  [!] Ya existe un cliente registrado con el DNI ", dniNuevo, " (", apellido[posDniExistente], " ", nombre[posDniExistente], ")."
+			FinSi
+		Hasta Que posDniExistente = -1
+		dni[contadorClientes] <- dniNuevo
 		contadorClientes <- contadorClientes + 1
 		Escribir "------------------------------------------------------------------"
 		Escribir "[OK] Cliente registrado correctamente en el sistema."
@@ -230,7 +238,7 @@ Funcion opcion <- PedirCampoCliente
 FinFuncion
 
 Funcion ModificarCliente(nombre, apellido, celular, dni, contadorClientes)
-	Definir datoBusquedaMod, datoCampoMod Como Entero
+	Definir datoBusquedaMod, datoCampoMod, dniNuevo, posDniExistente Como Entero
 	Si contadorClientes = 0 Entonces
 		Limpiar Pantalla
 		Escribir "=================================================================="
@@ -261,7 +269,14 @@ Funcion ModificarCliente(nombre, apellido, celular, dni, contadorClientes)
 				Escribir Sin Saltar "Ingrese el nuevo CELULAR: "
 				Leer celular[datoBusquedaMod - 1]
 			4:
-				dni[datoBusquedaMod - 1] <- LeerDni("Ingrese el nuevo DNI: ")
+				Repetir
+					dniNuevo <- LeerDni("Ingrese el nuevo DNI: ")
+					posDniExistente <- BuscarPosicion(dni, contadorClientes, dniNuevo)
+					Si posDniExistente <> -1 Y posDniExistente <> datoBusquedaMod - 1 Entonces
+						Escribir "  [!] Ya existe un cliente registrado con el DNI ", dniNuevo, " (", apellido[posDniExistente], " ", nombre[posDniExistente], ")."
+					FinSi
+				Hasta Que posDniExistente = -1 o posDniExistente = datoBusquedaMod - 1
+				dni[datoBusquedaMod - 1] <- dniNuevo
 		FinSegun
 		Escribir "------------------------------------------------------------------"
 		Escribir "[OK] Dato del cliente actualizado correctamente."
@@ -589,13 +604,17 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 									Si cantidad_repuestos_ot > stock[posicion_repuesto] Entonces
 										Escribir "  [!] Stock insuficiente. Disponible: ", stock[posicion_repuesto]
 									SiNo
-										detalle_nro_orden[cantidad_detalles] <- orden_numero[cantidad_ordenes]
-										detalle_cod_repuesto[cantidad_detalles] <- codigo[posicion_repuesto]
-										detalle_cantidad[cantidad_detalles] <- cantidad_repuestos_ot
-										detalle_precio_unitario[cantidad_detalles] <- precio[posicion_repuesto]
-										stock[posicion_repuesto] <- stock[posicion_repuesto] - cantidad_repuestos_ot
-										cantidad_detalles <- cantidad_detalles + 1
-										Escribir "  [OK] Repuesto asignado a la orden y descontado del stock."
+										Si cantidad_detalles >= 300 Entonces
+											Escribir "  [!] Limite maximo de repuestos asignados a ordenes alcanzado (300)."
+										SiNo
+											detalle_nro_orden[cantidad_detalles] <- orden_numero[cantidad_ordenes]
+											detalle_cod_repuesto[cantidad_detalles] <- codigo[posicion_repuesto]
+											detalle_cantidad[cantidad_detalles] <- cantidad_repuestos_ot
+											detalle_precio_unitario[cantidad_detalles] <- precio[posicion_repuesto]
+											stock[posicion_repuesto] <- stock[posicion_repuesto] - cantidad_repuestos_ot
+											cantidad_detalles <- cantidad_detalles + 1
+											Escribir "  [OK] Repuesto asignado a la orden y descontado del stock."
+										FinSi
 									FinSi
 								FinSi
 							FinSi
@@ -712,13 +731,17 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 								Si cantidad_repuestos_ot > stock[posicion_repuesto_modificar] Entonces
 									Escribir "  [!] Stock insuficiente en inventario."
 								SiNo
-									detalle_nro_orden[cantidad_detalles] <- orden_numero[posicion_orden]
-									detalle_cod_repuesto[cantidad_detalles] <- codigo[posicion_repuesto_modificar]
-									detalle_cantidad[cantidad_detalles] <- cantidad_repuestos_ot
-									detalle_precio_unitario[cantidad_detalles] <- precio[posicion_repuesto_modificar]
-									cantidad_detalles <- cantidad_detalles + 1
-									stock[posicion_repuesto_modificar] <- stock[posicion_repuesto_modificar] - cantidad_repuestos_ot
-									Escribir "  [OK] Repuesto agregado y descontado del stock general."
+									Si cantidad_detalles >= 300 Entonces
+										Escribir "  [!] Limite maximo de repuestos asignados a ordenes alcanzado (300)."
+									SiNo
+										detalle_nro_orden[cantidad_detalles] <- orden_numero[posicion_orden]
+										detalle_cod_repuesto[cantidad_detalles] <- codigo[posicion_repuesto_modificar]
+										detalle_cantidad[cantidad_detalles] <- cantidad_repuestos_ot
+										detalle_precio_unitario[cantidad_detalles] <- precio[posicion_repuesto_modificar]
+										cantidad_detalles <- cantidad_detalles + 1
+										stock[posicion_repuesto_modificar] <- stock[posicion_repuesto_modificar] - cantidad_repuestos_ot
+										Escribir "  [OK] Repuesto agregado y descontado del stock general."
+									FinSi
 								FinSi
 							FinSi
 						FinSi
