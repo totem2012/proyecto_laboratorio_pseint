@@ -29,7 +29,7 @@ Funcion dniLeido <- LeerDni(mensaje)
 		Escribir mensaje
 		Leer dniLeido
 		Si dniLeido <= 0 o dniLeido >= 100000000 Entonces
-			Escribir "Valor de DNI invalido"
+			Escribir "Valor de DNI inválido"
 		FinSi
 	Mientras Que dniLeido <= 0 o dniLeido >= 100000000
 FinFuncion
@@ -51,7 +51,7 @@ Funcion opcion <- MostrarMenuClientes
 	Limpiar Pantalla
 	Definir opcion Como Entero
 	Escribir "=================================================================="
-	Escribir "                       GESTION DE CLIENTES                        "
+	Escribir "                       GESTIÓN DE CLIENTES                        "
 	Escribir "=================================================================="
 	Escribir "  [1] Ingresar un nuevo cliente"
 	Escribir "  [2] Ver lista de clientes"
@@ -60,7 +60,7 @@ Funcion opcion <- MostrarMenuClientes
 	Escribir "  ----------------------------------------------------------------"
 	Escribir "  [0] Volver al menu principal"
 	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opcion deseada: "
+	Escribir Sin Saltar ">> Ingrese opción deseada: "
 	Leer opcion
 FinFuncion
 
@@ -71,7 +71,7 @@ Funcion IngresarCliente(nombre, apellido, celular, dni, contadorClientes Por Ref
 	Escribir "                     REGISTRAR NUEVO CLIENTE                      "
 	Escribir "=================================================================="
 	Si contadorClientes >= 50 Entonces
-		Escribir "  [!] Capacidad maxima de clientes alcanzada (limite 50)."
+		Escribir "  [!] Capacidad máxima de clientes alcanzada (limite 50)."
 		Pausa
 	SiNo
 		Escribir ">> Ingrese los datos del nuevo cliente:"
@@ -170,7 +170,7 @@ Funcion opcion <- PedirCampoCliente
 		Escribir "  [2] Apellido"
 		Escribir "  [3] Celular"
 		Escribir "  [4] DNI"
-		Escribir Sin Saltar ">> Opcion: "
+		Escribir Sin Saltar ">> Opción: "
 		Leer opcion
 	Hasta Que opcion > 0 Y opcion < 5
 FinFuncion
@@ -240,7 +240,7 @@ Funcion menuClientes(nombre, apellido, celular, dni, contadorClientes Por Refere
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "Opcion no valida."
+				Escribir "Opción no valida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_clientes = 0
@@ -253,16 +253,16 @@ Funcion opcion <- MostrarMenuVehiculos
 	Limpiar Pantalla
 	Definir opcion Como Entero
 	Escribir "=================================================================="
-	Escribir "                      GESTION DE VEHICULOS                        "
+	Escribir "                      GESTIÓN DE VEHICULOS                        "
 	Escribir "=================================================================="
-	Escribir "  [1] Ingresar un nuevo vehiculo"
-	Escribir "  [2] Ver lista de vehiculos"
-	Escribir "  [3] Quitar un vehiculo"
-	Escribir "  [4] Modificar datos de un vehiculo"
+	Escribir "  [1] Ingresar un nuevo vehículo"
+	Escribir "  [2] Ver lista de vehículos"
+	Escribir "  [3] Quitar un vehículo"
+	Escribir "  [4] Modificar datos de un vehículo"
 	Escribir "  ----------------------------------------------------------------"
 	Escribir "  [0] Volver al menu principal"
 	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opcion deseada: "
+	Escribir Sin Saltar ">> Ingrese opción deseada: "
 	Leer opcion
 FinFuncion
 
@@ -272,28 +272,28 @@ Funcion IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                    REGISTRAR NUEVO VEHICULO                      "
+	Escribir "                    REGISTRAR NUEVO VEHÍCULO                      "
 	Escribir "=================================================================="
 	Si contadorVehiculo >= 50 Entonces
-		Escribir "  [!] Capacidad maxima de vehiculos alcanzada (limite 50)."
+		Escribir "  [!] Capacidad máxima de vehículos alcanzada (limite 50)."
 		Pausa
 	SiNo
-		Escribir ">> Ingrese los datos del vehiculo a registrar:"
+		Escribir ">> Ingrese los datos del vehículo a registrar:"
 		Escribir ""
-		Escribir Sin Saltar "Patente del vehiculo: "
+		Escribir Sin Saltar "Patente del vehículo: "
 		Leer patenteNueva
 		
 		posPatenteExistente <- BuscarPosicion(patente, contadorVehiculo, patenteNueva)
 		Si posPatenteExistente <> -1 Entonces
 			Escribir "------------------------------------------------------------------"
-			Escribir "  [!] Error: Ya existe un vehiculo registrado con la patente ", patenteNueva
+			Escribir "  [!] Error: Ya existe un vehículo registrado con la patente ", patenteNueva
 			Escribir "=================================================================="
 			Pausa
 		SiNo
 			patente[contadorVehiculo] <- patenteNueva
-			Escribir Sin Saltar "Marca del vehiculo: "
+			Escribir Sin Saltar "Marca del vehículo: "
 			Leer marcaVehiculo[contadorVehiculo]
-			Escribir Sin Saltar "Modelo del vehiculo: "
+			Escribir Sin Saltar "Modelo del vehículo: "
 			Leer modeloVehiculo[contadorVehiculo]
 			
 			dniIngresado <- LeerDni("DNI del titular / dueño (Sin puntos): ")
@@ -317,7 +317,7 @@ Funcion IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 						Escribir "  [OK] Titular registrado y asociado exitosamente."
 					FinSi
 				SiNo
-					Escribir "  Aviso: El vehiculo queda registrado con DNI asignado (sin ficha personal)."
+					Escribir "  Aviso: El vehículo queda registrado con DNI asignado (sin ficha personal)."
 				FinSi
 			SiNo
 				Escribir "  >> Titular identificado: ", apellido[posCliente], " ", nombre[posCliente]
@@ -326,7 +326,7 @@ Funcion IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 			dniDueno[contadorVehiculo] <- dniIngresado
 			contadorVehiculo <- contadorVehiculo + 1
 			Escribir "------------------------------------------------------------------"
-			Escribir "[OK] Vehiculo registrado correctamente en el sistema."
+			Escribir "[OK] Vehículo registrado correctamente en el sistema."
 			Escribir "=================================================================="
 			Pausa
 		FinSi
@@ -337,10 +337,10 @@ Funcion MostrarDatosVehiculos(marcaVehiculo, modeloVehiculo, patente, dniDueno, 
 	Definir i, posCliente Como Entero
 	Limpiar Pantalla
 	Escribir "=================================================================================="
-	Escribir "                              LISTADO DE VEHICULOS                                "
+	Escribir "                              LISTADO DE VEHÍCULOS                                "
 	Escribir "=================================================================================="
 	Si contadorVehiculo = 0 Entonces
-		Escribir "  [!] No hay vehiculos registrados en el sistema."
+		Escribir "  [!] No hay vehículos registrados en el sistema."
 		Escribir "=================================================================================="
 	SiNo
 		Escribir "Nro | PATENTE  | MARCA        | MODELO       | DNI DUEÑO | TITULAR / DUEÑO"
@@ -354,7 +354,7 @@ Funcion MostrarDatosVehiculos(marcaVehiculo, modeloVehiculo, patente, dniDueno, 
 			FinSi
 		FinPara
 		Escribir "=================================================================================="
-		Escribir "Total de vehiculos registrados: ", contadorVehiculo
+		Escribir "Total de vehículos registrados: ", contadorVehiculo
 		Escribir "=================================================================================="
 	FinSi
 FinFuncion
@@ -365,9 +365,9 @@ Funcion EliminarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                        QUITAR VEHICULO                           "
+	Escribir "                        QUITAR VEHÍCULO                           "
 	Escribir "=================================================================="
-	Escribir Sin Saltar "Escriba la patente del vehiculo que desea eliminar: "
+	Escribir Sin Saltar "Escriba la patente del vehículo que desea eliminar: "
 	Leer patenteEliminar
 	posVehiculo <- BuscarPosicion(patente, contadorVehiculo, patenteEliminar)
 	
@@ -380,7 +380,7 @@ Funcion EliminarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 		FinPara
 		contadorVehiculo <- contadorVehiculo - 1
 		Escribir "------------------------------------------------------------------"
-		Escribir "[OK] Vehiculo eliminado correctamente del registro."
+		Escribir "[OK] Vehículo eliminado correctamente del registro."
 		Escribir "=================================================================="
 	SiNo
 		Escribir "------------------------------------------------------------------"
@@ -497,7 +497,7 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 	Escribir "=================================================================="
 	
 	Si cantidad_ordenes >= 100 Entonces
-		Escribir "  [!] Límite maximo de ordenes alcanzado (100)."
+		Escribir "  [!] Límite máximo de órdenes alcanzado (100)."
 		Escribir "=================================================================="
 		Pausa
 	SiNo
@@ -512,7 +512,7 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 			Pausa
 		SiNo
 			Escribir ">> Cliente encontrado: ", apellido[posicion_cliente], ", ", nombre[posicion_cliente]
-			Escribir Sin Saltar ">> Patente del vehiculo: "
+			Escribir Sin Saltar ">> Patente del vehículo: "
 			Leer patente_buscar
 			
 			posicion_vehiculo <- BuscarPosicion(patente, contadorVehiculo, patente_buscar)
@@ -539,7 +539,7 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 						f_inicio <- "Hoy"
 					FinSi
 					
-					Escribir Sin Saltar ">> Fecha estimada de finalizacion (DD/MM/AAAA): "
+					Escribir Sin Saltar ">> Fecha estimada de finalización (DD/MM/AAAA): "
 					Leer f_estimada
 					
 					Escribir Sin Saltar ">> Motivo de ingreso / Detalle de la falla: "
@@ -1328,7 +1328,7 @@ Funcion EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, est
 					Escribir "+----------------------------------------------------------------+"
 					Escribir "| TOTAL A PAGAR:                $", total
 					Escribir "+================================================================+"
-					Escribir Sin Saltar "Confirmar emision definitiva? (S/N): "
+					Escribir Sin Saltar "Confirmar emisión definitiva? (S/N): "
 					Leer confirmaFactura
 					
 					Si confirmaFactura = "S" o confirmaFactura = "s" Entonces
@@ -1518,7 +1518,7 @@ Funcion ConsultarHistorialPatente(patente_orden, orden_numero, dni_orden, fecha_
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "               HISTORIAL DE REPARACION POR PATENTE                "
+	Escribir "               HISTORIAL DE REPARACIÓN POR PATENTE                "
 	Escribir "=================================================================="
 	Escribir Sin Saltar ">> Ingrese patente a consultar: "
 	Leer patBuscar
@@ -1658,7 +1658,7 @@ Funcion menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fech
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "Opción no valida."
+				Escribir "Opción no válida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_historial = 0
@@ -1713,7 +1713,7 @@ Funcion RegistrarUsuario(usuario_nombre, usuario_clave, usuario_rol, cantidad_us
 		Pausa
 	SiNo
 		Si cantidad_usuarios >= 20 Entonces
-			Escribir "  [!] Límite de usuarios alcanzado (maximo 20 cuentas)."
+			Escribir "  [!] Límite de usuarios alcanzado (máximo 20 cuentas)."
 			Escribir "=================================================================="
 			Pausa
 		SiNo
@@ -1734,7 +1734,7 @@ Funcion RegistrarUsuario(usuario_nombre, usuario_clave, usuario_rol, cantidad_us
 					Escribir "------------------------------------------------------------------"
 					Escribir "Seleccione rol para el nuevo usuario:"
 					Escribir "  [1] Administrador (Acceso total al sistema)"
-					Escribir "  [2] Mecánico (Ordenes, Repuestos, Historial)"
+					Escribir "  [2] Mecanico (Ordenes, Repuestos, Historial)"
 					Escribir "  [3] Cliente (Historial de Reparaciones)"
 					Escribir Sin Saltar ">> Opción: "
 					Leer opcRol
