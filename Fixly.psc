@@ -46,24 +46,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo clientes
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuClientes
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                       GESTIÓN DE CLIENTES                        "
-	Escribir "=================================================================="
-	Escribir "  [1] Ingresar un nuevo cliente"
-	Escribir "  [2] Ver lista de clientes"
-	Escribir "  [3] Quitar un cliente"
-	Escribir "  [4] Modificar datos de un cliente"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion IngresarCliente(nombre, apellido, celular, dni, contadorClientes Por Referencia)
 	Definir dniNuevo, posDniExistente Como Entero
 	Limpiar Pantalla
@@ -151,30 +133,6 @@ Funcion EliminarCliente(nombre, apellido, celular, dni, contadorClientes Por Ref
 	Pausa
 FinFuncion
 
-Funcion MostrarFichaCliente(nombre, apellido, celular, dni, pos)
-	Escribir "+----------------------------------------------------------------+"
-	Escribir "|                   FICHA DEL CLIENTE SELECCIONADO               |"
-	Escribir "+----------------------------------------------------------------+"
-	Escribir "| NOMBRE:   ", nombre[pos]
-	Escribir "| APELLIDO: ", apellido[pos]
-	Escribir "| CELULAR:  ", celular[pos]
-	Escribir "| DNI:      ", dni[pos]
-	Escribir "+----------------------------------------------------------------+"
-FinFuncion
-
-Funcion opcion <- PedirCampoCliente
-	Definir opcion Como Entero
-	Repetir
-		Escribir "Seleccione el dato que desea modificar:"
-		Escribir "  [1] Nombre"
-		Escribir "  [2] Apellido"
-		Escribir "  [3] Celular"
-		Escribir "  [4] DNI"
-		Escribir Sin Saltar ">> Opción: "
-		Leer opcion
-	Hasta Que opcion > 0 Y opcion < 5
-FinFuncion
-
 Funcion ModificarCliente(nombre, apellido, celular, dni, contadorClientes)
 	Definir datoBusquedaMod, datoCampoMod, dniNuevo, posDniExistente Como Entero
 	Si contadorClientes = 0 Entonces
@@ -193,8 +151,24 @@ Funcion ModificarCliente(nombre, apellido, celular, dni, contadorClientes)
 			Leer datoBusquedaMod
 		Hasta Que datoBusquedaMod > 0 Y datoBusquedaMod <= contadorClientes
 		
-		MostrarFichaCliente(nombre, apellido, celular, dni, datoBusquedaMod - 1)
-		datoCampoMod <- PedirCampoCliente
+		Escribir "+----------------------------------------------------------------+"
+		Escribir "|                   FICHA DEL CLIENTE SELECCIONADO               |"
+		Escribir "+----------------------------------------------------------------+"
+		Escribir "| NOMBRE:   ", nombre[datoBusquedaMod - 1]
+		Escribir "| APELLIDO: ", apellido[datoBusquedaMod - 1]
+		Escribir "| CELULAR:  ", celular[datoBusquedaMod - 1]
+		Escribir "| DNI:      ", dni[datoBusquedaMod - 1]
+		Escribir "+----------------------------------------------------------------+"
+		
+		Repetir
+			Escribir "Seleccione el dato que desea modificar:"
+			Escribir "  [1] Nombre"
+			Escribir "  [2] Apellido"
+			Escribir "  [3] Celular"
+			Escribir "  [4] DNI"
+			Escribir Sin Saltar ">> Opción: "
+			Leer datoCampoMod
+		Hasta Que datoCampoMod > 0 Y datoCampoMod < 5
 		
 		Segun datoCampoMod Hacer
 			1:
@@ -226,7 +200,19 @@ FinFuncion
 Funcion menuClientes(nombre, apellido, celular, dni, contadorClientes Por Referencia)
 	Definir opcion_clientes Como Entero
 	Repetir
-		opcion_clientes <- MostrarMenuClientes
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                       GESTIÓN DE CLIENTES                        "
+		Escribir "=================================================================="
+		Escribir "  [1] Ingresar un nuevo cliente"
+		Escribir "  [2] Ver lista de clientes"
+		Escribir "  [3] Quitar un cliente"
+		Escribir "  [4] Modificar datos de un cliente"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_clientes
 		Segun opcion_clientes Hacer
 			1:
 				IngresarCliente(nombre, apellido, celular, dni, contadorClientes)
@@ -248,24 +234,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo vehiculos
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuVehiculos
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                      GESTIÓN DE VEHICULOS                        "
-	Escribir "=================================================================="
-	Escribir "  [1] Ingresar un nuevo vehículo"
-	Escribir "  [2] Ver lista de vehículos"
-	Escribir "  [3] Quitar un vehículo"
-	Escribir "  [4] Modificar datos de un vehículo"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, contadorVehiculo Por Referencia, dni, nombre, apellido, celular, contadorClientes Por Referencia)
 	Definir patenteNueva, respCliente Como Caracter
 	Definir dniIngresado, posCliente, posPatenteExistente Como Entero
@@ -446,7 +414,19 @@ FinFuncion
 Funcion menuVehiculos(marcaVehiculo, modeloVehiculo, patente, dniDueno, contadorVehiculo Por Referencia, dni, nombre, apellido, celular, contadorClientes Por Referencia)
 	Definir opcion_vehiculos Como Entero
 	Repetir
-		opcion_vehiculos <- MostrarMenuVehiculos
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                      GESTIÓN DE VEHICULOS                        "
+		Escribir "=================================================================="
+		Escribir "  [1] Ingresar un nuevo vehículo"
+		Escribir "  [2] Ver lista de vehículos"
+		Escribir "  [3] Quitar un vehículo"
+		Escribir "  [4] Modificar datos de un vehículo"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_vehiculos
 		Segun opcion_vehiculos Hacer
 			1:
 				IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, contadorVehiculo, dni, nombre, apellido, celular, contadorClientes)
@@ -468,24 +448,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo ordenes de trabajo
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuOrdenes
-	Definir opcion Como Entero
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "                   ÓRDENES DE TRABAJO (TALLER)                    "
-	Escribir "=================================================================="
-	Escribir "  [1] Cargar nueva orden de trabajo"
-	Escribir "  [2] Modificar orden de trabajo"
-	Escribir "  [3] Buscar orden por patente"
-	Escribir "  [4] Cerrar / Finalizar orden de trabajo"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes Por Referencia, nro_orden_siguiente Por Referencia, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles Por Referencia, dni, nombre, apellido, contadorClientes, patente, marcaVehiculo, modeloVehiculo, dniDueno, contadorVehiculo, codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 	Definir posicion_cliente, posicion_vehiculo, posicion_repuesto, dni_buscar Como Entero
 	Definir cantidad_repuestos_ot Como Entero
@@ -943,7 +905,19 @@ FinFuncion
 Funcion menuOrdenes(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes Por Referencia, nro_orden_siguiente Por Referencia, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles Por Referencia, dni, nombre, apellido, contadorClientes, patente, marcaVehiculo, modeloVehiculo, dniDueno, contadorVehiculo, codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 	Definir opcion_ordenes Como Entero
 	Repetir
-		opcion_ordenes <- MostrarMenuOrdenes
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                   ÓRDENES DE TRABAJO (TALLER)                    "
+		Escribir "=================================================================="
+		Escribir "  [1] Cargar nueva orden de trabajo"
+		Escribir "  [2] Modificar orden de trabajo"
+		Escribir "  [3] Buscar orden por patente"
+		Escribir "  [4] Cerrar / Finalizar orden de trabajo"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_ordenes
 		Segun opcion_ordenes Hacer
 			1:
 				CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, nro_orden_siguiente, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, dni, nombre, apellido, contadorClientes, patente, marcaVehiculo, modeloVehiculo, dniDueno, contadorVehiculo, codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
@@ -964,26 +938,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo repuestos
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuRepuestos
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                   CONTROL DE REPUESTOS Y STOCK                   "
-	Escribir "=================================================================="
-	Escribir "  [1] Cargar repuesto nuevo"
-	Escribir "  [2] Eliminar repuesto"
-	Escribir "  [3] Buscar repuesto en inventario"
-	Escribir "  [4] Modificar precio de repuesto"
-	Escribir "  [5] Actualizar stock disponible"
-	Escribir "  [6] Listado general de catálogo"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion CargarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos Por Referencia)
 	Definir codNuevo Como Caracter
 	Definir posRep Como Entero
@@ -1099,64 +1053,54 @@ Funcion BuscarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos
 	Pausa
 FinFuncion
 
-Funcion ModificarPrecioRepuesto(codigo, nombreRepuesto, precio, cantidad_repuestos)
+Funcion ModificarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 	Definir codBuscar Como Caracter
-	Definir posRep Como Entero
+	Definir posRep, opcionMod, stockNuevo Como Entero
 	Definir precioNuevo Como Real
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                    MODIFICAR PRECIO DE REPUESTO                  "
+	Escribir "               MODIFICAR REPUESTO (PRECIO / STOCK)                "
 	Escribir "=================================================================="
 	Escribir Sin Saltar "Ingrese código del repuesto a modificar: "
 	Leer codBuscar
 	posRep <- BuscarPosicion(codigo, cantidad_repuestos, codBuscar)
 	
 	Si posRep <> -1 Entonces
-		Escribir ">> Repuesto: ", nombreRepuesto[posRep], " | Precio actual: $", precio[posRep]
+		Escribir ">> Repuesto: ", nombreRepuesto[posRep]
+		Escribir ">> Precio actual: $", precio[posRep], " | Stock actual: ", stock[posRep]
+		Escribir "------------------------------------------------------------------"
 		Repetir
-			Escribir Sin Saltar "Ingrese el precio nuevo: $"
-			Leer precioNuevo
-			Si precioNuevo <= 0 Entonces
-				Escribir "  [!] El precio debe ser mayor a cero."
-			FinSi
-		Hasta Que precioNuevo > 0
-		precio[posRep] <- precioNuevo
-		Escribir "------------------------------------------------------------------"
-		Escribir "[OK] Precio actualizado exitosamente."
-		Escribir "=================================================================="
-	SiNo
-		Escribir "------------------------------------------------------------------"
-		Escribir "  [!] Error: Repuesto no encontrado."
-		Escribir "=================================================================="
-	FinSi
-	Pausa
-FinFuncion
-
-Funcion ModificarStockRepuesto(codigo, nombreRepuesto, stock, cantidad_repuestos)
-	Definir codBuscar Como Caracter
-	Definir posRep, stockNuevo Como Entero
-	
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "                    ACTUALIZAR STOCK DE REPUESTO                  "
-	Escribir "=================================================================="
-	Escribir Sin Saltar "Ingrese código del repuesto: "
-	Leer codBuscar
-	posRep <- BuscarPosicion(codigo, cantidad_repuestos, codBuscar)
-	
-	Si posRep <> -1 Entonces
-		Escribir ">> Repuesto: ", nombreRepuesto[posRep], " | Stock actual: ", stock[posRep]
-		Repetir
-			Escribir Sin Saltar "Ingrese el nuevo stock disponible: "
-			Leer stockNuevo
-			Si stockNuevo < 0 Entonces
-				Escribir "  [!] El stock no puede ser negativo."
-			FinSi
-		Hasta Que stockNuevo >= 0
-		stock[posRep] <- stockNuevo
-		Escribir "------------------------------------------------------------------"
-		Escribir "[OK] Stock actualizado exitosamente."
+			Escribir "Seleccione el dato a modificar:"
+			Escribir "  [1] Precio unitario"
+			Escribir "  [2] Stock disponible"
+			Escribir Sin Saltar ">> Opción: "
+			Leer opcionMod
+		Hasta Que opcionMod = 1 O opcionMod = 2
+		
+		Si opcionMod = 1 Entonces
+			Repetir
+				Escribir Sin Saltar "Ingrese el precio nuevo: $"
+				Leer precioNuevo
+				Si precioNuevo <= 0 Entonces
+					Escribir "  [!] El precio debe ser mayor a cero."
+				FinSi
+			Hasta Que precioNuevo > 0
+			precio[posRep] <- precioNuevo
+			Escribir "------------------------------------------------------------------"
+			Escribir "[OK] Precio actualizado exitosamente."
+		SiNo
+			Repetir
+				Escribir Sin Saltar "Ingrese el nuevo stock disponible: "
+				Leer stockNuevo
+				Si stockNuevo < 0 Entonces
+					Escribir "  [!] El stock no puede ser negativo."
+				FinSi
+			Hasta Que stockNuevo >= 0
+			stock[posRep] <- stockNuevo
+			Escribir "------------------------------------------------------------------"
+			Escribir "[OK] Stock actualizado exitosamente."
+		FinSi
 		Escribir "=================================================================="
 	SiNo
 		Escribir "------------------------------------------------------------------"
@@ -1191,7 +1135,20 @@ FinFuncion
 Funcion menuRepuestos(codigo, nombreRepuesto, precio, stock, cantidad_repuestos Por Referencia)
 	Definir opcion_repuestos Como Entero
 	Repetir
-		opcion_repuestos <- MostrarMenuRepuestos
+		Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                   CONTROL DE REPUESTOS Y STOCK                   "
+		Escribir "=================================================================="
+		Escribir "  [1] Cargar repuesto nuevo"
+		Escribir "  [2] Eliminar repuesto"
+		Escribir "  [3] Buscar repuesto en inventario"
+		Escribir "  [4] Modificar precio o stock de repuesto"
+		Escribir "  [5] Listado general de catálogo"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_repuestos
 		Segun opcion_repuestos Hacer
 			1:
 				CargarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
@@ -1200,10 +1157,8 @@ Funcion menuRepuestos(codigo, nombreRepuesto, precio, stock, cantidad_repuestos 
 			3:
 				BuscarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 			4:
-				ModificarPrecioRepuesto(codigo, nombreRepuesto, precio, cantidad_repuestos)
+				ModificarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 			5:
-				ModificarStockRepuesto(codigo, nombreRepuesto, stock, cantidad_repuestos)
-			6:
 				ListarRepuestos(codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 			0:
 				Escribir "Volviendo al menu principal..."
@@ -1216,24 +1171,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo facturacion
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuFacturacion
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                      MÓDULO DE FACTURACIÓN                       "
-	Escribir "=================================================================="
-	Escribir "  [1] Emitir factura de orden finalizada"
-	Escribir "  [2] Ver comprobante de factura"
-	Escribir "  [3] Listado de facturas emitidas"
-	Escribir "  [4] Consultar facturas por DNI de cliente"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_numero, factura_nro_orden, factura_dni, factura_patente, factura_fecha, factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total, cantidad_facturas Por Referencia, nro_factura_siguiente Por Referencia, porcentaje_iva, dni, nombre, apellido, contadorClientes)
 	Definir ordenFacturar, posOrden, posCliente, k Como Entero
 	Definir totalRepuestos, horasIngresadas, valorHora, manoObra, subtotal, iva, total Como Real
@@ -1410,84 +1347,90 @@ Funcion VerComprobanteFactura(factura_numero, factura_nro_orden, factura_dni, fa
 	Pausa
 FinFuncion
 
-Funcion ListarFacturas(factura_numero, factura_nro_orden, factura_fecha, factura_patente, factura_total, cantidad_facturas)
-	Definir i Como Entero
+Funcion ConsultarFacturas(factura_numero, factura_nro_orden, factura_dni, factura_fecha, factura_patente, factura_total, cantidad_facturas)
+	Definir modoConsulta, dniBuscar, i, facturasEncontradas Como Entero
 	Definir totalFacturado Como Real
 	
 	Limpiar Pantalla
 	Escribir "=================================================================================="
-	Escribir "                            LISTADO DE FACTURAS EMITIDAS                          "
+	Escribir "                             CONSULTA DE FACTURAS                                 "
 	Escribir "=================================================================================="
 	Si cantidad_facturas = 0 Entonces
 		Escribir "  [!] No hay facturas emitidas en el sistema."
 		Escribir "=================================================================================="
+		Pausa
 	SiNo
+		Repetir
+			Escribir "Seleccione el tipo de consulta:"
+			Escribir "  [1] Listar todas las facturas emitidas"
+			Escribir "  [2] Filtrar por DNI de cliente"
+			Escribir Sin Saltar ">> Opción: "
+			Leer modoConsulta
+		Hasta Que modoConsulta = 1 O modoConsulta = 2
+		
 		totalFacturado <- 0
+		facturasEncontradas <- 0
+		
+		Si modoConsulta = 2 Entonces
+			dniBuscar <- LeerDni(">> Ingrese DNI del cliente a consultar: ")
+		FinSi
+		
+		Limpiar Pantalla
+		Escribir "=================================================================================="
+		Si modoConsulta = 1 Entonces
+			Escribir "                            LISTADO DE FACTURAS EMITIDAS                          "
+		SiNo
+			Escribir "                     FACTURAS EMITIDAS PARA EL DNI: ", dniBuscar
+		FinSi
+		Escribir "=================================================================================="
 		Escribir "NRO | ORDEN | FECHA      | PATENTE  | TOTAL FACTURADO"
 		Escribir "----+-------+------------+----------+---------------------------------------------"
+		
 		Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
-			Escribir factura_numero[i], "   | ", factura_nro_orden[i], "     | ", factura_fecha[i], " | ", factura_patente[i], "  | $", factura_total[i]
-			totalFacturado <- totalFacturado + factura_total[i]
-		FinPara
-		Escribir "=================================================================================="
-		Escribir "Facturas emitidas: ", cantidad_facturas, " | Total general facturado: $", totalFacturado
-		Escribir "=================================================================================="
-	FinSi
-	Pausa
-FinFuncion
-
-Funcion ConsultarFacturasDni(factura_numero, factura_nro_orden, factura_dni, factura_fecha, factura_patente, factura_total, cantidad_facturas)
-	Definir dniBuscar, i, facturasEncontradas Como Entero
-	Definir totalFacturado Como Real
-	
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "                 FACTURAS POR CLIENTE (DNI)                       "
-	Escribir "=================================================================="
-	dniBuscar <- LeerDni(">> DNI del cliente a consultar: ")
-	facturasEncontradas <- 0
-	totalFacturado <- 0
-	
-	Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
-		Si factura_dni[i] = dniBuscar Entonces
-			Si facturasEncontradas = 0 Entonces
-				Escribir "------------------------------------------------------------------"
-				Escribir "NRO | ORDEN | FECHA      | PATENTE  | TOTAL FACTURADO"
-				Escribir "----+-------+------------+----------+-----------------------------"
+			Si modoConsulta = 1 O factura_dni[i] = dniBuscar Entonces
+				Escribir factura_numero[i], "   | ", factura_nro_orden[i], "     | ", factura_fecha[i], " | ", factura_patente[i], "  | $", factura_total[i]
+				facturasEncontradas <- facturasEncontradas + 1
+				totalFacturado <- totalFacturado + factura_total[i]
 			FinSi
-			Escribir factura_numero[i], "   | ", factura_nro_orden[i], "     | ", factura_fecha[i], " | ", factura_patente[i], "  | $", factura_total[i]
-			facturasEncontradas <- facturasEncontradas + 1
-			totalFacturado <- totalFacturado + factura_total[i]
+		FinPara
+		
+		Si facturasEncontradas = 0 Entonces
+			Escribir "  [!] No se encontraron facturas para el criterio seleccionado."
+		SiNo
+			Escribir "=================================================================================="
+			Escribir "Facturas listadas: ", facturasEncontradas, " | Monto total: $", totalFacturado
 		FinSi
-	FinPara
-	
-	Si facturasEncontradas = 0 Entonces
-		Escribir "  [!] No se registran facturas emitidas para el DNI ", dniBuscar
-	SiNo
-		Escribir "=================================================================="
-		Escribir "Total de comprobantes: ", facturasEncontradas, " | Monto acumulado: $", totalFacturado
+		Escribir "=================================================================================="
+		Pausa
 	FinSi
-	Escribir "=================================================================="
-	Pausa
 FinFuncion
 
 Funcion menuFacturacion(orden_numero, dni_orden, patente_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_numero, factura_nro_orden, factura_dni, factura_patente, factura_fecha, factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total, cantidad_facturas Por Referencia, nro_factura_siguiente Por Referencia, porcentaje_iva, dni, nombre, apellido, contadorClientes)
 	Definir opcion_facturacion Como Entero
 	Repetir
-		opcion_facturacion <- MostrarMenuFacturacion
+		Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                      MÓDULO DE FACTURACIÓN                       "
+		Escribir "=================================================================="
+		Escribir "  [1] Emitir factura de orden finalizada"
+		Escribir "  [2] Ver comprobante de factura"
+		Escribir "  [3] Consultar facturas (todas o por DNI)"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_facturacion
 		Segun opcion_facturacion Hacer
 			1:
 				EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_numero, factura_nro_orden, factura_dni, factura_patente, factura_fecha, factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total, cantidad_facturas, nro_factura_siguiente, porcentaje_iva, dni, nombre, apellido, contadorClientes)
 			2:
 				VerComprobanteFactura(factura_numero, factura_nro_orden, factura_dni, factura_patente, factura_fecha, factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total, cantidad_facturas, porcentaje_iva, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, dni, nombre, apellido, contadorClientes)
 			3:
-				ListarFacturas(factura_numero, factura_nro_orden, factura_fecha, factura_patente, factura_total, cantidad_facturas)
-			4:
-				ConsultarFacturasDni(factura_numero, factura_nro_orden, factura_dni, factura_fecha, factura_patente, factura_total, cantidad_facturas)
+				ConsultarFacturas(factura_numero, factura_nro_orden, factura_dni, factura_fecha, factura_patente, factura_total, cantidad_facturas)
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "Opción no valida."
+				Escribir "Opción no válida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_facturacion = 0
@@ -1495,47 +1438,51 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo historial de reparaciones
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuHistorial
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                    HISTORIAL DE REPARACIONES                     "
-	Escribir "=================================================================="
-	Escribir "  [1] Consultar historial por patente"
-	Escribir "  [2] Consultar historial por DNI del cliente"
-	Escribir "  [3] Listado general de reparaciones finalizadas"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
-Funcion ConsultarHistorialPatente(patente_orden, orden_numero, dni_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas)
+Funcion ConsultarHistorialDetallado(patente_orden, orden_numero, dni_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
+	Definir criterioHistorial, dniBuscar, i, k, posFactura, posCliente, ordenesEncontradas Como Entero
 	Definir patBuscar Como Caracter
-	Definir i, k, posFactura, ordenesEncontradas Como Entero
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "               HISTORIAL DE REPARACIÓN POR PATENTE                "
+	Escribir "               HISTORIAL DETALLADO DE REPARACIONES                "
 	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese patente a consultar: "
-	Leer patBuscar
+	Repetir
+		Escribir "Buscar reparaciones finalizadas por:"
+		Escribir "  [1] Patente del vehículo"
+		Escribir "  [2] DNI del cliente"
+		Escribir Sin Saltar ">> Opción: "
+		Leer criterioHistorial
+	Hasta Que criterioHistorial = 1 O criterioHistorial = 2
+	
+	Si criterioHistorial = 1 Entonces
+		Escribir Sin Saltar ">> Ingrese patente a consultar: "
+		Leer patBuscar
+	SiNo
+		dniBuscar <- LeerDni(">> Ingrese DNI del cliente a consultar: ")
+		posCliente <- BuscarPosicion(dni, contadorClientes, dniBuscar)
+	FinSi
+	
+	Limpiar Pantalla
+	Escribir "=================================================================="
+	Si criterioHistorial = 1 Entonces
+		Escribir "       HISTORIAL DE REPARACIONES - PATENTE: ", patBuscar
+	SiNo
+		Si posCliente <> -1 Entonces
+			Escribir " HISTORIAL: ", apellido[posCliente], " ", nombre[posCliente], " (DNI: ", dniBuscar, ")"
+		SiNo
+			Escribir " HISTORIAL: DNI ", dniBuscar
+		FinSi
+	FinSi
+	Escribir "=================================================================="
+	
 	ordenesEncontradas <- 0
-	
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "       HISTORIAL DE REPARACIONES - PATENTE: ", patBuscar
-	Escribir "=================================================================="
-	
 	Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
-		Si patente_orden[i] = patBuscar Y estado_orden[i] = "Finalizada" Entonces
+		Si estado_orden[i] = "Finalizada" Y ((criterioHistorial = 1 Y patente_orden[i] = patBuscar) O (criterioHistorial = 2 Y dni_orden[i] = dniBuscar)) Entonces
 			ordenesEncontradas <- ordenesEncontradas + 1
 			Escribir "+----------------------------------------------------------------+"
 			Escribir "| ORDEN NRO:      ", orden_numero[i], " | ESTADO: FINALIZADA"
+			Escribir "| PATENTE:        ", patente_orden[i], " | DNI DUEÑO: ", dni_orden[i]
 			Escribir "| FECHA INGRESO:  ", fecha_inicio[i], " | FECHA ENTREGA: ", fecha_entrega[i]
-			Escribir "| DNI TITULAR:    ", dni_orden[i]
 			Escribir "| MOTIVO INGRESO: ", descripcion_orden[i]
 			Escribir "| DIAGNÓSTICO:    ", diagnostico_orden[i]
 			Escribir "| TRABAJO HECHO:  ", trabajo_orden[i]
@@ -1550,64 +1497,16 @@ Funcion ConsultarHistorialPatente(patente_orden, orden_numero, dni_orden, fecha_
 			Si posFactura <> -1 Entonces
 				Escribir "| FACTURA ASOCIADA: Factura Nro ", factura_numero[posFactura], " | Total: $", factura_total[posFactura]
 			SiNo
-				Escribir "| FACTURA ASOCIADA: Pendiente de emisión"
+				Escribir "| FACTURA ASOCIADA: Pendiente de cobro"
 			FinSi
 			Escribir "+----------------------------------------------------------------+"
 		FinSi
 	FinPara
 	
 	Si ordenesEncontradas = 0 Entonces
-		Escribir "  [!] No se registran reparaciones finalizadas para la patente ", patBuscar
+		Escribir "  [!] No se registran reparaciones finalizadas para el criterio buscado."
 	SiNo
 		Escribir "Total de reparaciones finalizadas encontradas: ", ordenesEncontradas
-	FinSi
-	Escribir "=================================================================="
-	Pausa
-FinFuncion
-
-Funcion ConsultarHistorialDni(dni_orden, patente_orden, orden_numero, fecha_inicio, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
-	Definir dniBuscar, i, posCliente, posFactura, ordenesEncontradas Como Entero
-	
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "             HISTORIAL DE REPARACIÓN POR CLIENTE                  "
-	Escribir "=================================================================="
-	dniBuscar <- LeerDni(">> Ingrese DNI del cliente a consultar: ")
-	posCliente <- BuscarPosicion(dni, contadorClientes, dniBuscar)
-	ordenesEncontradas <- 0
-	
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Si posCliente <> -1 Entonces
-		Escribir " HISTORIAL: ", apellido[posCliente], " ", nombre[posCliente], " (DNI: ", dniBuscar, ")"
-	SiNo
-		Escribir " HISTORIAL: DNI ", dniBuscar
-	FinSi
-	Escribir "=================================================================="
-	
-	Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
-		Si dni_orden[i] = dniBuscar Y estado_orden[i] = "Finalizada" Entonces
-			ordenesEncontradas <- ordenesEncontradas + 1
-			Escribir "+----------------------------------------------------------------+"
-			Escribir "| ORDEN NRO:     ", orden_numero[i], " | PATENTE: ", patente_orden[i]
-			Escribir "| FECHA INGRESO: ", fecha_inicio[i], " | FECHA ENTREGA: ", fecha_entrega[i]
-			Escribir "| MOTIVO/FALLA:  ", descripcion_orden[i]
-			Escribir "| TRABAJO HECHO: ", trabajo_orden[i]
-			
-			posFactura <- BuscarPosicion(factura_nro_orden, cantidad_facturas, orden_numero[i])
-			Si posFactura <> -1 Entonces
-				Escribir "| FACTURA: Nro ", factura_numero[posFactura], " | Total: $", factura_total[posFactura]
-			SiNo
-				Escribir "| FACTURA: Pendiente de cobro"
-			FinSi
-			Escribir "+----------------------------------------------------------------+"
-		FinSi
-	FinPara
-	
-	Si ordenesEncontradas = 0 Entonces
-		Escribir "  [!] No se registran reparaciones finalizadas para el DNI ", dniBuscar
-	SiNo
-		Escribir "Total de reparaciones del cliente: ", ordenesEncontradas
 	FinSi
 	Escribir "=================================================================="
 	Pausa
@@ -1647,13 +1546,21 @@ FinFuncion
 Funcion menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
 	Definir opcion_historial Como Entero
 	Repetir
-		opcion_historial <- MostrarMenuHistorial
+		Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                    HISTORIAL DE REPARACIONES                     "
+		Escribir "=================================================================="
+		Escribir "  [1] Consultar historial detallado (por patente o DNI)"
+		Escribir "  [2] Listado general de reparaciones finalizadas"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_historial
 		Segun opcion_historial Hacer
 			1:
-				ConsultarHistorialPatente(patente_orden, orden_numero, dni_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas)
+				ConsultarHistorialDetallado(patente_orden, orden_numero, dni_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
 			2:
-				ConsultarHistorialDni(dni_orden, patente_orden, orden_numero, fecha_inicio, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
-			3:
 				ListarHistorialGeneral(orden_numero, patente_orden, dni_orden, fecha_inicio, fecha_entrega, trabajo_orden, estado_orden, cantidad_ordenes, factura_nro_orden, factura_total, cantidad_facturas)
 			0:
 				Escribir "Volviendo al menu principal..."
@@ -1666,22 +1573,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo usuarios y sesiones
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuUsuarios
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                    GESTIÓN DE USUARIOS Y ROLES                   "
-	Escribir "=================================================================="
-	Escribir "  [1] Ver usuarios registrados"
-	Escribir "  [2] Registrar nuevo usuario"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion ListarUsuarios(usuario_nombre, usuario_rol, cantidad_usuarios)
 	Definir i Como Entero
 	Limpiar Pantalla
@@ -1762,7 +1653,17 @@ FinFuncion
 Funcion menuUsuarios(usuario_nombre, usuario_clave, usuario_rol, cantidad_usuarios Por Referencia, rol_activo)
 	Definir opcion_usuarios Como Entero
 	Repetir
-		opcion_usuarios <- MostrarMenuUsuarios
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                    GESTIÓN DE USUARIOS Y ROLES                   "
+		Escribir "=================================================================="
+		Escribir "  [1] Ver usuarios registrados"
+		Escribir "  [2] Registrar nuevo usuario"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_usuarios
 		Segun opcion_usuarios Hacer
 			1:
 				ListarUsuarios(usuario_nombre, usuario_rol, cantidad_usuarios)
@@ -1775,17 +1676,6 @@ Funcion menuUsuarios(usuario_nombre, usuario_clave, usuario_rol, cantidad_usuari
 				Pausa
 		FinSegun
 	Hasta Que opcion_usuarios = 0
-FinFuncion
-
-Funcion CerrarSesion(usuario_activo Por Referencia, rol_activo Por Referencia)
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "  [OK] Sesión de ", usuario_activo, " cerrada correctamente."
-	Escribir "  Volviendo a la selección de tipo de usuario..."
-	Escribir "=================================================================="
-	usuario_activo <- ""
-	rol_activo <- ""
-	Pausa
 FinFuncion
 
 
@@ -2118,7 +2008,13 @@ Algoritmo Fixly
 								7:
 									menuUsuarios(usuario_nombre, usuario_clave, usuario_rol, cantidad_usuarios, rol_activo)
 								0:
-									CerrarSesion(usuario_activo, rol_activo)
+									usuario_activo <- ""
+									rol_activo <- ""
+									Limpiar Pantalla
+									Escribir "=================================================================="
+									Escribir "  [OK] Sesi\xf3n cerrada correctamente."
+									Escribir "=================================================================="
+									Pausa
 								De Otro Modo:
 									Escribir "Opcion no valida."
 									Pausa
@@ -2149,7 +2045,13 @@ Algoritmo Fixly
 								3:
 									menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
 								0:
-									CerrarSesion(usuario_activo, rol_activo)
+									usuario_activo <- ""
+									rol_activo <- ""
+									Limpiar Pantalla
+									Escribir "=================================================================="
+									Escribir "  [OK] Sesi\xf3n cerrada correctamente."
+									Escribir "=================================================================="
+									Pausa
 								De Otro Modo:
 									Escribir "Opción no válida."
 									Pausa
@@ -2174,7 +2076,13 @@ Algoritmo Fixly
 								1:
 									menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
 								0:
-									CerrarSesion(usuario_activo, rol_activo)
+									usuario_activo <- ""
+									rol_activo <- ""
+									Limpiar Pantalla
+									Escribir "=================================================================="
+									Escribir "  [OK] Sesi\xf3n cerrada correctamente."
+									Escribir "=================================================================="
+									Pausa
 								De Otro Modo:
 									Escribir "Opción no válida."
 									Pausa
