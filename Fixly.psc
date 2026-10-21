@@ -46,24 +46,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo clientes
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuClientes
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                       GESTIÓN DE CLIENTES                        "
-	Escribir "=================================================================="
-	Escribir "  [1] Ingresar un nuevo cliente"
-	Escribir "  [2] Ver lista de clientes"
-	Escribir "  [3] Quitar un cliente"
-	Escribir "  [4] Modificar datos de un cliente"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion IngresarCliente(nombre, apellido, celular, dni, contadorClientes Por Referencia)
 	Definir dniNuevo, posDniExistente Como Entero
 	Limpiar Pantalla
@@ -226,7 +208,19 @@ FinFuncion
 Funcion menuClientes(nombre, apellido, celular, dni, contadorClientes Por Referencia)
 	Definir opcion_clientes Como Entero
 	Repetir
-		opcion_clientes <- MostrarMenuClientes
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                       GESTIÓN DE CLIENTES                        "
+		Escribir "=================================================================="
+		Escribir "  [1] Ingresar un nuevo cliente"
+		Escribir "  [2] Ver lista de clientes"
+		Escribir "  [3] Quitar un cliente"
+		Escribir "  [4] Modificar datos de un cliente"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_clientes
 		Segun opcion_clientes Hacer
 			1:
 				IngresarCliente(nombre, apellido, celular, dni, contadorClientes)
@@ -248,24 +242,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo vehiculos
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuVehiculos
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                      GESTIÓN DE VEHICULOS                        "
-	Escribir "=================================================================="
-	Escribir "  [1] Ingresar un nuevo vehículo"
-	Escribir "  [2] Ver lista de vehículos"
-	Escribir "  [3] Quitar un vehículo"
-	Escribir "  [4] Modificar datos de un vehículo"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, contadorVehiculo Por Referencia, dni, nombre, apellido, celular, contadorClientes Por Referencia)
 	Definir patenteNueva, respCliente Como Caracter
 	Definir dniIngresado, posCliente, posPatenteExistente Como Entero
@@ -446,7 +422,19 @@ FinFuncion
 Funcion menuVehiculos(marcaVehiculo, modeloVehiculo, patente, dniDueno, contadorVehiculo Por Referencia, dni, nombre, apellido, celular, contadorClientes Por Referencia)
 	Definir opcion_vehiculos Como Entero
 	Repetir
-		opcion_vehiculos <- MostrarMenuVehiculos
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                      GESTIÓN DE VEHICULOS                        "
+		Escribir "=================================================================="
+		Escribir "  [1] Ingresar un nuevo vehículo"
+		Escribir "  [2] Ver lista de vehículos"
+		Escribir "  [3] Quitar un vehículo"
+		Escribir "  [4] Modificar datos de un vehículo"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_vehiculos
 		Segun opcion_vehiculos Hacer
 			1:
 				IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, contadorVehiculo, dni, nombre, apellido, celular, contadorClientes)
@@ -468,24 +456,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo ordenes de trabajo
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuOrdenes
-	Definir opcion Como Entero
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "                   ÓRDENES DE TRABAJO (TALLER)                    "
-	Escribir "=================================================================="
-	Escribir "  [1] Cargar nueva orden de trabajo"
-	Escribir "  [2] Modificar orden de trabajo"
-	Escribir "  [3] Buscar orden por patente"
-	Escribir "  [4] Cerrar / Finalizar orden de trabajo"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes Por Referencia, nro_orden_siguiente Por Referencia, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles Por Referencia, dni, nombre, apellido, contadorClientes, patente, marcaVehiculo, modeloVehiculo, dniDueno, contadorVehiculo, codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 	Definir posicion_cliente, posicion_vehiculo, posicion_repuesto, dni_buscar Como Entero
 	Definir cantidad_repuestos_ot Como Entero
@@ -943,7 +913,19 @@ FinFuncion
 Funcion menuOrdenes(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes Por Referencia, nro_orden_siguiente Por Referencia, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles Por Referencia, dni, nombre, apellido, contadorClientes, patente, marcaVehiculo, modeloVehiculo, dniDueno, contadorVehiculo, codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 	Definir opcion_ordenes Como Entero
 	Repetir
-		opcion_ordenes <- MostrarMenuOrdenes
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                   ÓRDENES DE TRABAJO (TALLER)                    "
+		Escribir "=================================================================="
+		Escribir "  [1] Cargar nueva orden de trabajo"
+		Escribir "  [2] Modificar orden de trabajo"
+		Escribir "  [3] Buscar orden por patente"
+		Escribir "  [4] Cerrar / Finalizar orden de trabajo"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_ordenes
 		Segun opcion_ordenes Hacer
 			1:
 				CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, nro_orden_siguiente, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, dni, nombre, apellido, contadorClientes, patente, marcaVehiculo, modeloVehiculo, dniDueno, contadorVehiculo, codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
@@ -964,26 +946,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo repuestos
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuRepuestos
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                   CONTROL DE REPUESTOS Y STOCK                   "
-	Escribir "=================================================================="
-	Escribir "  [1] Cargar repuesto nuevo"
-	Escribir "  [2] Eliminar repuesto"
-	Escribir "  [3] Buscar repuesto en inventario"
-	Escribir "  [4] Modificar precio de repuesto"
-	Escribir "  [5] Actualizar stock disponible"
-	Escribir "  [6] Listado general de catálogo"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion CargarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos Por Referencia)
 	Definir codNuevo Como Caracter
 	Definir posRep Como Entero
@@ -1191,7 +1153,21 @@ FinFuncion
 Funcion menuRepuestos(codigo, nombreRepuesto, precio, stock, cantidad_repuestos Por Referencia)
 	Definir opcion_repuestos Como Entero
 	Repetir
-		opcion_repuestos <- MostrarMenuRepuestos
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                   CONTROL DE REPUESTOS Y STOCK                   "
+		Escribir "=================================================================="
+		Escribir "  [1] Cargar repuesto nuevo"
+		Escribir "  [2] Eliminar repuesto"
+		Escribir "  [3] Buscar repuesto en inventario"
+		Escribir "  [4] Modificar precio de repuesto"
+		Escribir "  [5] Actualizar stock disponible"
+		Escribir "  [6] Listado general de catálogo"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_repuestos
 		Segun opcion_repuestos Hacer
 			1:
 				CargarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
@@ -1216,24 +1192,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo facturacion
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuFacturacion
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                      MÓDULO DE FACTURACIÓN                       "
-	Escribir "=================================================================="
-	Escribir "  [1] Emitir factura de orden finalizada"
-	Escribir "  [2] Ver comprobante de factura"
-	Escribir "  [3] Listado de facturas emitidas"
-	Escribir "  [4] Consultar facturas por DNI de cliente"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_numero, factura_nro_orden, factura_dni, factura_patente, factura_fecha, factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total, cantidad_facturas Por Referencia, nro_factura_siguiente Por Referencia, porcentaje_iva, dni, nombre, apellido, contadorClientes)
 	Definir ordenFacturar, posOrden, posCliente, k Como Entero
 	Definir totalRepuestos, horasIngresadas, valorHora, manoObra, subtotal, iva, total Como Real
@@ -1474,7 +1432,19 @@ FinFuncion
 Funcion menuFacturacion(orden_numero, dni_orden, patente_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_numero, factura_nro_orden, factura_dni, factura_patente, factura_fecha, factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total, cantidad_facturas Por Referencia, nro_factura_siguiente Por Referencia, porcentaje_iva, dni, nombre, apellido, contadorClientes)
 	Definir opcion_facturacion Como Entero
 	Repetir
-		opcion_facturacion <- MostrarMenuFacturacion
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                      MÓDULO DE FACTURACIÓN                       "
+		Escribir "=================================================================="
+		Escribir "  [1] Emitir factura de orden finalizada"
+		Escribir "  [2] Ver comprobante de factura"
+		Escribir "  [3] Listado de facturas emitidas"
+		Escribir "  [4] Consultar facturas por DNI de cliente"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_facturacion
 		Segun opcion_facturacion Hacer
 			1:
 				EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_numero, factura_nro_orden, factura_dni, factura_patente, factura_fecha, factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total, cantidad_facturas, nro_factura_siguiente, porcentaje_iva, dni, nombre, apellido, contadorClientes)
@@ -1495,23 +1465,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo historial de reparaciones
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuHistorial
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                    HISTORIAL DE REPARACIONES                     "
-	Escribir "=================================================================="
-	Escribir "  [1] Consultar historial por patente"
-	Escribir "  [2] Consultar historial por DNI del cliente"
-	Escribir "  [3] Listado general de reparaciones finalizadas"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion ConsultarHistorialPatente(patente_orden, orden_numero, dni_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas)
 	Definir patBuscar Como Caracter
 	Definir i, k, posFactura, ordenesEncontradas Como Entero
@@ -1647,7 +1600,18 @@ FinFuncion
 Funcion menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
 	Definir opcion_historial Como Entero
 	Repetir
-		opcion_historial <- MostrarMenuHistorial
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                    HISTORIAL DE REPARACIONES                     "
+		Escribir "=================================================================="
+		Escribir "  [1] Consultar historial por patente"
+		Escribir "  [2] Consultar historial por DNI del cliente"
+		Escribir "  [3] Listado general de reparaciones finalizadas"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_historial
 		Segun opcion_historial Hacer
 			1:
 				ConsultarHistorialPatente(patente_orden, orden_numero, dni_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas)
@@ -1666,22 +1630,6 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo usuarios y sesiones
-// ---------------------------------------------------------------------
-Funcion opcion <- MostrarMenuUsuarios
-	Limpiar Pantalla
-	Definir opcion Como Entero
-	Escribir "=================================================================="
-	Escribir "                    GESTIÓN DE USUARIOS Y ROLES                   "
-	Escribir "=================================================================="
-	Escribir "  [1] Ver usuarios registrados"
-	Escribir "  [2] Registrar nuevo usuario"
-	Escribir "  ----------------------------------------------------------------"
-	Escribir "  [0] Volver al menu principal"
-	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese opción deseada: "
-	Leer opcion
-FinFuncion
-
 Funcion ListarUsuarios(usuario_nombre, usuario_rol, cantidad_usuarios)
 	Definir i Como Entero
 	Limpiar Pantalla
@@ -1762,7 +1710,17 @@ FinFuncion
 Funcion menuUsuarios(usuario_nombre, usuario_clave, usuario_rol, cantidad_usuarios Por Referencia, rol_activo)
 	Definir opcion_usuarios Como Entero
 	Repetir
-		opcion_usuarios <- MostrarMenuUsuarios
+				Limpiar Pantalla
+		Escribir "=================================================================="
+		Escribir "                    GESTIÓN DE USUARIOS Y ROLES                   "
+		Escribir "=================================================================="
+		Escribir "  [1] Ver usuarios registrados"
+		Escribir "  [2] Registrar nuevo usuario"
+		Escribir "  ----------------------------------------------------------------"
+		Escribir "  [0] Volver al menu principal"
+		Escribir "=================================================================="
+		Escribir Sin Saltar ">> Ingrese opción deseada: "
+		Leer opcion_usuarios
 		Segun opcion_usuarios Hacer
 			1:
 				ListarUsuarios(usuario_nombre, usuario_rol, cantidad_usuarios)
