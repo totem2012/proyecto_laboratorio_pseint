@@ -1347,78 +1347,74 @@ Funcion VerComprobanteFactura(factura_numero, factura_nro_orden, factura_dni, fa
 	Pausa
 FinFuncion
 
-Funcion ListarFacturas(factura_numero, factura_nro_orden, factura_fecha, factura_patente, factura_total, cantidad_facturas)
-	Definir i Como Entero
+Funcion ConsultarFacturas(factura_numero, factura_nro_orden, factura_dni, factura_fecha, factura_patente, factura_total, cantidad_facturas)
+	Definir modoConsulta, dniBuscar, i, facturasEncontradas Como Entero
 	Definir totalFacturado Como Real
 	
 	Limpiar Pantalla
 	Escribir "=================================================================================="
-	Escribir "                            LISTADO DE FACTURAS EMITIDAS                          "
+	Escribir "                             CONSULTA DE FACTURAS                                 "
 	Escribir "=================================================================================="
 	Si cantidad_facturas = 0 Entonces
 		Escribir "  [!] No hay facturas emitidas en el sistema."
 		Escribir "=================================================================================="
+		Pausa
 	SiNo
+		Repetir
+			Escribir "Seleccione el tipo de consulta:"
+			Escribir "  [1] Listar todas las facturas emitidas"
+			Escribir "  [2] Filtrar por DNI de cliente"
+			Escribir Sin Saltar ">> Opción: "
+			Leer modoConsulta
+		Hasta Que modoConsulta = 1 O modoConsulta = 2
+		
 		totalFacturado <- 0
+		facturasEncontradas <- 0
+		
+		Si modoConsulta = 2 Entonces
+			dniBuscar <- LeerDni(">> Ingrese DNI del cliente a consultar: ")
+		FinSi
+		
+		Limpiar Pantalla
+		Escribir "=================================================================================="
+		Si modoConsulta = 1 Entonces
+			Escribir "                            LISTADO DE FACTURAS EMITIDAS                          "
+		SiNo
+			Escribir "                     FACTURAS EMITIDAS PARA EL DNI: ", dniBuscar
+		FinSi
+		Escribir "=================================================================================="
 		Escribir "NRO | ORDEN | FECHA      | PATENTE  | TOTAL FACTURADO"
 		Escribir "----+-------+------------+----------+---------------------------------------------"
+		
 		Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
-			Escribir factura_numero[i], "   | ", factura_nro_orden[i], "     | ", factura_fecha[i], " | ", factura_patente[i], "  | $", factura_total[i]
-			totalFacturado <- totalFacturado + factura_total[i]
-		FinPara
-		Escribir "=================================================================================="
-		Escribir "Facturas emitidas: ", cantidad_facturas, " | Total general facturado: $", totalFacturado
-		Escribir "=================================================================================="
-	FinSi
-	Pausa
-FinFuncion
-
-Funcion ConsultarFacturasDni(factura_numero, factura_nro_orden, factura_dni, factura_fecha, factura_patente, factura_total, cantidad_facturas)
-	Definir dniBuscar, i, facturasEncontradas Como Entero
-	Definir totalFacturado Como Real
-	
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "                 FACTURAS POR CLIENTE (DNI)                       "
-	Escribir "=================================================================="
-	dniBuscar <- LeerDni(">> DNI del cliente a consultar: ")
-	facturasEncontradas <- 0
-	totalFacturado <- 0
-	
-	Para i <- 0 Hasta cantidad_facturas - 1 Con Paso 1 Hacer
-		Si factura_dni[i] = dniBuscar Entonces
-			Si facturasEncontradas = 0 Entonces
-				Escribir "------------------------------------------------------------------"
-				Escribir "NRO | ORDEN | FECHA      | PATENTE  | TOTAL FACTURADO"
-				Escribir "----+-------+------------+----------+-----------------------------"
+			Si modoConsulta = 1 O factura_dni[i] = dniBuscar Entonces
+				Escribir factura_numero[i], "   | ", factura_nro_orden[i], "     | ", factura_fecha[i], " | ", factura_patente[i], "  | $", factura_total[i]
+				facturasEncontradas <- facturasEncontradas + 1
+				totalFacturado <- totalFacturado + factura_total[i]
 			FinSi
-			Escribir factura_numero[i], "   | ", factura_nro_orden[i], "     | ", factura_fecha[i], " | ", factura_patente[i], "  | $", factura_total[i]
-			facturasEncontradas <- facturasEncontradas + 1
-			totalFacturado <- totalFacturado + factura_total[i]
+		FinPara
+		
+		Si facturasEncontradas = 0 Entonces
+			Escribir "  [!] No se encontraron facturas para el criterio seleccionado."
+		SiNo
+			Escribir "=================================================================================="
+			Escribir "Facturas listadas: ", facturasEncontradas, " | Monto total: $", totalFacturado
 		FinSi
-	FinPara
-	
-	Si facturasEncontradas = 0 Entonces
-		Escribir "  [!] No se registran facturas emitidas para el DNI ", dniBuscar
-	SiNo
-		Escribir "=================================================================="
-		Escribir "Total de comprobantes: ", facturasEncontradas, " | Monto acumulado: $", totalFacturado
+		Escribir "=================================================================================="
+		Pausa
 	FinSi
-	Escribir "=================================================================="
-	Pausa
 FinFuncion
 
 Funcion menuFacturacion(orden_numero, dni_orden, patente_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_numero, factura_nro_orden, factura_dni, factura_patente, factura_fecha, factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total, cantidad_facturas Por Referencia, nro_factura_siguiente Por Referencia, porcentaje_iva, dni, nombre, apellido, contadorClientes)
 	Definir opcion_facturacion Como Entero
 	Repetir
-				Limpiar Pantalla
+		Limpiar Pantalla
 		Escribir "=================================================================="
 		Escribir "                      MÓDULO DE FACTURACIÓN                       "
 		Escribir "=================================================================="
 		Escribir "  [1] Emitir factura de orden finalizada"
 		Escribir "  [2] Ver comprobante de factura"
-		Escribir "  [3] Listado de facturas emitidas"
-		Escribir "  [4] Consultar facturas por DNI de cliente"
+		Escribir "  [3] Consultar facturas (todas o por DNI)"
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
 		Escribir "=================================================================="
@@ -1430,13 +1426,11 @@ Funcion menuFacturacion(orden_numero, dni_orden, patente_orden, trabajo_orden, e
 			2:
 				VerComprobanteFactura(factura_numero, factura_nro_orden, factura_dni, factura_patente, factura_fecha, factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total, cantidad_facturas, porcentaje_iva, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, dni, nombre, apellido, contadorClientes)
 			3:
-				ListarFacturas(factura_numero, factura_nro_orden, factura_fecha, factura_patente, factura_total, cantidad_facturas)
-			4:
-				ConsultarFacturasDni(factura_numero, factura_nro_orden, factura_dni, factura_fecha, factura_patente, factura_total, cantidad_facturas)
+				ConsultarFacturas(factura_numero, factura_nro_orden, factura_dni, factura_fecha, factura_patente, factura_total, cantidad_facturas)
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "Opción no valida."
+				Escribir "Opción no válida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_facturacion = 0
@@ -1444,30 +1438,51 @@ FinFuncion
 
 // ---------------------------------------------------------------------
 // funciones del modulo historial de reparaciones
-Funcion ConsultarHistorialPatente(patente_orden, orden_numero, dni_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas)
+Funcion ConsultarHistorialDetallado(patente_orden, orden_numero, dni_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
+	Definir criterioHistorial, dniBuscar, i, k, posFactura, posCliente, ordenesEncontradas Como Entero
 	Definir patBuscar Como Caracter
-	Definir i, k, posFactura, ordenesEncontradas Como Entero
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "               HISTORIAL DE REPARACIÓN POR PATENTE                "
+	Escribir "               HISTORIAL DETALLADO DE REPARACIONES                "
 	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese patente a consultar: "
-	Leer patBuscar
+	Repetir
+		Escribir "Buscar reparaciones finalizadas por:"
+		Escribir "  [1] Patente del vehículo"
+		Escribir "  [2] DNI del cliente"
+		Escribir Sin Saltar ">> Opción: "
+		Leer criterioHistorial
+	Hasta Que criterioHistorial = 1 O criterioHistorial = 2
+	
+	Si criterioHistorial = 1 Entonces
+		Escribir Sin Saltar ">> Ingrese patente a consultar: "
+		Leer patBuscar
+	SiNo
+		dniBuscar <- LeerDni(">> Ingrese DNI del cliente a consultar: ")
+		posCliente <- BuscarPosicion(dni, contadorClientes, dniBuscar)
+	FinSi
+	
+	Limpiar Pantalla
+	Escribir "=================================================================="
+	Si criterioHistorial = 1 Entonces
+		Escribir "       HISTORIAL DE REPARACIONES - PATENTE: ", patBuscar
+	SiNo
+		Si posCliente <> -1 Entonces
+			Escribir " HISTORIAL: ", apellido[posCliente], " ", nombre[posCliente], " (DNI: ", dniBuscar, ")"
+		SiNo
+			Escribir " HISTORIAL: DNI ", dniBuscar
+		FinSi
+	FinSi
+	Escribir "=================================================================="
+	
 	ordenesEncontradas <- 0
-	
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "       HISTORIAL DE REPARACIONES - PATENTE: ", patBuscar
-	Escribir "=================================================================="
-	
 	Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
-		Si patente_orden[i] = patBuscar Y estado_orden[i] = "Finalizada" Entonces
+		Si estado_orden[i] = "Finalizada" Y ((criterioHistorial = 1 Y patente_orden[i] = patBuscar) O (criterioHistorial = 2 Y dni_orden[i] = dniBuscar)) Entonces
 			ordenesEncontradas <- ordenesEncontradas + 1
 			Escribir "+----------------------------------------------------------------+"
 			Escribir "| ORDEN NRO:      ", orden_numero[i], " | ESTADO: FINALIZADA"
+			Escribir "| PATENTE:        ", patente_orden[i], " | DNI DUEÑO: ", dni_orden[i]
 			Escribir "| FECHA INGRESO:  ", fecha_inicio[i], " | FECHA ENTREGA: ", fecha_entrega[i]
-			Escribir "| DNI TITULAR:    ", dni_orden[i]
 			Escribir "| MOTIVO INGRESO: ", descripcion_orden[i]
 			Escribir "| DIAGNÓSTICO:    ", diagnostico_orden[i]
 			Escribir "| TRABAJO HECHO:  ", trabajo_orden[i]
@@ -1482,64 +1497,16 @@ Funcion ConsultarHistorialPatente(patente_orden, orden_numero, dni_orden, fecha_
 			Si posFactura <> -1 Entonces
 				Escribir "| FACTURA ASOCIADA: Factura Nro ", factura_numero[posFactura], " | Total: $", factura_total[posFactura]
 			SiNo
-				Escribir "| FACTURA ASOCIADA: Pendiente de emisión"
+				Escribir "| FACTURA ASOCIADA: Pendiente de cobro"
 			FinSi
 			Escribir "+----------------------------------------------------------------+"
 		FinSi
 	FinPara
 	
 	Si ordenesEncontradas = 0 Entonces
-		Escribir "  [!] No se registran reparaciones finalizadas para la patente ", patBuscar
+		Escribir "  [!] No se registran reparaciones finalizadas para el criterio buscado."
 	SiNo
 		Escribir "Total de reparaciones finalizadas encontradas: ", ordenesEncontradas
-	FinSi
-	Escribir "=================================================================="
-	Pausa
-FinFuncion
-
-Funcion ConsultarHistorialDni(dni_orden, patente_orden, orden_numero, fecha_inicio, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
-	Definir dniBuscar, i, posCliente, posFactura, ordenesEncontradas Como Entero
-	
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "             HISTORIAL DE REPARACIÓN POR CLIENTE                  "
-	Escribir "=================================================================="
-	dniBuscar <- LeerDni(">> Ingrese DNI del cliente a consultar: ")
-	posCliente <- BuscarPosicion(dni, contadorClientes, dniBuscar)
-	ordenesEncontradas <- 0
-	
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Si posCliente <> -1 Entonces
-		Escribir " HISTORIAL: ", apellido[posCliente], " ", nombre[posCliente], " (DNI: ", dniBuscar, ")"
-	SiNo
-		Escribir " HISTORIAL: DNI ", dniBuscar
-	FinSi
-	Escribir "=================================================================="
-	
-	Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
-		Si dni_orden[i] = dniBuscar Y estado_orden[i] = "Finalizada" Entonces
-			ordenesEncontradas <- ordenesEncontradas + 1
-			Escribir "+----------------------------------------------------------------+"
-			Escribir "| ORDEN NRO:     ", orden_numero[i], " | PATENTE: ", patente_orden[i]
-			Escribir "| FECHA INGRESO: ", fecha_inicio[i], " | FECHA ENTREGA: ", fecha_entrega[i]
-			Escribir "| MOTIVO/FALLA:  ", descripcion_orden[i]
-			Escribir "| TRABAJO HECHO: ", trabajo_orden[i]
-			
-			posFactura <- BuscarPosicion(factura_nro_orden, cantidad_facturas, orden_numero[i])
-			Si posFactura <> -1 Entonces
-				Escribir "| FACTURA: Nro ", factura_numero[posFactura], " | Total: $", factura_total[posFactura]
-			SiNo
-				Escribir "| FACTURA: Pendiente de cobro"
-			FinSi
-			Escribir "+----------------------------------------------------------------+"
-		FinSi
-	FinPara
-	
-	Si ordenesEncontradas = 0 Entonces
-		Escribir "  [!] No se registran reparaciones finalizadas para el DNI ", dniBuscar
-	SiNo
-		Escribir "Total de reparaciones del cliente: ", ordenesEncontradas
 	FinSi
 	Escribir "=================================================================="
 	Pausa
@@ -1579,13 +1546,12 @@ FinFuncion
 Funcion menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
 	Definir opcion_historial Como Entero
 	Repetir
-				Limpiar Pantalla
+		Limpiar Pantalla
 		Escribir "=================================================================="
 		Escribir "                    HISTORIAL DE REPARACIONES                     "
 		Escribir "=================================================================="
-		Escribir "  [1] Consultar historial por patente"
-		Escribir "  [2] Consultar historial por DNI del cliente"
-		Escribir "  [3] Listado general de reparaciones finalizadas"
+		Escribir "  [1] Consultar historial detallado (por patente o DNI)"
+		Escribir "  [2] Listado general de reparaciones finalizadas"
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
 		Escribir "=================================================================="
@@ -1593,10 +1559,8 @@ Funcion menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fech
 		Leer opcion_historial
 		Segun opcion_historial Hacer
 			1:
-				ConsultarHistorialPatente(patente_orden, orden_numero, dni_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas)
+				ConsultarHistorialDetallado(patente_orden, orden_numero, dni_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
 			2:
-				ConsultarHistorialDni(dni_orden, patente_orden, orden_numero, fecha_inicio, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
-			3:
 				ListarHistorialGeneral(orden_numero, patente_orden, dni_orden, fecha_inicio, fecha_entrega, trabajo_orden, estado_orden, cantidad_ordenes, factura_nro_orden, factura_total, cantidad_facturas)
 			0:
 				Escribir "Volviendo al menu principal..."
