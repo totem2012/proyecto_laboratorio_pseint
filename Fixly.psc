@@ -1886,6 +1886,8 @@ Algoritmo Fixly
 	Limpiar Pantalla
 	MostrarLogo
 	Escribir "  Sistema Integral de Gestion de Taller Mecánico"
+	Escribir ""
+	Escribir ""
 	Pausa
 	
 	Repetir
