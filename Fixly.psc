@@ -105,7 +105,7 @@ Funcion EliminarCliente(nombre, apellido, celular, dni, contadorClientes Por Ref
 	Definir dniEliminar, i, j, lugarVacio Como Entero
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                         QUITAR CLIENTE                           "
+	Escribir "                         ELIMINAR CLIENTE                           "
 	Escribir "=================================================================="
 	dniEliminar <- LeerDni("Escriba el DNI del cliente que desea eliminar: ")
 	lugarVacio <- -1
@@ -206,7 +206,7 @@ Funcion menuClientes(nombre, apellido, celular, dni, contadorClientes Por Refere
 		Escribir "=================================================================="
 		Escribir "  [1] Ingresar un nuevo cliente"
 		Escribir "  [2] Ver lista de clientes"
-		Escribir "  [3] Quitar un cliente"
+		Escribir "  [3] Eliminar un cliente"
 		Escribir "  [4] Modificar datos de un cliente"
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
@@ -333,7 +333,7 @@ Funcion EliminarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                        QUITAR VEHÍCULO                           "
+	Escribir "                       ELIMINAR VEHÍCULO                           "
 	Escribir "=================================================================="
 	Escribir Sin Saltar "Escriba la patente del vehículo que desea eliminar: "
 	Leer patenteEliminar
@@ -420,7 +420,7 @@ Funcion menuVehiculos(marcaVehiculo, modeloVehiculo, patente, dniDueno, contador
 		Escribir "=================================================================="
 		Escribir "  [1] Ingresar un nuevo vehículo"
 		Escribir "  [2] Ver lista de vehículos"
-		Escribir "  [3] Quitar un vehículo"
+		Escribir "  [3] Eliminar un vehículo"
 		Escribir "  [4] Modificar datos de un vehículo"
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
@@ -623,7 +623,7 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 				Escribir "  [1] Modificar motivo de falla"
 				Escribir "  [2] Modificar diagnóstico"
 				Escribir "  [3] Agregar repuestos a la orden"
-				Escribir "  [4] Quitar repuesto de la orden"
+				Escribir "  [4] Eliminar repuesto de la orden"
 				Escribir "  ----------------------------------------------------------------"
 				Escribir "  [0] Volver al menu de órdenes"
 				Escribir "=================================================================="
@@ -711,7 +711,7 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 								FinSi
 							FinPara
 							Escribir "------------------------------------------------------------------"
-							Escribir Sin Saltar ">> Código de repuesto a quitar: "
+							Escribir Sin Saltar ">> Código de repuesto a eliminar: "
 							Leer codigo_quitar
 							
 							posicion_detalle <- -1
