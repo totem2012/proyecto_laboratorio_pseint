@@ -133,30 +133,6 @@ Funcion EliminarCliente(nombre, apellido, celular, dni, contadorClientes Por Ref
 	Pausa
 FinFuncion
 
-Funcion MostrarFichaCliente(nombre, apellido, celular, dni, pos)
-	Escribir "+----------------------------------------------------------------+"
-	Escribir "|                   FICHA DEL CLIENTE SELECCIONADO               |"
-	Escribir "+----------------------------------------------------------------+"
-	Escribir "| NOMBRE:   ", nombre[pos]
-	Escribir "| APELLIDO: ", apellido[pos]
-	Escribir "| CELULAR:  ", celular[pos]
-	Escribir "| DNI:      ", dni[pos]
-	Escribir "+----------------------------------------------------------------+"
-FinFuncion
-
-Funcion opcion <- PedirCampoCliente
-	Definir opcion Como Entero
-	Repetir
-		Escribir "Seleccione el dato que desea modificar:"
-		Escribir "  [1] Nombre"
-		Escribir "  [2] Apellido"
-		Escribir "  [3] Celular"
-		Escribir "  [4] DNI"
-		Escribir Sin Saltar ">> Opción: "
-		Leer opcion
-	Hasta Que opcion > 0 Y opcion < 5
-FinFuncion
-
 Funcion ModificarCliente(nombre, apellido, celular, dni, contadorClientes)
 	Definir datoBusquedaMod, datoCampoMod, dniNuevo, posDniExistente Como Entero
 	Si contadorClientes = 0 Entonces
@@ -175,8 +151,24 @@ Funcion ModificarCliente(nombre, apellido, celular, dni, contadorClientes)
 			Leer datoBusquedaMod
 		Hasta Que datoBusquedaMod > 0 Y datoBusquedaMod <= contadorClientes
 		
-		MostrarFichaCliente(nombre, apellido, celular, dni, datoBusquedaMod - 1)
-		datoCampoMod <- PedirCampoCliente
+		Escribir "+----------------------------------------------------------------+"
+		Escribir "|                   FICHA DEL CLIENTE SELECCIONADO               |"
+		Escribir "+----------------------------------------------------------------+"
+		Escribir "| NOMBRE:   ", nombre[datoBusquedaMod - 1]
+		Escribir "| APELLIDO: ", apellido[datoBusquedaMod - 1]
+		Escribir "| CELULAR:  ", celular[datoBusquedaMod - 1]
+		Escribir "| DNI:      ", dni[datoBusquedaMod - 1]
+		Escribir "+----------------------------------------------------------------+"
+		
+		Repetir
+			Escribir "Seleccione el dato que desea modificar:"
+			Escribir "  [1] Nombre"
+			Escribir "  [2] Apellido"
+			Escribir "  [3] Celular"
+			Escribir "  [4] DNI"
+			Escribir Sin Saltar ">> Opción: "
+			Leer datoCampoMod
+		Hasta Que datoCampoMod > 0 Y datoCampoMod < 5
 		
 		Segun datoCampoMod Hacer
 			1:
@@ -1735,17 +1727,6 @@ Funcion menuUsuarios(usuario_nombre, usuario_clave, usuario_rol, cantidad_usuari
 	Hasta Que opcion_usuarios = 0
 FinFuncion
 
-Funcion CerrarSesion(usuario_activo Por Referencia, rol_activo Por Referencia)
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "  [OK] Sesión de ", usuario_activo, " cerrada correctamente."
-	Escribir "  Volviendo a la selección de tipo de usuario..."
-	Escribir "=================================================================="
-	usuario_activo <- ""
-	rol_activo <- ""
-	Pausa
-FinFuncion
-
 
 // =====================================================================
 // algoritmo principal
@@ -2076,7 +2057,13 @@ Algoritmo Fixly
 								7:
 									menuUsuarios(usuario_nombre, usuario_clave, usuario_rol, cantidad_usuarios, rol_activo)
 								0:
-									CerrarSesion(usuario_activo, rol_activo)
+									usuario_activo <- ""
+									rol_activo <- ""
+									Limpiar Pantalla
+									Escribir "=================================================================="
+									Escribir "  [OK] Sesi\xf3n cerrada correctamente."
+									Escribir "=================================================================="
+									Pausa
 								De Otro Modo:
 									Escribir "Opcion no valida."
 									Pausa
@@ -2107,7 +2094,13 @@ Algoritmo Fixly
 								3:
 									menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
 								0:
-									CerrarSesion(usuario_activo, rol_activo)
+									usuario_activo <- ""
+									rol_activo <- ""
+									Limpiar Pantalla
+									Escribir "=================================================================="
+									Escribir "  [OK] Sesi\xf3n cerrada correctamente."
+									Escribir "=================================================================="
+									Pausa
 								De Otro Modo:
 									Escribir "Opción no válida."
 									Pausa
@@ -2132,7 +2125,13 @@ Algoritmo Fixly
 								1:
 									menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles, factura_nro_orden, factura_numero, factura_total, cantidad_facturas, dni, nombre, apellido, contadorClientes)
 								0:
-									CerrarSesion(usuario_activo, rol_activo)
+									usuario_activo <- ""
+									rol_activo <- ""
+									Limpiar Pantalla
+									Escribir "=================================================================="
+									Escribir "  [OK] Sesi\xf3n cerrada correctamente."
+									Escribir "=================================================================="
+									Pausa
 								De Otro Modo:
 									Escribir "Opción no válida."
 									Pausa
