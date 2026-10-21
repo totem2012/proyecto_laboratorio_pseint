@@ -7,12 +7,13 @@
 // ---------------------------------------------------------------------
 Funcion MostrarLogo
 	Escribir "=================================================================="
-	Escribir "  ______ _____  __  __  _      __     __"
-	Escribir " |  ____|_   _| \ \/ / | |     \ \   / /"
-	Escribir " | |__    | |    \  /  | |      \ \_/ / "
-	Escribir " |  __|   | |     ><   | |       \   /  "
-	Escribir " | |     _| |_   /  \  | |____    | |   "
-	Escribir " |_|    |_____| /_/\_\ |______|   |_|    GESTION DE TALLER"
+	Escribir "  ______   _____  __     __  _      __     __"
+	Escribir " |  ____| |_   _| \ \   / / | |     \ \   / /"
+	Escribir " | |__      | |    \ \ / /  | |      \ \_/ / "
+	Escribir " |  __|     | |     \   /   | |       \   /  "
+	Escribir " | |        | |     /   \   | |        | |   "
+	Escribir " | |       _| |_   / / \ \  | |____    | |   "
+	Escribir " |_|      |_____| /_/   \_\ |______|   |_|    GESTION DE TALLER"
 	Escribir "=================================================================="
 FinFuncion
 
@@ -1317,7 +1318,6 @@ Funcion VerComprobanteFactura(factura_numero, factura_nro_orden, factura_dni, fa
 		posCliente <- BuscarPosicion(dni, contadorClientes, factura_dni[posFactura])
 		Limpiar Pantalla
 		Escribir "+================================================================+"
-		Escribir "|                    FIXLY - TALLER MECÁNICO                     |"
 		Escribir "|                  COMPROBANTE DE FACTURACIÓN                    |"
 		Escribir "+================================================================+"
 		Escribir "| FACTURA Nro: ", factura_numero[posFactura], "                   FECHA: ", factura_fecha[posFactura]
@@ -1336,9 +1336,9 @@ Funcion VerComprobanteFactura(factura_numero, factura_nro_orden, factura_dni, fa
 		FinPara
 		Escribir "+----------------------------------------------------------------+"
 		Escribir "| LIQUIDACIÓN DE COSTOS:                                         |"
-		Escribir "|   Subtotal Repuestos:           $", factura_repuestos[posFactura]
+		Escribir "|   Repuestos:                    $", factura_repuestos[posFactura]
 		Escribir "|   Mano de Obra (", factura_horas[posFactura], " hs x $", factura_valor_hora[posFactura], "): $", factura_mano_obra[posFactura]
-		Escribir "|   Subtotal Gravado:             $", factura_subtotal[posFactura]
+		Escribir "|   Subtotal (sin impuesto):      $", factura_subtotal[posFactura]
 		Escribir "|   IVA (", porcentaje_iva, "%):                    $", factura_iva[posFactura]
 		Escribir "+----------------------------------------------------------------+"
 		Escribir "| TOTAL DE FACTURA:               $", factura_total[posFactura]
@@ -1885,8 +1885,6 @@ Algoritmo Fixly
 	
 	Limpiar Pantalla
 	MostrarLogo
-	Escribir "  Sistema Integral de Gestion de Taller Mecánico"
-	Escribir "  Laboratorio de Computación | Versión 2.0"
 	Pausa
 	
 	Repetir
