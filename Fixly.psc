@@ -755,7 +755,7 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 FinFuncion
 
 Funcion BuscarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles)
-	Definir posicion_orden, i Como Entero
+	Definir i, k, encontradas Como Entero
 	Definir dato_buscar Como Caracter
 	
 	Limpiar Pantalla
@@ -765,51 +765,59 @@ Funcion BuscarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 	Escribir Sin Saltar ">> Patente o número de orden a buscar: "
 	Leer dato_buscar
 	
-	posicion_orden <- BuscarPosicion(patente_orden, cantidad_ordenes, dato_buscar)
-	Si posicion_orden = -1 Entonces
-		Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
-			Si dato_buscar = ConvertirATexto(orden_numero[i]) Entonces
-				posicion_orden <- i
-			FinSi
-		FinPara
-	FinSi
+	encontradas <- 0
+	Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
+		Si patente_orden[i] = dato_buscar O ConvertirATexto(orden_numero[i]) = dato_buscar Entonces
+			encontradas <- encontradas + 1
+		FinSi
+	FinPara
 	
-	Si posicion_orden = -1 Entonces
+	Si encontradas = 0 Entonces
 		Escribir "------------------------------------------------------------------"
 		Escribir "  [!] Error: No hay orden registrada para: ", dato_buscar
 		Escribir "=================================================================="
-		Pausa
 	SiNo
 		Limpiar Pantalla
-		Escribir "+================================================================+"
-		Escribir "|                   ORDEN DE TRABAJO Nro ", orden_numero[posicion_orden]
-		Escribir "+================================================================+"
-		Escribir "| PATENTE:        ", patente_orden[posicion_orden]
-		Escribir "| DNI TITULAR:    ", dni_orden[posicion_orden]
-		Escribir "| ESTADO ACTUAL:  ", estado_orden[posicion_orden]
-		Escribir "| FECHA INGRESO:  ", fecha_inicio[posicion_orden]
-		Si fecha_fin[posicion_orden] <> "" Entonces
-			Escribir "| FECHA ESTIMADA: ", fecha_fin[posicion_orden]
-		FinSi
-		Si estado_orden[posicion_orden] = "Finalizada" Entonces
-			Escribir "| FECHA ENTREGA:  ", fecha_entrega[posicion_orden]
-		FinSi
-		Escribir "+----------------------------------------------------------------+"
-		Escribir "| MOTIVO INGRESO: ", descripcion_orden[posicion_orden]
-		Escribir "| DIAGNÓSTICO:    ", diagnostico_orden[posicion_orden]
-		Si trabajo_orden[posicion_orden] <> "" Entonces
-			Escribir "| TRABAJO HECHO:  ", trabajo_orden[posicion_orden]
-		FinSi
-		Escribir "+----------------------------------------------------------------+"
-		Escribir "| REPUESTOS UTILIZADOS:"
-		Para i <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
-			Si detalle_nro_orden[i] = orden_numero[posicion_orden] Entonces
-				Escribir "|   - ", detalle_cod_repuesto[i], " (x", detalle_cantidad[i], ") - $", detalle_precio_unitario[i] * detalle_cantidad[i]
+		Escribir "=================================================================="
+		Escribir "  ÓRDENES ENCONTRADAS PARA: ", dato_buscar
+		Escribir "=================================================================="
+		Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
+			Si patente_orden[i] = dato_buscar O ConvertirATexto(orden_numero[i]) = dato_buscar Entonces
+				Escribir "+================================================================+"
+				Escribir "|                   ORDEN DE TRABAJO Nro ", orden_numero[i]
+				Escribir "+================================================================+"
+				Escribir "| PATENTE:        ", patente_orden[i]
+				Escribir "| DNI TITULAR:    ", dni_orden[i]
+				Escribir "| ESTADO ACTUAL:  ", estado_orden[i]
+				Escribir "| FECHA INGRESO:  ", fecha_inicio[i]
+				Si fecha_fin[i] <> "" Entonces
+					Escribir "| FECHA ESTIMADA: ", fecha_fin[i]
+				FinSi
+				Si estado_orden[i] = "Finalizada" Entonces
+					Escribir "| FECHA ENTREGA:  ", fecha_entrega[i]
+				FinSi
+				Escribir "+----------------------------------------------------------------+"
+				Escribir "| MOTIVO INGRESO: ", descripcion_orden[i]
+				Escribir "| DIAGNÓSTICO:    ", diagnostico_orden[i]
+				Si trabajo_orden[i] <> "" Entonces
+					Escribir "| TRABAJO HECHO:  ", trabajo_orden[i]
+				FinSi
+				Escribir "+----------------------------------------------------------------+"
+				Escribir "| REPUESTOS UTILIZADOS:"
+				Para k <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
+					Si detalle_nro_orden[k] = orden_numero[i] Entonces
+						Escribir "|   - ", detalle_cod_repuesto[k], " (x", detalle_cantidad[k], ") - $", detalle_precio_unitario[k] * detalle_cantidad[k]
+					FinSi
+				FinPara
+				Escribir "+================================================================+"
+				Escribir ""
 			FinSi
 		FinPara
-		Escribir "+================================================================+"
-		Pausa
+		Escribir "=================================================================="
+		Escribir "  Total de órdenes encontradas: ", encontradas
+		Escribir "=================================================================="
 	FinSi
+	Pausa
 FinFuncion
 
 Funcion CerrarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_fin, fecha_entrega, descripcion_orden, diagnostico_orden, trabajo_orden, estado_orden, cantidad_ordenes, detalle_nro_orden, detalle_cod_repuesto, detalle_cantidad, detalle_precio_unitario, cantidad_detalles)
@@ -912,7 +920,7 @@ Funcion menuOrdenes(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 		Escribir "=================================================================="
 		Escribir "  [1] Cargar nueva orden de trabajo"
 		Escribir "  [2] Modificar orden de trabajo"
-		Escribir "  [3] Buscar orden por patente"
+		Escribir "  [3] Buscar orden por patente o número"
 		Escribir "  [4] Cerrar / Finalizar orden de trabajo"
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
