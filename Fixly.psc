@@ -30,7 +30,7 @@ Funcion dniLeido <- LeerDni(mensaje)
 		Escribir mensaje
 		Leer dniLeido
 		Si dniLeido <= 0 o dniLeido >= 100000000 Entonces
-			Escribir "Valor de DNI inv·lido"
+			Escribir "Valor de DNI inv√°lido"
 		FinSi
 	Mientras Que dniLeido <= 0 o dniLeido >= 100000000
 FinFuncion
@@ -54,7 +54,7 @@ Funcion IngresarCliente(nombre, apellido, celular, dni, contadorClientes Por Ref
 	Escribir "                     REGISTRAR NUEVO CLIENTE                      "
 	Escribir "=================================================================="
 	Si contadorClientes >= 50 Entonces
-		Escribir "  [!] Capacidad m·xima de clientes alcanzada (limite 50)."
+		Escribir "  [!] Capacidad m√°xima de clientes alcanzada (limite 50)."
 		Pausa
 	SiNo
 		Escribir ">> Ingrese los datos del nuevo cliente:"
@@ -106,7 +106,7 @@ Funcion EliminarCliente(nombre, apellido, celular, dni, contadorClientes Por Ref
 	Definir dniEliminar, i, j, lugarVacio Como Entero
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                         QUITAR CLIENTE                           "
+	Escribir "                         ELIMINAR CLIENTE                           "
 	Escribir "=================================================================="
 	dniEliminar <- LeerDni("Escriba el DNI del cliente que desea eliminar: ")
 	lugarVacio <- -1
@@ -167,7 +167,7 @@ Funcion ModificarCliente(nombre, apellido, celular, dni, contadorClientes)
 			Escribir "  [2] Apellido"
 			Escribir "  [3] Celular"
 			Escribir "  [4] DNI"
-			Escribir Sin Saltar ">> OpciÛn: "
+			Escribir Sin Saltar ">> Opci√≥n: "
 			Leer datoCampoMod
 		Hasta Que datoCampoMod > 0 Y datoCampoMod < 5
 		
@@ -203,16 +203,16 @@ Funcion menuClientes(nombre, apellido, celular, dni, contadorClientes Por Refere
 	Repetir
 				Limpiar Pantalla
 		Escribir "=================================================================="
-		Escribir "                       GESTI”N DE CLIENTES                        "
+		Escribir "                       GESTI√ìN DE CLIENTES                        "
 		Escribir "=================================================================="
 		Escribir "  [1] Ingresar un nuevo cliente"
 		Escribir "  [2] Ver lista de clientes"
-		Escribir "  [3] Quitar un cliente"
+		Escribir "  [3] Eliminar un cliente"
 		Escribir "  [4] Modificar datos de un cliente"
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
 		Escribir "=================================================================="
-		Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+		Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 		Leer opcion_clientes
 		Segun opcion_clientes Hacer
 			1:
@@ -227,7 +227,7 @@ Funcion menuClientes(nombre, apellido, celular, dni, contadorClientes Por Refere
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "OpciÛn no valida."
+				Escribir "Opci√≥n no valida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_clientes = 0
@@ -241,31 +241,31 @@ Funcion IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                    REGISTRAR NUEVO VEHÕCULO                      "
+	Escribir "                    REGISTRAR NUEVO VEH√çCULO                      "
 	Escribir "=================================================================="
 	Si contadorVehiculo >= 50 Entonces
-		Escribir "  [!] Capacidad m·xima de vehÌculos alcanzada (limite 50)."
+		Escribir "  [!] Capacidad m√°xima de veh√≠culos alcanzada (limite 50)."
 		Pausa
 	SiNo
-		Escribir ">> Ingrese los datos del vehÌculo a registrar:"
+		Escribir ">> Ingrese los datos del veh√≠culo a registrar:"
 		Escribir ""
-		Escribir Sin Saltar "Patente del vehÌculo: "
+		Escribir Sin Saltar "Patente del veh√≠culo: "
 		Leer patenteNueva
 		
 		posPatenteExistente <- BuscarPosicion(patente, contadorVehiculo, patenteNueva)
 		Si posPatenteExistente <> -1 Entonces
 			Escribir "------------------------------------------------------------------"
-			Escribir "  [!] Error: Ya existe un vehÌculo registrado con la patente ", patenteNueva
+			Escribir "  [!] Error: Ya existe un veh√≠culo registrado con la patente ", patenteNueva
 			Escribir "=================================================================="
 			Pausa
 		SiNo
 			patente[contadorVehiculo] <- patenteNueva
-			Escribir Sin Saltar "Marca del vehÌculo: "
+			Escribir Sin Saltar "Marca del veh√≠culo: "
 			Leer marcaVehiculo[contadorVehiculo]
-			Escribir Sin Saltar "Modelo del vehÌculo: "
+			Escribir Sin Saltar "Modelo del veh√≠culo: "
 			Leer modeloVehiculo[contadorVehiculo]
 			
-			dniIngresado <- LeerDni("DNI del titular / dueÒo (Sin puntos): ")
+			dniIngresado <- LeerDni("DNI del titular / due√±o (Sin puntos): ")
 			posCliente <- BuscarPosicion(dni, contadorClientes, dniIngresado)
 			
 			Si posCliente = -1 Entonces
@@ -286,7 +286,7 @@ Funcion IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 						Escribir "  [OK] Titular registrado y asociado exitosamente."
 					FinSi
 				SiNo
-					Escribir "  Aviso: El vehÌculo queda registrado con DNI asignado (sin ficha personal)."
+					Escribir "  Aviso: El veh√≠culo queda registrado con DNI asignado (sin ficha personal)."
 				FinSi
 			SiNo
 				Escribir "  >> Titular identificado: ", apellido[posCliente], " ", nombre[posCliente]
@@ -295,7 +295,7 @@ Funcion IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 			dniDueno[contadorVehiculo] <- dniIngresado
 			contadorVehiculo <- contadorVehiculo + 1
 			Escribir "------------------------------------------------------------------"
-			Escribir "[OK] VehÌculo registrado correctamente en el sistema."
+			Escribir "[OK] Veh√≠culo registrado correctamente en el sistema."
 			Escribir "=================================================================="
 			Pausa
 		FinSi
@@ -306,13 +306,13 @@ Funcion MostrarDatosVehiculos(marcaVehiculo, modeloVehiculo, patente, dniDueno, 
 	Definir i, posCliente Como Entero
 	Limpiar Pantalla
 	Escribir "=================================================================================="
-	Escribir "                              LISTADO DE VEHÕCULOS                                "
+	Escribir "                              LISTADO DE VEH√çCULOS                                "
 	Escribir "=================================================================================="
 	Si contadorVehiculo = 0 Entonces
-		Escribir "  [!] No hay vehÌculos registrados en el sistema."
+		Escribir "  [!] No hay veh√≠culos registrados en el sistema."
 		Escribir "=================================================================================="
 	SiNo
-		Escribir "Nro | PATENTE  | MARCA        | MODELO       | DNI DUE—O | TITULAR / DUE—O"
+		Escribir "Nro | PATENTE  | MARCA        | MODELO       | DNI DUE√ëO | TITULAR / DUE√ëO"
 		Escribir "----+----------+--------------+--------------+-----------+------------------------"
 		Para i <- 0 Hasta contadorVehiculo - 1 Con Paso 1 Hacer
 			posCliente <- BuscarPosicion(dni, contadorClientes, dniDueno[i])
@@ -323,7 +323,7 @@ Funcion MostrarDatosVehiculos(marcaVehiculo, modeloVehiculo, patente, dniDueno, 
 			FinSi
 		FinPara
 		Escribir "=================================================================================="
-		Escribir "Total de vehÌculos registrados: ", contadorVehiculo
+		Escribir "Total de veh√≠culos registrados: ", contadorVehiculo
 		Escribir "=================================================================================="
 	FinSi
 FinFuncion
@@ -334,9 +334,9 @@ Funcion EliminarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                        QUITAR VEHÕCULO                           "
+	Escribir "                       ELIMINAR VEH√çCULO                           "
 	Escribir "=================================================================="
-	Escribir Sin Saltar "Escriba la patente del vehÌculo que desea eliminar: "
+	Escribir Sin Saltar "Escriba la patente del veh√≠culo que desea eliminar: "
 	Leer patenteEliminar
 	posVehiculo <- BuscarPosicion(patente, contadorVehiculo, patenteEliminar)
 	
@@ -349,7 +349,7 @@ Funcion EliminarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 		FinPara
 		contadorVehiculo <- contadorVehiculo - 1
 		Escribir "------------------------------------------------------------------"
-		Escribir "[OK] VehÌculo eliminado correctamente del registro."
+		Escribir "[OK] Veh√≠culo eliminado correctamente del registro."
 		Escribir "=================================================================="
 	SiNo
 		Escribir "------------------------------------------------------------------"
@@ -364,16 +364,16 @@ Funcion ModificarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, cont
 	Si contadorVehiculo = 0 Entonces
 		Limpiar Pantalla
 		Escribir "=================================================================="
-		Escribir "                     MODIFICAR VEHÕCULO                           "
+		Escribir "                     MODIFICAR VEH√çCULO                           "
 		Escribir "=================================================================="
-		Escribir "  [!] No hay vehÌculos registrados para modificar."
+		Escribir "  [!] No hay veh√≠culos registrados para modificar."
 		Escribir "=================================================================="
 		Pausa
 	SiNo
 		Repetir
 			MostrarDatosVehiculos(marcaVehiculo, modeloVehiculo, patente, dniDueno, contadorVehiculo, dni, nombre, apellido, contadorClientes)
-			Escribir "Seleccione el vehÌculo que desea modificar:"
-			Escribir Sin Saltar ">> Nro de vehÌculo: "
+			Escribir "Seleccione el veh√≠culo que desea modificar:"
+			Escribir Sin Saltar ">> Nro de veh√≠culo: "
 			Leer datoBusquedaMod
 		Hasta Que datoBusquedaMod > 0 Y datoBusquedaMod <= contadorVehiculo
 		
@@ -387,7 +387,7 @@ Funcion ModificarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, cont
 			Escribir "  [2] Modelo"
 			Escribir "  [3] Patente"
 			Escribir "  [4] DNI del titular"
-			Escribir Sin Saltar ">> OpciÛn: "
+			Escribir Sin Saltar ">> Opci√≥n: "
 			Leer datoVehiculoMod
 		Hasta Que datoVehiculoMod > 0 Y datoVehiculoMod < 5
 		
@@ -406,7 +406,7 @@ Funcion ModificarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, cont
 				dniDueno[datoBusquedaMod-1] <- nuevoDni
 		FinSegun
 		Escribir "------------------------------------------------------------------"
-		Escribir "[OK] Datos del vehÌculo actualizados correctamente."
+		Escribir "[OK] Datos del veh√≠culo actualizados correctamente."
 		Escribir "=================================================================="
 		Pausa
 	FinSi
@@ -417,16 +417,16 @@ Funcion menuVehiculos(marcaVehiculo, modeloVehiculo, patente, dniDueno, contador
 	Repetir
 				Limpiar Pantalla
 		Escribir "=================================================================="
-		Escribir "                      GESTI”N DE VEHICULOS                        "
+		Escribir "                      GESTI√ìN DE VEHICULOS                        "
 		Escribir "=================================================================="
-		Escribir "  [1] Ingresar un nuevo vehÌculo"
-		Escribir "  [2] Ver lista de vehÌculos"
-		Escribir "  [3] Quitar un vehÌculo"
-		Escribir "  [4] Modificar datos de un vehÌculo"
+		Escribir "  [1] Ingresar un nuevo veh√≠culo"
+		Escribir "  [2] Ver lista de veh√≠culos"
+		Escribir "  [3] Eliminar un veh√≠culo"
+		Escribir "  [4] Modificar datos de un veh√≠culo"
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
 		Escribir "=================================================================="
-		Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+		Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 		Leer opcion_vehiculos
 		Segun opcion_vehiculos Hacer
 			1:
@@ -441,7 +441,7 @@ Funcion menuVehiculos(marcaVehiculo, modeloVehiculo, patente, dniDueno, contador
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "OpciÛn no v·lida."
+				Escribir "Opci√≥n no v√°lida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_vehiculos = 0
@@ -460,7 +460,7 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 	Escribir "=================================================================="
 	
 	Si cantidad_ordenes >= 100 Entonces
-		Escribir "  [!] LÌmite m·ximo de Ûrdenes alcanzado (100)."
+		Escribir "  [!] L√≠mite m√°ximo de √≥rdenes alcanzado (100)."
 		Escribir "=================================================================="
 		Pausa
 	SiNo
@@ -475,7 +475,7 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 			Pausa
 		SiNo
 			Escribir ">> Cliente encontrado: ", apellido[posicion_cliente], ", ", nombre[posicion_cliente]
-			Escribir Sin Saltar ">> Patente del vehÌculo: "
+			Escribir Sin Saltar ">> Patente del veh√≠culo: "
 			Leer patente_buscar
 			
 			posicion_vehiculo <- BuscarPosicion(patente, contadorVehiculo, patente_buscar)
@@ -483,17 +483,17 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 			Si posicion_vehiculo = -1 Entonces
 				Escribir "------------------------------------------------------------------"
 				Escribir "  [!] La patente ", patente_buscar, " no existe en la base."
-				Escribir "  Por favor, cargue primero el vehÌculo en el MÛdulo 2."
+				Escribir "  Por favor, cargue primero el veh√≠culo en el M√≥dulo 2."
 				Escribir "=================================================================="
 				Pausa
 			SiNo
 				Si dniDueno[posicion_vehiculo] <> dni_buscar Entonces
 					Escribir "------------------------------------------------------------------"
-					Escribir "  [!] Error: El vehÌculo con patente ", patente_buscar, " no pertenece al DNI ", dni_buscar, "."
+					Escribir "  [!] Error: El veh√≠culo con patente ", patente_buscar, " no pertenece al DNI ", dni_buscar, "."
 					Escribir "=================================================================="
 					Pausa
 				SiNo
-					Escribir ">> VehÌculo: ", marcaVehiculo[posicion_vehiculo], " ", modeloVehiculo[posicion_vehiculo]
+					Escribir ">> Veh√≠culo: ", marcaVehiculo[posicion_vehiculo], " ", modeloVehiculo[posicion_vehiculo]
 					Escribir "------------------------------------------------------------------"
 					
 					Escribir Sin Saltar ">> Fecha de ingreso (DD/MM/AAAA) [ENTER para Hoy]: "
@@ -502,13 +502,13 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 						f_inicio <- "Hoy"
 					FinSi
 					
-					Escribir Sin Saltar ">> Fecha estimada de finalizaciÛn (DD/MM/AAAA): "
+					Escribir Sin Saltar ">> Fecha estimada de finalizaci√≥n (DD/MM/AAAA): "
 					Leer f_estimada
 					
 					Escribir Sin Saltar ">> Motivo de ingreso / Detalle de la falla: "
 					Leer falla_detalle
 					
-					Escribir Sin Saltar ">> DiagnÛstico inicial: "
+					Escribir Sin Saltar ">> Diagn√≥stico inicial: "
 					Leer diag_detalle
 					
 					dni_orden[cantidad_ordenes] <- dni_buscar
@@ -529,7 +529,7 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 					Leer confirma_repuesto
 					
 					Mientras confirma_repuesto = "S" o confirma_repuesto = "s" Hacer
-						Escribir Sin Saltar ">> CÛdigo o nombre del repuesto (o FIN para terminar): "
+						Escribir Sin Saltar ">> C√≥digo o nombre del repuesto (o FIN para terminar): "
 						Leer nombre_repuesto_buscar
 						
 						Si nombre_repuesto_buscar <> "FIN" Y nombre_repuesto_buscar <> "fin" Y nombre_repuesto_buscar <> "" Entonces
@@ -539,9 +539,9 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 							FinSi
 							
 							Si posicion_repuesto = -1 Entonces
-								Escribir "  [!] El repuesto no existe en el cat·logo. C·rguelo en el mÛdulo 4."
+								Escribir "  [!] El repuesto no existe en el cat√°logo. C√°rguelo en el m√≥dulo 4."
 							SiNo
-								Escribir "  ArtÌculo: ", nombreRepuesto[posicion_repuesto], " | Stock disponible: ", stock[posicion_repuesto], " | Precio: $", precio[posicion_repuesto]
+								Escribir "  Art√≠culo: ", nombreRepuesto[posicion_repuesto], " | Stock disponible: ", stock[posicion_repuesto], " | Precio: $", precio[posicion_repuesto]
 								Escribir Sin Saltar "  Cantidad requerida: "
 								Leer cantidad_repuestos_ot
 								
@@ -552,7 +552,7 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 										Escribir "  [!] Stock insuficiente. Disponible: ", stock[posicion_repuesto]
 									SiNo
 										Si cantidad_detalles >= 300 Entonces
-											Escribir "  [!] LÌmite m·ximo de repuestos asignados a Ûrdenes alcanzado (300)."
+											Escribir "  [!] L√≠mite m√°ximo de repuestos asignados a √≥rdenes alcanzado (300)."
 										SiNo
 											detalle_nro_orden[cantidad_detalles] <- orden_numero[cantidad_ordenes]
 											detalle_cod_repuesto[cantidad_detalles] <- codigo[posicion_repuesto]
@@ -574,7 +574,7 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 					
 					cantidad_ordenes <- cantidad_ordenes + 1
 					Escribir "------------------------------------------------------------------"
-					Escribir "[OK] Orden Nro ", orden_numero[cantidad_ordenes - 1], " registrada con Èxito."
+					Escribir "[OK] Orden Nro ", orden_numero[cantidad_ordenes - 1], " registrada con √©xito."
 					Escribir "=================================================================="
 					Pausa
 				FinSi
@@ -592,7 +592,7 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 	Escribir "=================================================================="
 	Escribir "                   MODIFICAR ORDEN DE TRABAJO                     "
 	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese patente o n˙mero de orden a modificar: "
+	Escribir Sin Saltar ">> Ingrese patente o n√∫mero de orden a modificar: "
 	Leer dato_buscar
 	
 	posicion_orden <- BuscarPosicion(patente_orden, cantidad_ordenes, dato_buscar)
@@ -606,13 +606,13 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 	
 	Si posicion_orden = -1 Entonces
 		Escribir "------------------------------------------------------------------"
-		Escribir "  [!] Error: No se encontrÛ orden registrada para: ", dato_buscar
+		Escribir "  [!] Error: No se encontr√≥ orden registrada para: ", dato_buscar
 		Escribir "=================================================================="
 		Pausa
 	SiNo
 		Si estado_orden[posicion_orden] = "Finalizada" Entonces
 			Escribir "------------------------------------------------------------------"
-			Escribir "  [!] La orden Nro ", orden_numero[posicion_orden], " ya est· Finalizada y no puede modificarse."
+			Escribir "  [!] La orden Nro ", orden_numero[posicion_orden], " ya est√° Finalizada y no puede modificarse."
 			Escribir "=================================================================="
 			Pausa
 		SiNo
@@ -622,13 +622,13 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 				Escribir "                 MODIFICAR ORDEN NRO ", orden_numero[posicion_orden]
 				Escribir "=================================================================="
 				Escribir "  [1] Modificar motivo de falla"
-				Escribir "  [2] Modificar diagnÛstico"
+				Escribir "  [2] Modificar diagn√≥stico"
 				Escribir "  [3] Agregar repuestos a la orden"
-				Escribir "  [4] Quitar repuesto de la orden"
+				Escribir "  [4] Eliminar repuesto de la orden"
 				Escribir "  ----------------------------------------------------------------"
-				Escribir "  [0] Volver al menu de Ûrdenes"
+				Escribir "  [0] Volver al menu de √≥rdenes"
 				Escribir "=================================================================="
-				Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+				Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 				Leer opcion_modificar_ot
 				
 				Segun opcion_modificar_ot Hacer
@@ -642,24 +642,24 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 							Escribir "[OK] Motivo de falla actualizado correctamente."
 							Escribir "=================================================================="
 						SiNo
-							Escribir "  [!] El detalle no puede estar vacÌo."
+							Escribir "  [!] El detalle no puede estar vac√≠o."
 						FinSi
 						Pausa
 					2:
-						Escribir ">> DiagnÛstico actual: ", diagnostico_orden[posicion_orden]
-						Escribir Sin Saltar ">> Nuevo diagnÛstico: "
+						Escribir ">> Diagn√≥stico actual: ", diagnostico_orden[posicion_orden]
+						Escribir Sin Saltar ">> Nuevo diagn√≥stico: "
 						Leer diag_detalle
 						Si diag_detalle <> "" Entonces
 							diagnostico_orden[posicion_orden] <- diag_detalle
 							Escribir "------------------------------------------------------------------"
-							Escribir "[OK] DiagnÛstico actualizado correctamente."
+							Escribir "[OK] Diagn√≥stico actualizado correctamente."
 							Escribir "=================================================================="
 						SiNo
-							Escribir "  [!] El diagnÛstico no puede estar vacÌo."
+							Escribir "  [!] El diagn√≥stico no puede estar vac√≠o."
 						FinSi
 						Pausa
 					3:
-						Escribir Sin Saltar ">> CÛdigo o nombre del repuesto a agregar: "
+						Escribir Sin Saltar ">> C√≥digo o nombre del repuesto a agregar: "
 						Leer nombre_repuesto_modificar
 						posicion_repuesto_modificar <- BuscarPosicion(codigo, cantidad_repuestos, nombre_repuesto_modificar)
 						Si posicion_repuesto_modificar = -1 Entonces
@@ -667,19 +667,19 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 						FinSi
 						
 						Si posicion_repuesto_modificar = -1 Entonces
-							Escribir "  [!] Repuesto no encontrado en el cat·logo."
+							Escribir "  [!] Repuesto no encontrado en el cat√°logo."
 						SiNo
-							Escribir "  ArtÌculo: ", nombreRepuesto[posicion_repuesto_modificar], " | Stock actual: ", stock[posicion_repuesto_modificar], " | Precio: $", precio[posicion_repuesto_modificar]
+							Escribir "  Art√≠culo: ", nombreRepuesto[posicion_repuesto_modificar], " | Stock actual: ", stock[posicion_repuesto_modificar], " | Precio: $", precio[posicion_repuesto_modificar]
 							Escribir Sin Saltar "  Cantidad requerida: "
 							Leer cantidad_repuestos_ot
 							Si cantidad_repuestos_ot <= 0 Entonces
-								Escribir "  [!] Cantidad inv·lida (debe ser mayor a cero)."
+								Escribir "  [!] Cantidad inv√°lida (debe ser mayor a cero)."
 							SiNo
 								Si cantidad_repuestos_ot > stock[posicion_repuesto_modificar] Entonces
 									Escribir "  [!] Stock insuficiente en inventario."
 								SiNo
 									Si cantidad_detalles >= 300 Entonces
-										Escribir "  [!] LÌmite m·ximo de repuestos asignados a Ûrdenes alcanzado (300)."
+										Escribir "  [!] L√≠mite m√°ximo de repuestos asignados a √≥rdenes alcanzado (300)."
 									SiNo
 										detalle_nro_orden[cantidad_detalles] <- orden_numero[posicion_orden]
 										detalle_cod_repuesto[cantidad_detalles] <- codigo[posicion_repuesto_modificar]
@@ -708,11 +708,11 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 							Escribir "Repuestos asignados en la orden:"
 							Para i <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
 								Si detalle_nro_orden[i] = orden_numero[posicion_orden] Entonces
-									Escribir "  - CÛdigo: ", detalle_cod_repuesto[i], " (x", detalle_cantidad[i], ")"
+									Escribir "  - C√≥digo: ", detalle_cod_repuesto[i], " (x", detalle_cantidad[i], ")"
 								FinSi
 							FinPara
 							Escribir "------------------------------------------------------------------"
-							Escribir Sin Saltar ">> CÛdigo de repuesto a quitar: "
+							Escribir Sin Saltar ">> C√≥digo de repuesto a eliminar: "
 							Leer codigo_quitar
 							
 							posicion_detalle <- -1
@@ -744,9 +744,9 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 						FinSi
 						Pausa
 					0:
-						Escribir "Volviendo al menu de Ûrdenes..."
+						Escribir "Volviendo al menu de √≥rdenes..."
 					De Otro Modo:
-						Escribir "OpciÛn no v·lida."
+						Escribir "Opci√≥n no v√°lida."
 						Pausa
 				FinSegun
 			Mientras Que opcion_modificar_ot <> 0
@@ -762,7 +762,7 @@ Funcion BuscarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 	Escribir "=================================================================="
 	Escribir "                 BUSCAR ORDEN DE TRABAJO                          "
 	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Patente o n˙mero de orden a buscar: "
+	Escribir Sin Saltar ">> Patente o n√∫mero de orden a buscar: "
 	Leer dato_buscar
 	
 	posicion_orden <- BuscarPosicion(patente_orden, cantidad_ordenes, dato_buscar)
@@ -796,7 +796,7 @@ Funcion BuscarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 		FinSi
 		Escribir "+----------------------------------------------------------------+"
 		Escribir "| MOTIVO INGRESO: ", descripcion_orden[posicion_orden]
-		Escribir "| DIAGN”STICO:    ", diagnostico_orden[posicion_orden]
+		Escribir "| DIAGN√ìSTICO:    ", diagnostico_orden[posicion_orden]
 		Si trabajo_orden[posicion_orden] <> "" Entonces
 			Escribir "| TRABAJO HECHO:  ", trabajo_orden[posicion_orden]
 		FinSi
@@ -820,7 +820,7 @@ Funcion CerrarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 	Escribir "=================================================================="
 	Escribir "                 CERRAR ORDEN DE TRABAJO                          "
 	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Patente o n˙mero de orden a cerrar: "
+	Escribir Sin Saltar ">> Patente o n√∫mero de orden a cerrar: "
 	Leer dato_buscar
 	
 	posicion_orden <- BuscarPosicion(patente_orden, cantidad_ordenes, dato_buscar)
@@ -856,7 +856,7 @@ Funcion CerrarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 			FinSi
 			Escribir "| ESTADO ACTUAL:  ", estado_orden[posicion_orden]
 			Escribir "| MOTIVO INGRESO: ", descripcion_orden[posicion_orden]
-			Escribir "| DIAGN”STICO:    ", diagnostico_orden[posicion_orden]
+			Escribir "| DIAGN√ìSTICO:    ", diagnostico_orden[posicion_orden]
 			Escribir "+----------------------------------------------------------------+"
 			Escribir "| REPUESTOS UTILIZADOS:"
 			Para i <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
@@ -866,13 +866,13 @@ Funcion CerrarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 			FinPara
 			Escribir "+================================================================+"
 			
-			Escribir Sin Saltar ">> Fecha de finalizaciÛn / entrega (DD/MM/AAAA): "
+			Escribir Sin Saltar ">> Fecha de finalizaci√≥n / entrega (DD/MM/AAAA): "
 			Leer fecha_ingresada
 			Si fecha_ingresada = "" Entonces
 				fecha_ingresada <- "Hoy"
 			FinSi
 			
-			Escribir Sin Saltar ">> Detalle de trabajo realizado por el mec·nico: "
+			Escribir Sin Saltar ">> Detalle de trabajo realizado por el mec√°nico: "
 			Leer trabajo_realizado
 			
 			Escribir "------------------------------------------------------------------"
@@ -891,7 +891,7 @@ Funcion CerrarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 				Escribir "  Estado nuevo:   ", estado_orden[posicion_orden]
 				Escribir "  Fecha entrega:  ", fecha_entrega[posicion_orden]
 				Escribir "=================================================================="
-				Escribir "  La orden esta lista para facturaciÛn (MÛdulo 5)."
+				Escribir "  La orden esta lista para facturaci√≥n (M√≥dulo 5)."
 				Escribir "=================================================================="
 			SiNo
 				Escribir "------------------------------------------------------------------"
@@ -908,7 +908,7 @@ Funcion menuOrdenes(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 	Repetir
 				Limpiar Pantalla
 		Escribir "=================================================================="
-		Escribir "                   ”RDENES DE TRABAJO (TALLER)                    "
+		Escribir "                   √ìRDENES DE TRABAJO (TALLER)                    "
 		Escribir "=================================================================="
 		Escribir "  [1] Cargar nueva orden de trabajo"
 		Escribir "  [2] Modificar orden de trabajo"
@@ -917,7 +917,7 @@ Funcion menuOrdenes(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
 		Escribir "=================================================================="
-		Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+		Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 		Leer opcion_ordenes
 		Segun opcion_ordenes Hacer
 			1:
@@ -931,7 +931,7 @@ Funcion menuOrdenes(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "OpciÛn no v·lida."
+				Escribir "Opci√≥n no v√°lida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_ordenes = 0
@@ -945,25 +945,25 @@ Funcion CargarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                    CARGAR REPUESTO AL CAT¡LOGO                   "
+	Escribir "                    CARGAR REPUESTO AL CAT√ÅLOGO                   "
 	Escribir "=================================================================="
 	Si cantidad_repuestos >= 100 Entonces
-		Escribir "  [!] Capacidad m·xima de repuestos alcanzada (lÌmite 100)."
+		Escribir "  [!] Capacidad m√°xima de repuestos alcanzada (l√≠mite 100)."
 		Pausa
 	SiNo
 		Escribir ">> Ingrese los datos del repuesto:"
 		Escribir ""
-		Escribir Sin Saltar "CÛdigo de artÌculo: "
+		Escribir Sin Saltar "C√≥digo de art√≠culo: "
 		Leer codNuevo
 		posRep <- BuscarPosicion(codigo, cantidad_repuestos, codNuevo)
 		Si posRep <> -1 Entonces
 			Escribir "------------------------------------------------------------------"
-			Escribir "  [!] Error: Ya existe un repuesto con el cÛdigo ", codNuevo
+			Escribir "  [!] Error: Ya existe un repuesto con el c√≥digo ", codNuevo
 			Escribir "=================================================================="
 			Pausa
 		SiNo
 			codigo[cantidad_repuestos] <- codNuevo
-			Escribir Sin Saltar "DescripciÛn / Nombre del repuesto: "
+			Escribir Sin Saltar "Descripci√≥n / Nombre del repuesto: "
 			Leer nombreRepuesto[cantidad_repuestos]
 			
 			Repetir
@@ -984,7 +984,7 @@ Funcion CargarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos
 			
 			cantidad_repuestos <- cantidad_repuestos + 1
 			Escribir "------------------------------------------------------------------"
-			Escribir "[OK] Repuesto cargado exitosamente en el cat·logo."
+			Escribir "[OK] Repuesto cargado exitosamente en el cat√°logo."
 			Escribir "=================================================================="
 			Pausa
 		FinSi
@@ -997,9 +997,9 @@ Funcion EliminarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuest
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                   ELIMINAR REPUESTO DEL CAT¡LOGO                 "
+	Escribir "                   ELIMINAR REPUESTO DEL CAT√ÅLOGO                 "
 	Escribir "=================================================================="
-	Escribir Sin Saltar "Seleccionar cÛdigo para eliminar: "
+	Escribir Sin Saltar "Seleccionar c√≥digo para eliminar: "
 	Leer codBuscar
 	posRep <- BuscarPosicion(codigo, cantidad_repuestos, codBuscar)
 	
@@ -1012,11 +1012,11 @@ Funcion EliminarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuest
 		FinPara
 		cantidad_repuestos <- cantidad_repuestos - 1
 		Escribir "------------------------------------------------------------------"
-		Escribir "[OK] Repuesto eliminado con Èxito del inventario."
+		Escribir "[OK] Repuesto eliminado con √©xito del inventario."
 		Escribir "=================================================================="
 	SiNo
 		Escribir "------------------------------------------------------------------"
-		Escribir "  [!] Error: El cÛdigo especificado no existe."
+		Escribir "  [!] Error: El c√≥digo especificado no existe."
 		Escribir "=================================================================="
 	FinSi
 	Pausa
@@ -1028,9 +1028,9 @@ Funcion BuscarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                   BUSCAR REPUESTO EN CAT¡LOGO                    "
+	Escribir "                   BUSCAR REPUESTO EN CAT√ÅLOGO                    "
 	Escribir "=================================================================="
-	Escribir Sin Saltar "Ingrese cÛdigo o nombre del repuesto: "
+	Escribir Sin Saltar "Ingrese c√≥digo o nombre del repuesto: "
 	Leer criterio
 	posRep <- BuscarPosicion(codigo, cantidad_repuestos, criterio)
 	Si posRep = -1 Entonces
@@ -1041,14 +1041,14 @@ Funcion BuscarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos
 		Escribir "+----------------------------------------------------------------+"
 		Escribir "|                       FICHA DE REPUESTO                        |"
 		Escribir "+----------------------------------------------------------------+"
-		Escribir "| C”DIGO:      ", codigo[posRep]
-		Escribir "| DESCRIPCI”N: ", nombreRepuesto[posRep]
+		Escribir "| C√ìDIGO:      ", codigo[posRep]
+		Escribir "| DESCRIPCI√ìN: ", nombreRepuesto[posRep]
 		Escribir "| PRECIO UNIT: $", precio[posRep]
 		Escribir "| STOCK REAL:  ", stock[posRep], " unidades"
 		Escribir "+----------------------------------------------------------------+"
 	SiNo
 		Escribir "------------------------------------------------------------------"
-		Escribir "  [!] Repuesto no encontrado en el cat·logo."
+		Escribir "  [!] Repuesto no encontrado en el cat√°logo."
 		Escribir "=================================================================="
 	FinSi
 	Pausa
@@ -1063,7 +1063,7 @@ Funcion ModificarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repues
 	Escribir "=================================================================="
 	Escribir "               MODIFICAR REPUESTO (PRECIO / STOCK)                "
 	Escribir "=================================================================="
-	Escribir Sin Saltar "Ingrese cÛdigo del repuesto a modificar: "
+	Escribir Sin Saltar "Ingrese c√≥digo del repuesto a modificar: "
 	Leer codBuscar
 	posRep <- BuscarPosicion(codigo, cantidad_repuestos, codBuscar)
 	
@@ -1075,7 +1075,7 @@ Funcion ModificarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repues
 			Escribir "Seleccione el dato a modificar:"
 			Escribir "  [1] Precio unitario"
 			Escribir "  [2] Stock disponible"
-			Escribir Sin Saltar ">> OpciÛn: "
+			Escribir Sin Saltar ">> Opci√≥n: "
 			Leer opcionMod
 		Hasta Que opcionMod = 1 O opcionMod = 2
 		
@@ -1115,19 +1115,19 @@ Funcion ListarRepuestos(codigo, nombreRepuesto, precio, stock, cantidad_repuesto
 	Definir i Como Entero
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                  CAT¡LOGO GENERAL DE REPUESTOS                   "
+	Escribir "                  CAT√ÅLOGO GENERAL DE REPUESTOS                   "
 	Escribir "=================================================================="
 	Si cantidad_repuestos = 0 Entonces
 		Escribir "  [!] No hay repuestos cargados en el inventario."
 		Escribir "=================================================================="
 	SiNo
-		Escribir "Nro | C”DIGO   | DESCRIPCI”N                    | PRECIO    | STOCK"
+		Escribir "Nro | C√ìDIGO   | DESCRIPCI√ìN                    | PRECIO    | STOCK"
 		Escribir "----+----------+--------------------------------+-----------+-------"
 		Para i <- 0 Hasta cantidad_repuestos - 1 Con Paso 1 Hacer
 			Escribir i + 1, "   | ", codigo[i], " | ", nombreRepuesto[i], " | $", precio[i], " | ", stock[i]
 		FinPara
 		Escribir "=================================================================="
-		Escribir "Total de artÌculos en stock: ", cantidad_repuestos
+		Escribir "Total de art√≠culos en stock: ", cantidad_repuestos
 		Escribir "=================================================================="
 	FinSi
 	Pausa
@@ -1144,11 +1144,11 @@ Funcion menuRepuestos(codigo, nombreRepuesto, precio, stock, cantidad_repuestos 
 		Escribir "  [2] Eliminar repuesto"
 		Escribir "  [3] Buscar repuesto en inventario"
 		Escribir "  [4] Modificar precio o stock de repuesto"
-		Escribir "  [5] Listado general de cat·logo"
+		Escribir "  [5] Listado general de cat√°logo"
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
 		Escribir "=================================================================="
-		Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+		Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 		Leer opcion_repuestos
 		Segun opcion_repuestos Hacer
 			1:
@@ -1164,7 +1164,7 @@ Funcion menuRepuestos(codigo, nombreRepuesto, precio, stock, cantidad_repuestos 
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "OpciÛn no v·lida."
+				Escribir "Opci√≥n no v√°lida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_repuestos = 0
@@ -1179,14 +1179,14 @@ Funcion EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, est
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                   EMISI”N DE NUEVA FACTURA                       "
+	Escribir "                   EMISI√ìN DE NUEVA FACTURA                       "
 	Escribir "=================================================================="
 	Si cantidad_facturas >= 100 Entonces
-		Escribir "  [!] Cantidad m·xima de facturas alcanzada (lÌmite 100)."
+		Escribir "  [!] Cantidad m√°xima de facturas alcanzada (l√≠mite 100)."
 		Escribir "=================================================================="
 		Pausa
 	SiNo
-		Escribir Sin Saltar ">> N˙mero de orden a facturar: "
+		Escribir Sin Saltar ">> N√∫mero de orden a facturar: "
 		Leer ordenFacturar
 		posOrden <- BuscarPosicion(orden_numero, cantidad_ordenes, ordenFacturar)
 		
@@ -1198,8 +1198,8 @@ Funcion EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, est
 		SiNo
 			Si estado_orden[posOrden] <> "Finalizada" Entonces
 				Escribir "------------------------------------------------------------------"
-				Escribir "  [!] La orden todavÌa est· pendiente."
-				Escribir "  Debe cerrarse en el MÛdulo 3 antes de poder emitir la factura."
+				Escribir "  [!] La orden todav√≠a est√° pendiente."
+				Escribir "  Debe cerrarse en el M√≥dulo 3 antes de poder emitir la factura."
 				Escribir "=================================================================="
 				Pausa
 			SiNo
@@ -1248,7 +1248,7 @@ Funcion EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, est
 						FinSi
 					Hasta Que valorHora > 0
 					
-					Escribir Sin Saltar "Fecha de emisiÛn (DD/MM/AAAA): "
+					Escribir Sin Saltar "Fecha de emisi√≥n (DD/MM/AAAA): "
 					Leer fechaFactura
 					
 					manoObra <- horasIngresadas * valorHora
@@ -1257,7 +1257,7 @@ Funcion EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, est
 					total <- subtotal + iva
 					
 					Escribir "+================================================================+"
-					Escribir "|                   PRELIQUIDACI”N DE FACTURA                    |"
+					Escribir "|                   PRELIQUIDACI√ìN DE FACTURA                    |"
 					Escribir "+================================================================+"
 					Escribir "| Subtotal Repuestos:           $", totalRepuestos
 					Escribir "| Mano de Obra (", horasIngresadas, " hs x $", valorHora, "):  $", manoObra
@@ -1266,7 +1266,7 @@ Funcion EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, est
 					Escribir "+----------------------------------------------------------------+"
 					Escribir "| TOTAL A PAGAR:                $", total
 					Escribir "+================================================================+"
-					Escribir Sin Saltar "Confirmar emisiÛn definitiva? (S/N): "
+					Escribir Sin Saltar "Confirmar emisi√≥n definitiva? (S/N): "
 					Leer confirmaFactura
 					
 					Si confirmaFactura = "S" o confirmaFactura = "s" Entonces
@@ -1289,7 +1289,7 @@ Funcion EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, est
 						Escribir "=================================================================="
 					SiNo
 						Escribir "------------------------------------------------------------------"
-						Escribir "  [!] EmisiÛn de factura cancelada."
+						Escribir "  [!] Emisi√≥n de factura cancelada."
 						Escribir "=================================================================="
 					FinSi
 					Pausa
@@ -1306,7 +1306,7 @@ Funcion VerComprobanteFactura(factura_numero, factura_nro_orden, factura_dni, fa
 	Escribir "=================================================================="
 	Escribir "                CONSULTAR COMPROBANTE DE FACTURA                  "
 	Escribir "=================================================================="
-	Escribir Sin Saltar ">> Ingrese n˙mero de factura: "
+	Escribir Sin Saltar ">> Ingrese n√∫mero de factura: "
 	Leer facturaBuscar
 	posFactura <- BuscarPosicion(factura_numero, cantidad_facturas, facturaBuscar)
 	
@@ -1318,7 +1318,7 @@ Funcion VerComprobanteFactura(factura_numero, factura_nro_orden, factura_dni, fa
 		posCliente <- BuscarPosicion(dni, contadorClientes, factura_dni[posFactura])
 		Limpiar Pantalla
 		Escribir "+================================================================+"
-		Escribir "|                  COMPROBANTE DE FACTURACI”N                    |"
+		Escribir "|                  COMPROBANTE DE FACTURACI√ìN                    |"
 		Escribir "+================================================================+"
 		Escribir "| FACTURA Nro: ", factura_numero[posFactura], "                   FECHA: ", factura_fecha[posFactura]
 		Escribir "| ORDEN ASOCIADA: Nro ", factura_nro_orden[posFactura], "         PATENTE: ", factura_patente[posFactura]
@@ -1335,7 +1335,7 @@ Funcion VerComprobanteFactura(factura_numero, factura_nro_orden, factura_dni, fa
 			FinSi
 		FinPara
 		Escribir "+----------------------------------------------------------------+"
-		Escribir "| LIQUIDACI”N DE COSTOS:                                         |"
+		Escribir "| LIQUIDACI√ìN DE COSTOS:                                         |"
 		Escribir "|   Repuestos:                    $", factura_repuestos[posFactura]
 		Escribir "|   Mano de Obra (", factura_horas[posFactura], " hs x $", factura_valor_hora[posFactura], "): $", factura_mano_obra[posFactura]
 		Escribir "|   Subtotal (sin impuesto):      $", factura_subtotal[posFactura]
@@ -1364,7 +1364,7 @@ Funcion ConsultarFacturas(factura_numero, factura_nro_orden, factura_dni, factur
 			Escribir "Seleccione el tipo de consulta:"
 			Escribir "  [1] Listar todas las facturas emitidas"
 			Escribir "  [2] Filtrar por DNI de cliente"
-			Escribir Sin Saltar ">> OpciÛn: "
+			Escribir Sin Saltar ">> Opci√≥n: "
 			Leer modoConsulta
 		Hasta Que modoConsulta = 1 O modoConsulta = 2
 		
@@ -1410,7 +1410,7 @@ Funcion menuFacturacion(orden_numero, dni_orden, patente_orden, trabajo_orden, e
 	Repetir
 		Limpiar Pantalla
 		Escribir "=================================================================="
-		Escribir "                      M”DULO DE FACTURACI”N                       "
+		Escribir "                      M√ìDULO DE FACTURACI√ìN                       "
 		Escribir "=================================================================="
 		Escribir "  [1] Emitir factura de orden finalizada"
 		Escribir "  [2] Ver comprobante de factura"
@@ -1418,7 +1418,7 @@ Funcion menuFacturacion(orden_numero, dni_orden, patente_orden, trabajo_orden, e
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
 		Escribir "=================================================================="
-		Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+		Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 		Leer opcion_facturacion
 		Segun opcion_facturacion Hacer
 			1:
@@ -1430,7 +1430,7 @@ Funcion menuFacturacion(orden_numero, dni_orden, patente_orden, trabajo_orden, e
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "OpciÛn no v·lida."
+				Escribir "Opci√≥n no v√°lida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_facturacion = 0
@@ -1448,9 +1448,9 @@ Funcion ConsultarHistorialDetallado(patente_orden, orden_numero, dni_orden, fech
 	Escribir "=================================================================="
 	Repetir
 		Escribir "Buscar reparaciones finalizadas por:"
-		Escribir "  [1] Patente del vehÌculo"
+		Escribir "  [1] Patente del veh√≠culo"
 		Escribir "  [2] DNI del cliente"
-		Escribir Sin Saltar ">> OpciÛn: "
+		Escribir Sin Saltar ">> Opci√≥n: "
 		Leer criterioHistorial
 	Hasta Que criterioHistorial = 1 O criterioHistorial = 2
 	
@@ -1481,10 +1481,10 @@ Funcion ConsultarHistorialDetallado(patente_orden, orden_numero, dni_orden, fech
 			ordenesEncontradas <- ordenesEncontradas + 1
 			Escribir "+----------------------------------------------------------------+"
 			Escribir "| ORDEN NRO:      ", orden_numero[i], " | ESTADO: FINALIZADA"
-			Escribir "| PATENTE:        ", patente_orden[i], " | DNI DUE—O: ", dni_orden[i]
+			Escribir "| PATENTE:        ", patente_orden[i], " | DNI DUE√ëO: ", dni_orden[i]
 			Escribir "| FECHA INGRESO:  ", fecha_inicio[i], " | FECHA ENTREGA: ", fecha_entrega[i]
 			Escribir "| MOTIVO INGRESO: ", descripcion_orden[i]
-			Escribir "| DIAGN”STICO:    ", diagnostico_orden[i]
+			Escribir "| DIAGN√ìSTICO:    ", diagnostico_orden[i]
 			Escribir "| TRABAJO HECHO:  ", trabajo_orden[i]
 			Escribir "| Repuestos utilizados:"
 			Para k <- 0 Hasta cantidad_detalles - 1 Con Paso 1 Hacer
@@ -1519,7 +1519,7 @@ Funcion ListarHistorialGeneral(orden_numero, patente_orden, dni_orden, fecha_ini
 	Escribir "                   LISTADO GENERAL DE REPARACIONES FINALIZADAS                    "
 	Escribir "=================================================================================="
 	totalFinalizadas <- 0
-	Escribir "ORDEN | PATENTE  | DNI DUE—O | INGRESO    | ENTREGA    | TOTAL FACTURADO"
+	Escribir "ORDEN | PATENTE  | DNI DUE√ëO | INGRESO    | ENTREGA    | TOTAL FACTURADO"
 	Escribir "------+----------+-----------+------------+------------+--------------------------"
 	Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
 		Si estado_orden[i] = "Finalizada" Entonces
@@ -1555,7 +1555,7 @@ Funcion menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fech
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
 		Escribir "=================================================================="
-		Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+		Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 		Leer opcion_historial
 		Segun opcion_historial Hacer
 			1:
@@ -1565,7 +1565,7 @@ Funcion menuHistorial(orden_numero, dni_orden, patente_orden, fecha_inicio, fech
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "OpciÛn no v·lida."
+				Escribir "Opci√≥n no v√°lida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_historial = 0
@@ -1604,7 +1604,7 @@ Funcion RegistrarUsuario(usuario_nombre, usuario_clave, usuario_rol, cantidad_us
 		Pausa
 	SiNo
 		Si cantidad_usuarios >= 20 Entonces
-			Escribir "  [!] LÌmite de usuarios alcanzado (m·ximo 20 cuentas)."
+			Escribir "  [!] L√≠mite de usuarios alcanzado (m√°ximo 20 cuentas)."
 			Escribir "=================================================================="
 			Pausa
 		SiNo
@@ -1618,7 +1618,7 @@ Funcion RegistrarUsuario(usuario_nombre, usuario_clave, usuario_rol, cantidad_us
 				Pausa
 			SiNo
 				usuario_nombre[cantidad_usuarios] <- nuevoUser
-				Escribir Sin Saltar ">> ContraseÒa de acceso: "
+				Escribir Sin Saltar ">> Contrase√±a de acceso: "
 				Leer usuario_clave[cantidad_usuarios]
 				
 				Repetir
@@ -1627,7 +1627,7 @@ Funcion RegistrarUsuario(usuario_nombre, usuario_clave, usuario_rol, cantidad_us
 					Escribir "  [1] Administrador (Acceso total al sistema)"
 					Escribir "  [2] Mecanico (Ordenes, Repuestos, Historial)"
 					Escribir "  [3] Cliente (Historial de Reparaciones)"
-					Escribir Sin Saltar ">> OpciÛn: "
+					Escribir Sin Saltar ">> Opci√≥n: "
 					Leer opcRol
 				Hasta Que opcRol >= 1 Y opcRol <= 3
 				
@@ -1655,14 +1655,14 @@ Funcion menuUsuarios(usuario_nombre, usuario_clave, usuario_rol, cantidad_usuari
 	Repetir
 				Limpiar Pantalla
 		Escribir "=================================================================="
-		Escribir "                    GESTI”N DE USUARIOS Y ROLES                   "
+		Escribir "                    GESTI√ìN DE USUARIOS Y ROLES                   "
 		Escribir "=================================================================="
 		Escribir "  [1] Ver usuarios registrados"
 		Escribir "  [2] Registrar nuevo usuario"
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
 		Escribir "=================================================================="
-		Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+		Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 		Leer opcion_usuarios
 		Segun opcion_usuarios Hacer
 			1:
@@ -1672,7 +1672,7 @@ Funcion menuUsuarios(usuario_nombre, usuario_clave, usuario_rol, cantidad_usuari
 			0:
 				Escribir "Volviendo al menu principal..."
 			De Otro Modo:
-				Escribir "OpciÛn no valida."
+				Escribir "Opci√≥n no valida."
 				Pausa
 		FinSegun
 	Hasta Que opcion_usuarios = 0
@@ -1885,6 +1885,9 @@ Algoritmo Fixly
 	
 	Limpiar Pantalla
 	MostrarLogo
+	Escribir "  Sistema Integral de Gestion de Taller Mec√°nico"
+	Escribir ""
+	Escribir ""
 	Pausa
 	
 	Repetir
@@ -1900,10 +1903,10 @@ Algoritmo Fixly
 			Escribir "  ----------------------------------------------------------------"
 			Escribir "  [0] Salir del Sistema"
 			Escribir "=================================================================="
-			Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+			Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 			Leer tipoUsuario
 			Si tipoUsuario < 0 o tipoUsuario > 3 Entonces
-				Escribir "  [!] OpciÛn no v·lida."
+				Escribir "  [!] Opci√≥n no v√°lida."
 				Pausa
 			FinSi
 		Hasta Que tipoUsuario >= 0 Y tipoUsuario <= 3
@@ -1925,7 +1928,7 @@ Algoritmo Fixly
 				intentos <- intentos + 1
 				Limpiar Pantalla
 				Escribir "=================================================================="
-				Escribir "                     INICIAR SESI”N EN FIXLY                      "
+				Escribir "                     INICIAR SESI√ìN EN FIXLY                      "
 				Escribir "=================================================================="
 				Escribir "  Tipo de usuario: ", rol_elegido, " | Intento ", intentos, " de 3"
 				Escribir "------------------------------------------------------------------"
@@ -1938,11 +1941,11 @@ Algoritmo Fixly
 					Escribir "=================================================================="
 					Pausa
 				SiNo
-					Escribir Sin Saltar ">> ContraseÒa: "
+					Escribir Sin Saltar ">> Contrase√±a: "
 					Leer passIngresada
 					Si passIngresada <> usuario_clave[posUser] Entonces
 						Escribir "------------------------------------------------------------------"
-						Escribir "  [!] Error: ContraseÒa incorrecta."
+						Escribir "  [!] Error: Contrase√±a incorrecta."
 						Escribir "=================================================================="
 					SiNo
 						Si usuario_rol[posUser] <> rol_elegido Entonces
@@ -1953,7 +1956,7 @@ Algoritmo Fixly
 							usuario_activo <- usuario_nombre[posUser]
 							rol_activo <- usuario_rol[posUser]
 							Escribir "------------------------------------------------------------------"
-							Escribir "[OK] SesiÛn iniciada correctamente."
+							Escribir "[OK] Sesi√≥n iniciada correctamente."
 							Escribir "Bienvenido/a ", usuario_activo, "! Rol activo: ", rol_activo
 							Escribir "=================================================================="
 						FinSi
@@ -1967,7 +1970,7 @@ Algoritmo Fixly
 				Limpiar Pantalla
 				Escribir "=================================================================="
 				Escribir "  [!] Se superaron los 3 intentos permitidos."
-				Escribir "  Volviendo a la selecciÛn de tipo de usuario..."
+				Escribir "  Volviendo a la selecci√≥n de tipo de usuario..."
 				Escribir "=================================================================="
 				Pausa
 			SiNo
@@ -1981,14 +1984,14 @@ Algoritmo Fixly
 							MostrarLogo
 							Escribir "  >> USUARIO: ", usuario_activo, " | ROL: ", rol_activo
 							Escribir "=================================================================="
-							Escribir "  [1] MÛdulo Clientes              [5] MÛdulo FacturaciÛn"
-							Escribir "  [2] MÛdulo VehÌculos             [6] Historial de Reparaciones"
+							Escribir "  [1] M√≥dulo Clientes              [5] M√≥dulo Facturaci√≥n"
+							Escribir "  [2] M√≥dulo Veh√≠culos             [6] Historial de Reparaciones"
 							Escribir "  [3] Ordenes de Trabajo           [7] Usuarios y Sesiones"
 							Escribir "  [4] Repuestos y Stock"
 							Escribir "  ----------------------------------------------------------------"
 							Escribir "  [0] Cerrar Sesion"
 							Escribir "=================================================================="
-							Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+							Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 							Leer opcion_menu
 							Segun opcion_menu Hacer
 								1:
@@ -2010,7 +2013,7 @@ Algoritmo Fixly
 									rol_activo <- ""
 									Limpiar Pantalla
 									Escribir "=================================================================="
-									Escribir "  [OK] SesiÛn cerrada correctamente."
+									Escribir "  [OK] Sesi√≥n cerrada correctamente."
 									Escribir "=================================================================="
 									Pausa
 								De Otro Modo:
@@ -2027,13 +2030,13 @@ Algoritmo Fixly
 							MostrarLogo
 							Escribir "  >> USUARIO: ", usuario_activo, " | ROL: ", rol_activo
 							Escribir "=================================================================="
-							Escribir "  [1] ”rdenes de Trabajo"
+							Escribir "  [1] √ìrdenes de Trabajo"
 							Escribir "  [2] Repuestos y Stock"
 							Escribir "  [3] Historial de Reparaciones"
 							Escribir "  ----------------------------------------------------------------"
-							Escribir "  [0] Cerrar SesiÛn"
+							Escribir "  [0] Cerrar Sesi√≥n"
 							Escribir "=================================================================="
-							Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+							Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 							Leer opcion_menu
 							Segun opcion_menu Hacer
 								1:
@@ -2047,11 +2050,11 @@ Algoritmo Fixly
 									rol_activo <- ""
 									Limpiar Pantalla
 									Escribir "=================================================================="
-									Escribir "  [OK] SesiÛn cerrada correctamente."
+									Escribir "  [OK] Sesi√≥n cerrada correctamente."
 									Escribir "=================================================================="
 									Pausa
 								De Otro Modo:
-									Escribir "OpciÛn no v·lida."
+									Escribir "Opci√≥n no v√°lida."
 									Pausa
 							FinSegun
 						Hasta Que opcion_menu = 0
@@ -2066,9 +2069,9 @@ Algoritmo Fixly
 							Escribir "=================================================================="
 							Escribir "  [1] Historial de Reparaciones"
 							Escribir "  ----------------------------------------------------------------"
-							Escribir "  [0] Cerrar SesiÛn"
+							Escribir "  [0] Cerrar Sesi√≥n"
 							Escribir "=================================================================="
-							Escribir Sin Saltar ">> Ingrese opciÛn deseada: "
+							Escribir Sin Saltar ">> Ingrese opci√≥n deseada: "
 							Leer opcion_menu
 							Segun opcion_menu Hacer
 								1:
@@ -2078,11 +2081,11 @@ Algoritmo Fixly
 									rol_activo <- ""
 									Limpiar Pantalla
 									Escribir "=================================================================="
-									Escribir "  [OK] SesiÛn cerrada correctamente."
+									Escribir "  [OK] Sesi√≥n cerrada correctamente."
 									Escribir "=================================================================="
 									Pausa
 								De Otro Modo:
-									Escribir "OpciÛn no v·lida."
+									Escribir "Opci√≥n no v√°lida."
 									Pausa
 							FinSegun
 						Hasta Que opcion_menu = 0
@@ -2094,7 +2097,7 @@ Algoritmo Fixly
 	Limpiar Pantalla
 	MostrarLogo
 	Escribir "        Muchas gracias por utilizar el Sistema Fixly!             "
-	Escribir "            SesiÛn cerrada de manera segura.                      "
+	Escribir "            Sesi√≥n cerrada de manera segura.                      "
 	Escribir "=================================================================="
 
 FinAlgoritmo
