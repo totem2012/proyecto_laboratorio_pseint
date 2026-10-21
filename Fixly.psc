@@ -1053,64 +1053,54 @@ Funcion BuscarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos
 	Pausa
 FinFuncion
 
-Funcion ModificarPrecioRepuesto(codigo, nombreRepuesto, precio, cantidad_repuestos)
+Funcion ModificarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 	Definir codBuscar Como Caracter
-	Definir posRep Como Entero
+	Definir posRep, opcionMod, stockNuevo Como Entero
 	Definir precioNuevo Como Real
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
-	Escribir "                    MODIFICAR PRECIO DE REPUESTO                  "
+	Escribir "               MODIFICAR REPUESTO (PRECIO / STOCK)                "
 	Escribir "=================================================================="
 	Escribir Sin Saltar "Ingrese código del repuesto a modificar: "
 	Leer codBuscar
 	posRep <- BuscarPosicion(codigo, cantidad_repuestos, codBuscar)
 	
 	Si posRep <> -1 Entonces
-		Escribir ">> Repuesto: ", nombreRepuesto[posRep], " | Precio actual: $", precio[posRep]
+		Escribir ">> Repuesto: ", nombreRepuesto[posRep]
+		Escribir ">> Precio actual: $", precio[posRep], " | Stock actual: ", stock[posRep]
+		Escribir "------------------------------------------------------------------"
 		Repetir
-			Escribir Sin Saltar "Ingrese el precio nuevo: $"
-			Leer precioNuevo
-			Si precioNuevo <= 0 Entonces
-				Escribir "  [!] El precio debe ser mayor a cero."
-			FinSi
-		Hasta Que precioNuevo > 0
-		precio[posRep] <- precioNuevo
-		Escribir "------------------------------------------------------------------"
-		Escribir "[OK] Precio actualizado exitosamente."
-		Escribir "=================================================================="
-	SiNo
-		Escribir "------------------------------------------------------------------"
-		Escribir "  [!] Error: Repuesto no encontrado."
-		Escribir "=================================================================="
-	FinSi
-	Pausa
-FinFuncion
-
-Funcion ModificarStockRepuesto(codigo, nombreRepuesto, stock, cantidad_repuestos)
-	Definir codBuscar Como Caracter
-	Definir posRep, stockNuevo Como Entero
-	
-	Limpiar Pantalla
-	Escribir "=================================================================="
-	Escribir "                    ACTUALIZAR STOCK DE REPUESTO                  "
-	Escribir "=================================================================="
-	Escribir Sin Saltar "Ingrese código del repuesto: "
-	Leer codBuscar
-	posRep <- BuscarPosicion(codigo, cantidad_repuestos, codBuscar)
-	
-	Si posRep <> -1 Entonces
-		Escribir ">> Repuesto: ", nombreRepuesto[posRep], " | Stock actual: ", stock[posRep]
-		Repetir
-			Escribir Sin Saltar "Ingrese el nuevo stock disponible: "
-			Leer stockNuevo
-			Si stockNuevo < 0 Entonces
-				Escribir "  [!] El stock no puede ser negativo."
-			FinSi
-		Hasta Que stockNuevo >= 0
-		stock[posRep] <- stockNuevo
-		Escribir "------------------------------------------------------------------"
-		Escribir "[OK] Stock actualizado exitosamente."
+			Escribir "Seleccione el dato a modificar:"
+			Escribir "  [1] Precio unitario"
+			Escribir "  [2] Stock disponible"
+			Escribir Sin Saltar ">> Opción: "
+			Leer opcionMod
+		Hasta Que opcionMod = 1 O opcionMod = 2
+		
+		Si opcionMod = 1 Entonces
+			Repetir
+				Escribir Sin Saltar "Ingrese el precio nuevo: $"
+				Leer precioNuevo
+				Si precioNuevo <= 0 Entonces
+					Escribir "  [!] El precio debe ser mayor a cero."
+				FinSi
+			Hasta Que precioNuevo > 0
+			precio[posRep] <- precioNuevo
+			Escribir "------------------------------------------------------------------"
+			Escribir "[OK] Precio actualizado exitosamente."
+		SiNo
+			Repetir
+				Escribir Sin Saltar "Ingrese el nuevo stock disponible: "
+				Leer stockNuevo
+				Si stockNuevo < 0 Entonces
+					Escribir "  [!] El stock no puede ser negativo."
+				FinSi
+			Hasta Que stockNuevo >= 0
+			stock[posRep] <- stockNuevo
+			Escribir "------------------------------------------------------------------"
+			Escribir "[OK] Stock actualizado exitosamente."
+		FinSi
 		Escribir "=================================================================="
 	SiNo
 		Escribir "------------------------------------------------------------------"
@@ -1145,16 +1135,15 @@ FinFuncion
 Funcion menuRepuestos(codigo, nombreRepuesto, precio, stock, cantidad_repuestos Por Referencia)
 	Definir opcion_repuestos Como Entero
 	Repetir
-				Limpiar Pantalla
+		Limpiar Pantalla
 		Escribir "=================================================================="
 		Escribir "                   CONTROL DE REPUESTOS Y STOCK                   "
 		Escribir "=================================================================="
 		Escribir "  [1] Cargar repuesto nuevo"
 		Escribir "  [2] Eliminar repuesto"
 		Escribir "  [3] Buscar repuesto en inventario"
-		Escribir "  [4] Modificar precio de repuesto"
-		Escribir "  [5] Actualizar stock disponible"
-		Escribir "  [6] Listado general de catálogo"
+		Escribir "  [4] Modificar precio o stock de repuesto"
+		Escribir "  [5] Listado general de catálogo"
 		Escribir "  ----------------------------------------------------------------"
 		Escribir "  [0] Volver al menu principal"
 		Escribir "=================================================================="
@@ -1168,10 +1157,8 @@ Funcion menuRepuestos(codigo, nombreRepuesto, precio, stock, cantidad_repuestos 
 			3:
 				BuscarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 			4:
-				ModificarPrecioRepuesto(codigo, nombreRepuesto, precio, cantidad_repuestos)
+				ModificarRepuesto(codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 			5:
-				ModificarStockRepuesto(codigo, nombreRepuesto, stock, cantidad_repuestos)
-			6:
 				ListarRepuestos(codigo, nombreRepuesto, precio, stock, cantidad_repuestos)
 			0:
 				Escribir "Volviendo al menu principal..."
