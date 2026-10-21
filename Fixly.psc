@@ -2012,7 +2012,7 @@ Algoritmo Fixly
 									rol_activo <- ""
 									Limpiar Pantalla
 									Escribir "=================================================================="
-									Escribir "  [OK] Sesi\xf3n cerrada correctamente."
+									Escribir "  [OK] Sesión cerrada correctamente."
 									Escribir "=================================================================="
 									Pausa
 								De Otro Modo:
@@ -2049,7 +2049,7 @@ Algoritmo Fixly
 									rol_activo <- ""
 									Limpiar Pantalla
 									Escribir "=================================================================="
-									Escribir "  [OK] Sesi\xf3n cerrada correctamente."
+									Escribir "  [OK] Sesión cerrada correctamente."
 									Escribir "=================================================================="
 									Pausa
 								De Otro Modo:
@@ -2080,7 +2080,7 @@ Algoritmo Fixly
 									rol_activo <- ""
 									Limpiar Pantalla
 									Escribir "=================================================================="
-									Escribir "  [OK] Sesi\xf3n cerrada correctamente."
+									Escribir "  [OK] Sesión cerrada correctamente."
 									Escribir "=================================================================="
 									Pausa
 								De Otro Modo:
