@@ -70,8 +70,8 @@ Funcion IngresarCliente(nombre, apellido, celular, dni, contadorClientes Por Ref
 	Escribir "=================================================================="
 	Escribir "                     REGISTRAR NUEVO CLIENTE                      "
 	Escribir "=================================================================="
-	Si contadorClientes >= 50 Entonces
-		Escribir "  [!] Capacidad máxima de clientes alcanzada (limite 50)."
+	Si contadorClientes >= 1000 Entonces
+		Escribir "  [!] Capacidad máxima de clientes alcanzada (limite 1000)."
 		Pausa
 	SiNo
 		Escribir ">> Ingrese los datos del nuevo cliente:"
@@ -274,8 +274,8 @@ Funcion IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 	Escribir "=================================================================="
 	Escribir "                    REGISTRAR NUEVO VEHÍCULO                      "
 	Escribir "=================================================================="
-	Si contadorVehiculo >= 50 Entonces
-		Escribir "  [!] Capacidad máxima de vehículos alcanzada (limite 50)."
+	Si contadorVehiculo >= 1000 Entonces
+		Escribir "  [!] Capacidad máxima de vehículos alcanzada (limite 1000)."
 		Pausa
 	SiNo
 		Escribir ">> Ingrese los datos del vehículo a registrar:"
@@ -305,7 +305,7 @@ Funcion IngresarVehiculo(marcaVehiculo, modeloVehiculo, patente, dniDueno, conta
 				Escribir Sin Saltar "  Desea dar de alta al cliente en este momento? (S/N): "
 				Leer respCliente
 				Si respCliente = "S" o respCliente = "s" Entonces
-					Si contadorClientes < 50 Entonces
+					Si contadorClientes < 1000 Entonces
 						Escribir Sin Saltar "Nombre del titular: "
 						Leer nombre[contadorClientes]
 						Escribir Sin Saltar "Apellido del titular: "
@@ -490,14 +490,26 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 	Definir posicion_cliente, posicion_vehiculo, posicion_repuesto, dni_buscar Como Entero
 	Definir cantidad_repuestos_ot Como Entero
 	Definir patente_buscar, confirma_repuesto, falla_detalle, diag_detalle, nombre_repuesto_buscar, f_inicio, f_estimada Como Caracter
+	Definir vehiculosEnTaller, i Como Entero
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
 	Escribir "                 CARGAR NUEVA ORDEN DE TRABAJO                    "
 	Escribir "=================================================================="
 	
-	Si cantidad_ordenes >= 100 Entonces
-		Escribir "  [!] Límite máximo de órdenes alcanzado (100)."
+	vehiculosEnTaller <- 0
+	
+	Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
+		Si estado_orden[i] = "Pendiente" Entonces
+			vehiculosEnTaller <- vehiculosEnTaller + 1
+		FinSi
+	FinPara
+	
+	Si vehiculosEnTaller >= 20 Entonces
+		Escribir "------------------------------------------------------------------"
+		Escribir "  [!] No hay espacio disponible en el taller."
+		Escribir "  Vehículos actualmente en reparación: ", vehiculosEnTaller
+		Escribir "  Capacidad máxima permitida: 20"
 		Escribir "=================================================================="
 		Pausa
 	SiNo
@@ -1243,8 +1255,8 @@ Funcion EmitirFactura(orden_numero, dni_orden, patente_orden, trabajo_orden, est
 	Escribir "=================================================================="
 	Escribir "                   EMISIÓN DE NUEVA FACTURA                       "
 	Escribir "=================================================================="
-	Si cantidad_facturas >= 100 Entonces
-		Escribir "  [!] Cantidad máxima de facturas alcanzada (límite 100)."
+	Si cantidad_facturas >= 1000 Entonces
+		Escribir "  [!] Cantidad máxima de facturas alcanzada (límite 1000)."
 		Escribir "=================================================================="
 		Pausa
 	SiNo
@@ -1809,12 +1821,12 @@ Algoritmo Fixly
 	// variables de clientes
 	Definir contadorClientes, dni Como Entero
 	Definir nombre, apellido, celular Como Caracter
-	Dimension nombre[50], apellido[50], celular[50], dni[50]
+	Dimension nombre[1000], apellido[1000], celular[1000], dni[1000]
 	
 	// variables de vehiculos
 	Definir contadorVehiculo, dniDueno Como Entero
 	Definir marcaVehiculo, modeloVehiculo, patente Como Caracter
-	Dimension marcaVehiculo[50], modeloVehiculo[50], patente[50], dniDueno[50]
+	Dimension marcaVehiculo[1000], modeloVehiculo[1000], patente[1000], dniDueno[1000]
 	
 	// variables de repuestos
 	Definir cantidad_repuestos, stock Como Entero
@@ -1828,9 +1840,9 @@ Algoritmo Fixly
 	Definir patente_orden, fecha_inicio, fecha_fin, fecha_entrega, estado_orden Como Caracter
 	Definir descripcion_orden, diagnostico_orden, trabajo_orden, detalle_cod_repuesto Como Caracter
 	Definir detalle_precio_unitario Como Real
-	Dimension orden_numero[100], dni_orden[100], patente_orden[100], estado_orden[100]
-	Dimension fecha_inicio[100], fecha_fin[100], fecha_entrega[100]
-	Dimension descripcion_orden[100], diagnostico_orden[100], trabajo_orden[100]
+	Dimension orden_numero[1000], dni_orden[1000], patente_orden[1000], estado_orden[1000]
+	Dimension fecha_inicio[1000], fecha_fin[1000], fecha_entrega[1000]
+	Dimension descripcion_orden[1000], diagnostico_orden[1000], trabajo_orden[1000]
 	Dimension detalle_nro_orden[300], detalle_cod_repuesto[300], detalle_cantidad[300], detalle_precio_unitario[300]
 	
 	// variables de facturacion
@@ -1839,9 +1851,9 @@ Algoritmo Fixly
 	Definir factura_patente, factura_fecha Como Caracter
 	Definir factura_repuestos, factura_horas, factura_valor_hora, factura_mano_obra, factura_subtotal, factura_iva, factura_total Como Real
 	Definir porcentaje_iva Como Real
-	Dimension factura_numero[100], factura_nro_orden[100], factura_dni[100], factura_patente[100], factura_fecha[100]
-	Dimension factura_repuestos[100], factura_horas[100], factura_valor_hora[100], factura_mano_obra[100]
-	Dimension factura_subtotal[100], factura_iva[100], factura_total[100]
+	Dimension factura_numero[1000], factura_nro_orden[1000], factura_dni[1000], factura_patente[1000], factura_fecha[1000]
+	Dimension factura_repuestos[1000], factura_horas[1000], factura_valor_hora[1000], factura_mano_obra[1000]
+	Dimension factura_subtotal[1000], factura_iva[1000], factura_total[1000]
 	porcentaje_iva <- 21
 	
 	// --- carga de datos de prueba integrados ---
