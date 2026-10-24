@@ -491,6 +491,7 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 	Definir cantidad_repuestos_ot Como Entero
 	Definir patente_buscar, confirma_repuesto, falla_detalle, diag_detalle, nombre_repuesto_buscar, f_inicio, f_estimada Como Caracter
 	Definir vehiculosEnTaller, i Como Entero
+	Definir ordenPendiente Como Logico
 	
 	Limpiar Pantalla
 	Escribir "=================================================================="
@@ -545,7 +546,30 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 					Escribir ">> Vehículo: ", marcaVehiculo[posicion_vehiculo], " ", modeloVehiculo[posicion_vehiculo]
 					Escribir "------------------------------------------------------------------"
 					
-					Escribir Sin Saltar ">> Fecha de ingreso (DD/MM/AAAA) [ENTER para Hoy]: "
+					ordenPendiente <- Falso
+					
+					Para i <- 0 Hasta cantidad_ordenes - 1 Con Paso 1 Hacer
+						
+						Si patente_orden[i] = patente_buscar Y estado_orden[i] = "Pendiente" Entonces
+							
+							ordenPendiente <- Verdadero
+							
+						FinSi
+						
+					FinPara
+					
+					Si ordenPendiente = Verdadero Entonces
+						
+						Escribir "------------------------------------------------------------------"
+						Escribir "  [!] No es posible registrar una nueva orden."
+						Escribir "  El vehículo ya posee una orden de trabajo pendiente."
+						Escribir "  Utilice la opción Modificar Orden para actualizar la reparación."
+						Escribir "=================================================================="
+						Pausa
+						
+					SiNo
+						
+						Escribir Sin Saltar ">> Fecha de ingreso (DD/MM/AAAA) [ENTER para Hoy]: "
 					Leer f_inicio
 					Si f_inicio = "" Entonces
 						f_inicio <- "Hoy"
@@ -626,6 +650,8 @@ Funcion CargarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fecha_
 					Escribir "[OK] Orden Nro ", orden_numero[cantidad_ordenes - 1], " registrada con éxito."
 					Escribir "=================================================================="
 					Pausa
+				FinSi
+				
 				FinSi
 			FinSi
 		FinSi
@@ -798,7 +824,7 @@ Funcion ModificarOrden(orden_numero, dni_orden, patente_orden, fecha_inicio, fec
 						Escribir "Opción no válida."
 						Pausa
 				FinSegun
-			Mientras Que opcion_modificar_ot <> 0
+			Hasta Que opcion_modificar_ot <> 0
 		FinSi
 	FinSi
 FinFuncion
